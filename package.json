@@ -1,0 +1,15 @@
+{
+  "name": "dft-kit",
+  "private": true,
+  "scripts": {
+    "test": "lerna exec -- npm test",
+    "predocs": "lerna exec -- npm run docs",
+    "docs": "cat ./packages/*/API.md > docs/README.md"
+  },
+  "devDependencies": {
+    "lerna": "2.0.0-beta.30"
+  },
+  "dependencies": {
+    "jsdoc-to-markdown": "^2.0.1"
+  }
+}

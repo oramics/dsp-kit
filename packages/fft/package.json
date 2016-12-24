@@ -1,0 +1,30 @@
+{
+  "name": "dsp-fft",
+  "private": true,
+  "description": "",
+  "version": "0.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/test.js",
+    "docs": "jsdoc2md index.js > README.md && cp README.md API.md"
+  },
+  "repository": "https://github.com/oramics/dsp-kit/packages/dsp-fft",
+  "keywords": [
+    "fast",
+    "fourier",
+    "transform",
+    "dsp",
+    "dsp-kit"
+  ],
+  "author": "danigb",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oramics/dsp-kit/issues"
+  },
+  "homepage": "https://github.com/oramics/dsp-kit/packages/dsp-fft/#readme",
+  "devDependencies": {
+    "tst": "^1.3.1",
+    "dsp-dft": "0.0.0",
+    "dsp-legacy": "0.0.0"
+  }
+}

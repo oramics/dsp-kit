@@ -1,0 +1,30 @@
+{
+  "name": "dsp-kit",
+  "private": true,
+  "description": "",
+  "version": "0.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/test.js",
+    "docs": "jsdoc2md index.js > README.md && cp README.md API.md"
+  },
+  "repository": "https://github.com/oramics/dsp-kit/packages/dsp-kit",
+  "keywords": [
+    "fourier",
+    "transform",
+    "dsp",
+    "signal",
+    "dsp-kit"
+  ],
+  "author": "danigb <danigb@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oramics/dsp-kit/issues"
+  },
+  "homepage": "https://github.com/oramics/dsp-kit/packages/dsp-kit/#readme",
+  "dependencies": {
+    "dsp-buffer": "0.0.0",
+    "dsp-dft": "0.0.0",
+    "dsp-fft": "0.0.0"
+  }
+}
