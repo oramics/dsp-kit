@@ -1,7 +1,8 @@
 {
-  "name": "dsp-dft",
-  "description": "Discrete Fourier Transform",
-  "version": "0.0.1",
+  "name": "dsp-oscillator",
+  "private": true,
+  "description": "Wavetable oscillators",
+  "version": "0.0.0",
   "main": "build/index.js",
   "jsnext:main": "index",
   "scripts": {
@@ -9,20 +10,18 @@
     "test": "node test/test.js",
     "docs": "jsdoc2md index.js > README.md && cp README.md API.md"
   },
-  "repository": "https://github.com/oramics/dsp-kit/packages/dsp-dft",
+  "repository": "https://github.com/oramics/dsp-kit/packages/dsp-oscillator",
   "keywords": [
-    "fourier",
-    "transform",
+    "oscillator",
     "dsp",
-    "signal",
     "dsp-kit"
   ],
-  "author": "danigb <danigb@gmail.com>",
+  "author": "danigb",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/oramics/dsp-kit/issues"
   },
-  "homepage": "https://github.com/oramics/dsp-kit/packages/dsp-dft/#readme",
+  "homepage": "https://github.com/oramics/dsp-kit/packages/dsp-oscillator/#readme",
   "devDependencies": {
   }
 }

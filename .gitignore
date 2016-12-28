@@ -2,3 +2,6 @@ node_modules/
 lerna-debug.log
 npm-debug.log
 API.md
+tmp/
+.DS_Store
+build/

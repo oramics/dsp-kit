@@ -28,19 +28,19 @@ test('Lyons example 1', () => {
   assert.deepEqual(round(signal), [0.3536, 0.3536, 0.6464, 1.0607, 0.3536, -1.0607, -1.3536, -0.3536])
 
   // forward
-  const forward = dft.forward(signal)
+  const forward = dft.dft(signal)
   assert.deepEqual(round(forward.real), [0, 0, 1.4142, 0, 0, 0, 1.4142, 0])
   assert.deepEqual(round(forward.imag), [0, -4, 1.4142, 0, 0, 0, -1.4142, 4])
 
   // inverse
-  const inverse = dft.inverse(forward)
-  assert.deepEqual(round(inverse), round(signal))
+  const inverse = dft.idft(forward)
+  assert.deepEqual(round(inverse.real), round(signal))
 })
 
 test('forward', () => {
   const size = 8
   const signal = generate(size, (x) => Math.sin(x))
-  const result = dft.forward(signal)
+  const result = dft.dft(signal)
   assert.deepEqual(result.real, [3.2520562955298242, -0.5212520123271656, -0.4496171806736543, -0.4375990648812408, -0.4351197797657045, -0.43759906488124195, -0.44961718067365586, -0.5212520123271627])
   assert.deepEqual(result.imag, [0, 1.0435441269071244, 0.42404402499638455, 0.17507452536950258, -3.6977482267336003e-16, -0.1750745253695032, -0.42404402499638527, -1.0435441269071233])
 })
@@ -48,7 +48,7 @@ test('forward', () => {
 test('inverse', () => {
   const size = 1024
   const signal = generate(size, (x) => Math.sin(x))
-  const forward = dft.forward(signal)
-  const inverse = dft.inverse(forward)
-  assert.deepEqual(round(inverse, 8), round(signal, 8))
+  const forward = dft.dft(signal)
+  const inverse = dft.idft(forward)
+  assert.deepEqual(round(inverse.real, 8), round(signal, 8))
 })

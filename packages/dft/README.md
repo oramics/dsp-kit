@@ -18,24 +18,30 @@ The functions of this module are not intended to be used in production. It
 has two objectives:
 
 - Educational: learn how to implement the DFT correlation algorithm
-- Test: test more complex algorithms against this to check results
+- Testing: test more complex algorithms against this to check results
 
 This is part of [dsp-kit](https://github.com/oramics/dsp-kit)
 
 **Example**  
 ```js
+// using dsp-kit
+var dsp = require('dsp-kit')
+dsp.dft(signal)
+```
+**Example**  
+```js
+// requiring only this module
 var dft = require('dsp-dft')
-dft.forward(signal)
+dft.dft(signal)
 ```
 
 * [dft](#module_dft)
-    * [~dft(src, dest, inverse)](#module_dft..dft) ⇒ <code>Object</code>
-    * [~forward(signal)](#module_dft..forward) ⇒ <code>Object</code>
-    * [~inverse(signal)](#module_dft..inverse) ⇒ <code>Array</code>
+    * [.dft(signal, result)](#module_dft.dft) ⇒ <code>Object</code>
+    * [.idft(signal, result)](#module_dft.idft) ⇒ <code>Object</code>
 
-<a name="module_dft..dft"></a>
+<a name="module_dft.dft"></a>
 
-### dft~dft(src, dest, inverse) ⇒ <code>Object</code>
+### dft.dft(signal, result) ⇒ <code>Object</code>
 Perform a DFT using a _brute force_ correlation algorithm
 
 It accepts real and complex signals of any size.
@@ -47,38 +53,33 @@ This algorithm is not intended to be used in production. It's main use
 (apart from the educational purposes) is to check the output of more
 complex algorithms
 
-**Kind**: inner method of <code>[dft](#module_dft)</code>  
-**Returns**: <code>Object</code> - the resulted dft as an object `{ real, imag }`  
+**Kind**: static method of <code>[dft](#module_dft)</code>  
+**Returns**: <code>Object</code> - the DFT result  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| src | <code>Object</code> | The source source buffers. The imaginary part can be null. |
-| dest | <code>Object</code> | The destation bufers. The imaginary part can be null. |
-| inverse | <code>Boolean</code> | Perform inverse DFT |
+| signal | <code>Array</code> &#124; <code>Object</code> | The (real) signal array, or the complex signal object `{ imag, real }` |
+| result | <code>Object</code> | (Optional) the pair of buffers `{ imag, real }` to store the result (or new buffers are created if not provided) |
 
-<a name="module_dft..forward"></a>
+<a name="module_dft.idft"></a>
 
-### dft~forward(signal) ⇒ <code>Object</code>
-A interface to perform forward DFT on a real signal
+### dft.idft(signal, result) ⇒ <code>Object</code>
+Perform a __inverse__ DFT using a _brute force_ correlation algorithm
 
-**Kind**: inner method of <code>[dft](#module_dft)</code>  
-**Returns**: <code>Object</code> - the complex signal (an objects with the form:
-`{ real: Array<Number>, im: Array<Number> }`)  
+It accepts real and complex signals of any size.
 
-| Param | Type | Description |
-| --- | --- | --- |
-| signal | <code>Array</code> | The (real) signal array |
+It implements the mathematical function as it, without any kind of optimization,
+so it's the slowest algorithm possible.
 
-<a name="module_dft..inverse"></a>
+This algorithm is not intended to be used in production. It's main use
+(apart from the educational purposes) is to check the output of more
+complex algorithms
 
-### dft~inverse(signal) ⇒ <code>Array</code>
-An interface to perform an inverse DFT on a complex signal with
-a real signal as result
-
-**Kind**: inner method of <code>[dft](#module_dft)</code>  
-**Returns**: <code>Array</code> - the resulting real signal  
+**Kind**: static method of <code>[dft](#module_dft)</code>  
+**Returns**: <code>Object</code> - the  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | signal | <code>Object</code> | The complex signal as an object with two arrays |
+| result | <code>Array</code> &#124; <code>Object</code> | (Optional) the result buffer(s). If is an array or is not provided |
 

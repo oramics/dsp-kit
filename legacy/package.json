@@ -1,0 +1,11 @@
+{
+  "name": "dspjs",
+  "version": "1.0.0",
+  "description": "The unmantained dsp.js library. Used for testing (both results and performance)",
+  "main": "dsp.js",
+  "scripts": {
+    "test": "echo 'See : https://github.com/corbanbrook/dsp.js'"
+  },
+  "author": "Corban Brook",
+  "license": "MIT"
+}

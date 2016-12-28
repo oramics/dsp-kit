@@ -1,6 +1,6 @@
 {
-  "name": "dsp-dft",
-  "description": "Discrete Fourier Transform",
+  "name": "dsp-window",
+  "description": "Windowing functions for digital signal processing",
   "version": "0.0.1",
   "main": "build/index.js",
   "jsnext:main": "index",
@@ -9,20 +9,21 @@
     "test": "node test/test.js",
     "docs": "jsdoc2md index.js > README.md && cp README.md API.md"
   },
-  "repository": "https://github.com/oramics/dsp-kit/packages/dsp-dft",
+  "repository": "https://github.com/oramics/dsp-kit/packages/dsp-window",
   "keywords": [
+    "fast",
     "fourier",
     "transform",
     "dsp",
-    "signal",
     "dsp-kit"
   ],
-  "author": "danigb <danigb@gmail.com>",
+  "author": "danigb",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/oramics/dsp-kit/issues"
   },
-  "homepage": "https://github.com/oramics/dsp-kit/packages/dsp-dft/#readme",
+  "homepage": "https://github.com/oramics/dsp-kit/packages/dsp-window/#readme",
   "devDependencies": {
+    "dsp-buffer": "0.0.1"
   }
 }

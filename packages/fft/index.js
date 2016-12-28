@@ -10,10 +10,14 @@
  * This is part of [dsp-kit](https://github.com/oramics/dsp-kit)
  *
  * @example
+ * const dsp = require('dsp-kit')
+ * dsp.spectrum(dsp.fft(signal))
+ *
+ * @example
  * const fft = require('dsp-fft')
  * const signal = ...
  * // invertible fft
- * fft.inverse(fft.forward(signal)) === signal
+ * fft.ifft(fft.fft(signal)) === signal
  *
  * @module fft
  */
@@ -38,7 +42,7 @@ const TABLES = {}
  * some arrays for performance reason, you can given them here
  * @return {Object} the output buffers
  */
-function forward (buffer, output = {}) {
+export function fft (buffer, output = {}) {
   if (!buffer) throw Error('Buffer is required.')
   const size = buffer.length
   const tables = getTables(size)
@@ -60,7 +64,7 @@ function forward (buffer, output = {}) {
  * to reuse a buffer for performance issues)
  * @return {Array<Number>} the real signal
  */
-function inverse (input, buffer = null) {
+export function ifft (input, buffer = null) {
   if (!input || !input.real || !input.imag) throw Error('The input must contain real and imag parts: ' + input)
   if (input.real.length !== input.imag.length) throw Error('Real and imaginary parts must have same size')
   const size = input.real.length
@@ -217,5 +221,3 @@ function fftInverse (size, tables, input, output) {
   }
   return output
 }
-
-module.exports = { forward, inverse }

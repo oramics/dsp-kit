@@ -1,14 +1,15 @@
 {
-  "name": "buffer",
-  "private": true,
+  "name": "dsp-buffer",
   "description": "Functions to create and manipulate Float64Array buffers",
-  "version": "0.0.0",
-  "main": "index.js",
+  "version": "0.0.1",
+  "main": "build/index.js",
+  "jsnext:main": "index",
   "scripts": {
+    "pretest": "rollup -f cjs -o build/index.js -- index.js",
     "test": "node test/test.js",
     "docs": "jsdoc2md index.js > README.md && cp README.md API.md"
   },
-  "repository": "https://github.com/oramics/dsp-kit/packages/buffer",
+  "repository": "https://github.com/oramics/dsp-kit/packages/dsp-buffer",
   "keywords": [
     "fast",
     "fourier",
@@ -21,8 +22,7 @@
   "bugs": {
     "url": "https://github.com/oramics/dsp-kit/issues"
   },
-  "homepage": "https://github.com/oramics/dsp-kit/packages/buffer/#readme",
+  "homepage": "https://github.com/oramics/dsp-kit/packages/dsp-buffer/#readme",
   "devDependencies": {
-    "tst": "^1.3.1"
   }
 }
