@@ -5,7 +5,7 @@
   "main": "build/index.js",
   "jsnext:main": "index",
   "scripts": {
-    "pretest": "rollup -f cjs -o build/index.js -- index.js",
+    "pretest": "rollup -c ../../rollup.config.js",
     "test": "node test/test.js",
     "docs": "jsdoc2md index.js > README.md && cp README.md API.md"
   },
@@ -24,6 +24,9 @@
   },
   "homepage": "https://github.com/oramics/dsp-kit/packages/phase-vocoder/#readme",
   "devDependencies": {
+    "dsp-buffer": "^0.0.1",
+    "dsp-window": "^0.0.1",
+    "dsp-spectrum": "^0.0.0",
     "dsp-fft": "^0.0.1"
   }
 }

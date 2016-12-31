@@ -60,13 +60,12 @@ export function bandFrequency (index, size, sampleRate) {
  * const dsp = require('dsp-kit')
  * dsp.spectrum(dsp.fft(signal)).magnitudes
  */
-export function spectrum (result, spectrum = {}) {
+export function spectrum (result, spectrum) {
   const { real, imag } = result
-  const size = real.size
-  // TODO: decide what's best: create or not buffers by default
-  if (!spectrum) spectrum = { magnitudes: zeros(size), phases: zeros(size) }
-  const { magnitudes, phases } = spectrum
+  const size = real.length
   const N = size / 2
+  if (!spectrum) spectrum = { magnitudes: zeros(N), phases: zeros(N) }
+  const { magnitudes, phases } = spectrum
   const bSi = 2 / size
   for (let i = 0; i < N; i++) {
     const rval = real[i]

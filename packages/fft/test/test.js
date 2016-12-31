@@ -5,23 +5,6 @@ const FFT = require('dspjs').FFT
 const fft = require('..')
 const { PI, sin, cos } = Math
 
-// A handy signal generator
-function generate (size, fn) {
-  var arr = new Float64Array(size)
-  for (let i = 0; i < size; i++) arr[i] = fn(i / size, i, size)
-  return arr
-}
-
-// There are small differences of precission between algorithms. We round all
-// the values to a default precision of 8 decimals to get comparable results
-function round (arr, n = 8) {
-  const m = Math.pow(10, n)
-  return arr.map(function (x) {
-    const r = Math.round(x * m) / m
-    return Object.is(r, -0) ? 0 : r
-  })
-}
-
 test('generate', function () {
   // we don't want generate to fail and break our tests
   const signal = generate(10, (x) => sin(x))
@@ -78,3 +61,20 @@ test('common signal', () => {
   assert.deepEqual(round(fftInverse), round(dspInverse))
   assert.deepEqual(round(fftInverse), round(dftInverse))
 })
+
+// A handy signal generator
+function generate (size, fn) {
+  var arr = new Float64Array(size)
+  for (let i = 0; i < size; i++) arr[i] = fn(i / size, i, size)
+  return arr
+}
+
+// There are small differences of precission between algorithms. We round all
+// the values to a default precision of 8 decimals to get comparable results
+function round (arr, n = 8) {
+  const m = Math.pow(10, n)
+  return arr.map(function (x) {
+    const r = Math.round(x * m) / m
+    return Object.is(r, -0) ? 0 : r
+  })
+}

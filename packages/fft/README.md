@@ -11,6 +11,10 @@ in forward and inverse versions. The code is adapted from the unmaintained
 
 This is part of [dsp-kit](https://github.com/oramics/dsp-kit)
 
+### References
+
+- https://jakevdp.github.io/blog/2013/08/28/understanding-the-fft/
+
 **Example**  
 ```js
 const dsp = require('dsp-kit')

@@ -313,6 +313,10 @@ in forward and inverse versions. The code is adapted from the unmaintained
 
 This is part of [dsp-kit](https://github.com/oramics/dsp-kit)
 
+### References
+
+- https://jakevdp.github.io/blog/2013/08/28/understanding-the-fft/
+
 **Example**  
 ```js
 const dsp = require('dsp-kit')
@@ -369,12 +373,96 @@ It returns a real signal (`Array<Number>`) with the same size.
 | input | <code>Object</code> | The complex signal |
 | output | <code>Array.&lt;Number&gt;</code> | (Optional) the output buffer (if you want to reuse a buffer for performance issues) |
 
-<a name="module_freq-domain"></a>
+<a name="module_ola"></a>
 
-## freq-domain
+## ola
+> Add and overlap timestretch algorithm
+
+The overlap and add is the simplest, cheaper (in terms of computation) and
+less quality timestretch algorithm. It changes the length of a buffer without
+changing it's pitch.
+
+[![npm install dsp-ola](https://nodei.co/npm/dsp-ola.png?mini=true)](https://npmjs.org/package/dsp-ola/)
+
+This is part of [dsp-kit](https://github.com/oramics/dsp-kit)
+
+**Example**  
+```js
+var ola = require('dsp-ola')
+const stretch = ola.overlapAdd({ size: 1024 })
+const halfSize = stretch(0.5, audioBuffer)
+```
+**Example**  
+```js
+var dsp = require('dsp-kit')
+```
+<a name="module_ola.overlapAdd"></a>
+
+### ola.overlapAdd(options) ⇒ <code>function</code>
+Create a timestretch function using an overlap and add algorithm
+
+**Kind**: static method of <code>[ola](#module_ola)</code>  
+**Returns**: <code>function</code> - the timestretch function  
+
+| Param | Type |
+| --- | --- |
+| options | <code>Object</code> | 
+
+**Example**  
+```js
+const stretch = ola.overlapAdd()
+stretch(0.5, audio) // => a new audio buffer half of the length
+```
+<a name="module_oscillator"></a>
+
+## oscillator
+> Wavetable oscillators
+
+[![npm install dsp-oscillator](https://nodei.co/npm/dsp-oscillator.png?mini=true)](https://npmjs.org/package/dsp-oscillator/)
+
+This is part of [dsp-kit](https://github.com/oramics/dsp-kit)
+
+### References
+
+- http://www.earlevel.com/main/2012/05/09/a-wavetable-oscillator%E2%80%94part-3/
+
+**Example**  
+```js
+const oscillator = require('dsp-oscillator')
+```
+<a name="module_phase-vocoder"></a>
+
+## phase-vocoder
+> Phase-vocoder timestretch algorithm
+
+Time stretching means altering the duration of a signal without changing its pitch
+
+[![npm install dsp-phase-vocoder](https://nodei.co/npm/dsp-phase-vocoder.png?mini=true)](https://npmjs.org/package/dsp-phase-vocoder/)
+
+The essential idea is to build two fnctions (analyze and
+synthesize) which are intended to work as a tightly coupled set. Between
+these two function calls, however, any number of manipulations can be
+performed to obtain the desired effects
+
+This is part of [dsp-kit](https://github.com/oramics/dsp-kit)
+
+### References
+
+- https://www.spsc.tugraz.at/sites/default/files/Bachelor%20Thesis%20Gruenwald.pdf
+
+**Example**  
+```js
+var dsp = require('dsp-kit')
+```
+<a name="module_spectrum"></a>
+
+## spectrum
 > Transformations of frequency domain information
 
-[![npm install dsp-freq-domain](https://nodei.co/npm/dsp-freq-domain.png?mini=true)](https://npmjs.org/package/dsp-freq-domain/)
+> In virtually all cases, the result from the DFT has to be converted into polar coordinates in
+order to permit the desired modifications in an appropriate way as magnitudes and phases:
+
+[![npm install dsp-spectrum](https://nodei.co/npm/dsp-spectrum.png?mini=true)](https://npmjs.org/package/dsp-spectrum/)
 
 This module contains function to work with the result of a DFT (or FFT),
 the signal in the frequency domain.
@@ -387,19 +475,19 @@ const dsp = require('dsp-kit')
 dsp.spectrum(dft.fft(signal))
 ```
 
-* [freq-domain](#module_freq-domain)
-    * [.bandWidth(size, sampleRate)](#module_freq-domain.bandWidth) ⇒ <code>Number</code>
-    * [.bandFrequency(index, size, sampleRate)](#module_freq-domain.bandFrequency) ⇒ <code>Number</code>
-    * [.spectrum(freqDomain, spectrum)](#module_freq-domain.spectrum) ⇒ <code>Array</code>
+* [spectrum](#module_spectrum)
+    * [.bandWidth(size, sampleRate)](#module_spectrum.bandWidth) ⇒ <code>Number</code>
+    * [.bandFrequency(index, size, sampleRate)](#module_spectrum.bandFrequency) ⇒ <code>Number</code>
+    * [.spectrum(freqDomain, spectrum)](#module_spectrum.spectrum) ⇒ <code>Array</code>
 
-<a name="module_freq-domain.bandWidth"></a>
+<a name="module_spectrum.bandWidth"></a>
 
-### freq-domain.bandWidth(size, sampleRate) ⇒ <code>Number</code>
+### spectrum.bandWidth(size, sampleRate) ⇒ <code>Number</code>
 Get band width of a result of a fourier transformation
 
 It calculates the size of each _bin_ of the spectrum in Hertzs.
 
-**Kind**: static method of <code>[freq-domain](#module_freq-domain)</code>  
+**Kind**: static method of <code>[spectrum](#module_spectrum)</code>  
 **Returns**: <code>Number</code> - the frequency width of each bin  
 
 | Param | Type | Description |
@@ -407,12 +495,12 @@ It calculates the size of each _bin_ of the spectrum in Hertzs.
 | size | <code>Integer</code> | the DFT (or FFT) buffer size |
 | sampleRate | <code>Integer</code> | the sample rate of the original signal |
 
-<a name="module_freq-domain.bandFrequency"></a>
+<a name="module_spectrum.bandFrequency"></a>
 
-### freq-domain.bandFrequency(index, size, sampleRate) ⇒ <code>Number</code>
+### spectrum.bandFrequency(index, size, sampleRate) ⇒ <code>Number</code>
 Calculates the center frequency of an DFT band (or bin)
 
-**Kind**: static method of <code>[freq-domain](#module_freq-domain)</code>  
+**Kind**: static method of <code>[spectrum](#module_spectrum)</code>  
 **Returns**: <code>Number</code> - the center frequency of the DFT bandThe middle frequency in Hz.  
 
 | Param | Type | Description |
@@ -421,45 +509,24 @@ Calculates the center frequency of an DFT band (or bin)
 | size | <code>Integer</code> | the DFT (or FFT) buffer size |
 | sampleRate | <code>Integer</code> | the sample rate of the original signal |
 
-<a name="module_freq-domain.spectrum"></a>
+<a name="module_spectrum.spectrum"></a>
 
-### freq-domain.spectrum(freqDomain, spectrum) ⇒ <code>Array</code>
-Calculate the spectrum (amplitude magnitudes) of a DFT or FFT result (a
+### spectrum.spectrum(freqDomain, spectrum) ⇒ <code>Array</code>
+Calculate the spectrum of a DFT or FFT result (a
 signal in the frequency domain)
 
-**Kind**: static method of <code>[freq-domain](#module_freq-domain)</code>  
+**Kind**: static method of <code>[spectrum](#module_spectrum)</code>  
 **Returns**: <code>Array</code> - the spectrum  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | freqDomain | <code>Object</code> | the frequency domain data |
-| spectrum | <code>Array</code> | (Optional) a buffer to store the spectrum (a new one will be created if no one provided) |
-
-<a name="module_ola"></a>
-
-## ola
-> Overlap and add timestretch algorithm
-
-[![npm install dsp-ola](https://nodei.co/npm/dsp-ola.png?mini=true)](https://npmjs.org/package/dsp-ola/)
-
-This is part of [dsp-kit](https://github.com/oramics/dsp-kit)
+| spectrum | <code>Object</code> | (Optional) the buffers to store the spectrum (with the form { `magnitudes`: Array, `phases`: Array }) |
 
 **Example**  
 ```js
-var dsp = require('dsp-kit')
-```
-<a name="module_oscillator"></a>
-
-## oscillator
-> Wavetable oscillators
-
-[![npm install dsp-oscillator](https://nodei.co/npm/dsp-oscillator.png?mini=true)](https://npmjs.org/package/dsp-oscillator/)
-
-This is part of [dsp-kit](https://github.com/oramics/dsp-kit)
-
-**Example**  
-```js
-const oscillator = require('dsp-oscillator')
+const dsp = require('dsp-kit')
+dsp.spectrum(dsp.fft(signal)).magnitudes
 ```
 <a name="module_window"></a>
 

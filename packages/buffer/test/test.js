@@ -11,6 +11,11 @@ test('zeros', () => {
   assert.deepEqual(zeros, from([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]))
 })
 
+test('center', function () {
+  const result = buffer.center([1, 2, 3, 4, 5])
+  assert.deepEqual(result, Float64Array.from([4, 5, 1, 2, 3]))
+})
+
 test('concat', () => {
   const ones = buffer.generate(5, (x) => 1)
   const twos = buffer.generate(5, (x) => 2)

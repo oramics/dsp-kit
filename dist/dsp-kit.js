@@ -3,68 +3,17 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-/**
- * > Array buffer manipulation functions
- *
- * [![npm install dsp-buffer](https://nodei.co/npm/dsp-buffer.png?mini=true)](https://npmjs.org/package/dsp-buffer/)
- *
- * This is part of [dsp-kit](https://github.com/oramics/dsp-kit)
- *
- * @example
- * var dsp = require('dsp-kit')
- * dsp.generate(...)
- *
- * @example
- * // require only this module
- * var buffer = require('dsp-buffer')
- * const sine = buffer.generate(1024, (x) => Math.sin(0.5 * x))
- *
- * @module buffer
- */
-
-/**
- * Create a buffer (a Float64Array) filled with zeros
- *
- * @param {Integer} size
- * @return {Array} the buffer
- */
 function zeros (size) { return new Float64Array(size) }
 
-/**
- * Create a buffer from an array (an alias for Float64Array.from)
- */
 const from = Float64Array.from.bind(Float64Array);
 
-/**
- * Generate a buffer using a function
- *
- * @param {Number|Array} buffer - The buffer (to reuse) or a buffer length to create one
- * @param {Function} fn - the generator function. It receives the following parameters:
- *
- * - n: a number from [0..1]
- * - index: a number from [0...length]
- * - length: the buffer length
- * @example
- * const sine = buffer.generate(10, (x) => Math.sin(x))
- */
 function generate (buffer, fn) {
   if (typeof buffer === 'number') buffer = zeros(buffer);
-  const size = buffer.length;
-  for (let i = 0; i < size; i++) buffer[i] = fn(i / size, i, size);
+  const N = buffer.length;
+  for (let n = 0; n < N; n++) buffer[n] = fn(n, N);
   return buffer
 }
 
-/**
- * Concatenate two buffers
- * @param {Array} bufferA
- * @param {Array} bufferB
- * @param {Array} destination - (Optional) If provided, the length must be
- * _at least_ the sum of the bufferA and bufferB length plus the destOffset
- * @return {Array} destination
- * @example
- * // concat into a new buffer
- * const bufferC = buffer.concat(bufferA, bufferB)
- */
 function concat (a, b, dest = null, offset = 0) {
   const al = a.length;
   const bl = b.length;
@@ -74,15 +23,6 @@ function concat (a, b, dest = null, offset = 0) {
   return dest
 }
 
-/**
- * Create a buffer combinator. Given a function, returns a function to combine
- * two buffers using that function.
- *
- * @param {Function} fn - the function used to combine the buffers. It accepts
- * two parameters: the numbers of each buffer to combine
- * @return {Function} the combinator function
- * @see copyTo, add, mult
- */
 function combinator (fn) {
   return function (bufferA, bufferB, dest = null, offsetA = 0, offsetB = 0, offsetD = 0) {
     const bufferD = typeof dest === 'number' ? zeros(dest)
@@ -97,77 +37,15 @@ function combinator (fn) {
 }
 
 const copyTo = combinator((a, b) => a);
-/**
- * Copy a buffer
- * @param {Array} source
- * @param {Array} destination - (Optional)
- * @return {Array} destination
- */
+
 function copy (src, dest, srcOffset, destOffset) {
   return copyTo(src, src, dest, srcOffset, srcOffset, destOffset)
 }
 
-/**
- * Add two buffers.
- *
- * @param {Array} bufferA - the source buffer
- * @param {Array} bufferB - the B buffer
- * @param {Array|Integer} destination - (Optional) the destination buffer or the
- * number of samples to add. If not present, a new buffer is created.
- * @param {Integer} offsetA - the start offset of the A buffer
- * @param {Integer} offsetA - the start offset of the B buffer
- * @param {Integer} offsetDestination - the start offset of the destination buffer
- * @return {Array} the destination buffer (the provided or a new one if no one provided)
- *
- * @example
- * // add to buffers into a new one
- * const result = buffer.add(bufferA, bufferB)
- *
- * @example
- * // add to buffers into a third
- * buffer.add(bufferA, bufferB, dest)
- */
 const add = combinator((a, b) => a + b);
 
-/**
- * Multiply two buffers.
- *
- * @param {Array} bufferA - the source buffer
- * @param {Array} bufferB - the B buffer
- * @param {Array|Integer} destination - (Optional) the destination buffer or the
- * number of samples to add. If not present, a new buffer is created.
- * @param {Integer} offsetA - the start offset of the A buffer
- * @param {Integer} offsetA - the start offset of the B buffer
- * @param {Integer} offsetDestination - the start offset of the destination buffer
- *
- * @example
- * // add to buffers into a new one
- * const result = buffer.add(bufferA, bufferB)
- *
- * @example
- * // add to buffers into a third
- * buffer.add(bufferA, bufferB, dest)
- */
 const mult = combinator((a, b) => a * b);
 
-
-/**
- * Map a buffer with a function
- *
- * This function can be partially applied (see examples)
- *
- * @param {Function} fn - the mapping function
- * @param {Array} source - the source
- * @param {Array} destination - (Optional) if no one is provided, a new buffer
- * is created
- * @return {Array} the mapped buffer
- * @example
- * const sine = buffer.generate(1024, (x) => Math.sin(x))
- * buffer.map((x) => x * 2, sine) // => a buffer with the gain doubled
- * // partially applied
- * const doubleGain = buffer.map((x) => x * 2)
- * doubleGain(buffer) // => a buffer with the gain doubled
- */
 function map (fn, src, dest) {
   if (arguments.length === 1) return (s, d) => map(fn, s, d)
   const len = src.length;
@@ -614,53 +492,18 @@ exports.ifft = ifft;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-/**
- * > Windowing functions for digital signal processing
- *
- * [![npm install dsp-window](https://nodei.co/npm/dsp-window.png?mini=true)](https://npmjs.org/package/dsp-window/)
- *
- *
- * All window functions have some extra properties:
- *
- * - rov: recommended overlap
- *
- * This is part of [dsp-kit](https://github.com/oramics/dsp-kit)
- *
- * @example
- * const dsp = require('dsp-kit')
- * dsp.generate(1024, dsp.window.hanning())
- *
- * @module window
- */
 const { PI, sin, cos } = Math;
 const PI2 = PI * 2;
 
-/**
- * The rectangular window, also sometimes called ‘uniform window’, is given by
- * w = 1, equivalent to using no window at all.
- * Although there are some special applications where the rectangular
- * window is advantageous, it is probably not useful for any of our applications
- *
- * - recommended overlap: 50%
- */
 const rectangular = () => (n, N) => { return 1 };
 rectangular.rov = 0.5;
 const none = rectangular;
 
-/**
- * The Hanning window (one of a family of ‘raised cosine’ windows) is also known
- * as ‘Hann window’. Do not confuse it with the ‘Hamming’ window.
- */
 const hanning = () => (n, N) => {
   const z = (PI2 * n) / (N - 1);
   return 0.5 * (1 - cos(z))
 };
 
-/*
- * The Hamming window is the simplest example of a family of windows that are
- * constructed as a weighted sum of a constant term and some cosine terms. Do
- * not confuse it with the ‘Hanning’ window.
-*/
 const hamming = () => (n, N) => {
   const z = (PI2 * n) / (N - 1);
   return 0.54 - 0.46 * cos(z)
@@ -671,11 +514,6 @@ const blackman = (a) => (n, N) => {
   return (1 - a) / 2 - 0.5 * cos(z) + a * cos(2 * z) / 2
 };
 
-/**
- * The Blackman-Harris window is one of a family of window functions given by a
- * sum of cosine terms. By varying the number and coefficients of the terms
- * different characteristics can be optimized.
-*/
 const blackmanHarris = () => (n, N) => {
   var z = (PI2 * n) / (N - 1);
   return 0.35875 - 0.48829 * cos(z) + 0.14128 * cos(2 * z) - 0.01168 * cos(3 * z)

@@ -19,6 +19,14 @@ spectrum.magnitudes // => the magnitude spectrum of the signal
 
 Read the [generated API documentation](https://github.com/oramics/dsp-kit/blob/master/docs/README.md)
 
+## Development
+
+Clone the repo and install dependencies: `npm install` and init lerna: `lerna bootstrap`
+
+- To run test: `npm test`
+- To generate documentation: `npm run docs`
+- To generate distribution file: `npm run dist`
+
 ## References
 
 - http://www.dafx.de/

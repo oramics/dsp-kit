@@ -1,7 +1,6 @@
 # Phase Vocoder
 
-(This is a summary of: http://web.uvic.ca/~mpierce/elec484/final_project/Report/FinalReport.pdf
-)
+This is a summary/remix of several papers. See references.
 
 ## 1. Analysis
 
@@ -23,7 +22,7 @@ necessary for the signal to be split into more segments than simply the original
 signal length divided by the window size. In order to avoid any distortion, the analysis hop size
 must be, at most, half of the window size.
 
-### 1.2 Cyclic shift (Zero phase windowing)
+### 1.2 Cyclic shift (aka Zero phase windowing, aka Centering)
 
 An important detail of phase vocoder implementation that can be easily overlooked is the
 fact that each windowed segment must undergo a “cyclic shift” (or “circular shift”)
@@ -191,6 +190,23 @@ frequency information we can create smaller audio signals without losing sound
 quality. By modifying the phase vocoder to only retain the strongest N frequency
 bins (based on magnitude) of each segment, we can build a rudimentary audio
 compressor.
+
+## 4. More about windowing
+
+(http://www.cs.princeton.edu/courses/archive/spr09/cos325/Bernardini.pdf)
+
+- the sum of hamming windows presents a discontinuity on both ends; these discontinuities may have a small impact on long signals but can be quite present on short ones;
+- the blackman window modulates the signal when used with a hr ≥ 1/2 where hr is the hop/window size ratio
+- the hamming and hanning windows modulate the signal when used with a hr > 1/2
+- all windows require (as expected) a variable rescaling factor according to the
+hop/window ratio; in this respect, the hanning and hamming windows seem to
+behave more linearly, turning up to something like R = 1/hr where R is the
+rescaling factor.
+
+In an STFT, it is important to ensure that the periodicity of the framing window
+is correct: the periodicity of the framing window should be equal to the
+declared argument of its function definition. A hanning window, for example,
+must begin by a zero-valued sample and end by a non-zero valued sample
 
 ---
 

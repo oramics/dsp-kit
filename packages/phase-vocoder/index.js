@@ -5,7 +5,21 @@
  *
  * [![npm install dsp-phase-vocoder](https://nodei.co/npm/dsp-phase-vocoder.png?mini=true)](https://npmjs.org/package/dsp-phase-vocoder/)
  *
- * The essential idea is to build two fnctions (analyze and
+ * A short-time Fourier transform (STFT) is performed on a windowed time-domain
+ * real signal to obtain a succession of overlapped spectral frames with minimal
+ * side-band effects (analysis stage). The time delay at which every spectral
+ * frame is picked up from the signal is called the hop size.
+ *
+ * The timedomain signal may be rebuilt by performing an inverse FastFourier
+ * transform on all frames followed by a successive accumulation of all frames
+ * (an operation termed overlap-add)
+ *
+ * Knowing the modulus of every bin is not enough: the phase information is
+ * necessary for a perfect recovery of a signal without modification.
+ * Furthermore the phase information allows an evaluation of ’instantaneous
+ * frequencies’ by the measure of phases between two frames
+ *
+ * The essential idea is to build two functions (analyze and
  * synthesize) which are intended to work as a tightly coupled set. Between
  * these two function calls, however, any number of manipulations can be
  * performed to obtain the desired effects
@@ -23,6 +37,38 @@
  *
  * @module phase-vocoder
  */
+import { fft } from 'dsp-fft'
+import { hanning } from 'dsp-window'
+import { generate, copy, mult, center } from 'dsp-buffer'
+import { spectrum } from 'dsp-spectrum'
+
+/**
+ *
+ */
+export function analysis (signal, params = {}) {
+  const { size = 1024, hop = size / 5 } = params
+  const numFrames = Math.floor((signal.length - size) / hop)
+  // create the window buffer
+  const window = generate(size, params.window || hanning())
+  // create frame buffer (and reuse it for performance)
+  const frame = new Float64Array(size)
+  // create an array to store all frames
+  const frames = new Array(numFrames)
+  for (let i = 0; i < numFrames; i++) {
+    // 1. copy a slice into the frame
+    copy(signal, frame, i * hop)
+    // 2. multiply the frame by the window
+    mult(window, frame, frame)
+    // 3. Cyclic shift to phase zero windowing
+    // 4. Perform the fft to the frame
+    frames[i] = spectrum(fft(center(frame)))
+  }
+  return frames
+}
+
+function synthesis (frames, options) {
+
+}
 
 /*
           var fft = new FFT(points, freq);

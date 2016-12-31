@@ -145,7 +145,6 @@ export const add = combinator((a, b) => a + b)
  */
 export const mult = combinator((a, b) => a * b)
 
-
 /**
  * Map a buffer with a function
  *
@@ -169,4 +168,23 @@ export function map (fn, src, dest) {
   if (!dest) dest = zeros(len)
   for (let i = 0; i < len; i++) dest[i] = fn(src[i])
   return dest
+}
+
+/**
+ * Perform a cyclic shifting (rotation) to set the first sample at the middle
+ * of the buffer (it reorder buffer samples from (0:N-1) to [(N/2:N-1) (0:(N/2-1))])
+ *
+ * This is the same function as mathlab's `fftshift`
+ *
+ * @param {Array} source - the source buffer
+ * @param {Array} result - (Optional) the result buffer
+ */
+export function center (buffer, result) {
+  const size = buffer.length
+  const n = Math.floor((size / 2) + 1)
+  if (!result) result = new Float64Array(size)
+  for (let i = 0; i < size; i++) {
+    result[i] = buffer[(i + n) % size]
+  }
+  return result
 }
