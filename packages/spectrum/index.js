@@ -1,7 +1,10 @@
 /**
  * > Transformations of frequency domain information
  *
- * [![npm install dsp-freq-domain](https://nodei.co/npm/dsp-freq-domain.png?mini=true)](https://npmjs.org/package/dsp-freq-domain/)
+ * > In virtually all cases, the result from the DFT has to be converted into polar coordinates in
+ * order to permit the desired modifications in an appropriate way as magnitudes and phases:
+ *
+ * [![npm install dsp-spectrum](https://nodei.co/npm/dsp-spectrum.png?mini=true)](https://npmjs.org/package/dsp-spectrum/)
  *
  * This module contains function to work with the result of a DFT (or FFT),
  * the signal in the frequency domain.
@@ -12,9 +15,10 @@
  * const dsp = require('dsp-kit')
  * dsp.spectrum(dft.fft(signal))
  *
- * @module freq-domain
+ * @module spectrum
  */
 const { sqrt } = Math
+function zeros (l) { return new Float64Array(l) }
 
 /**
  * Get band width of a result of a fourier transformation
@@ -44,25 +48,31 @@ export function bandFrequency (index, size, sampleRate) {
 }
 
 /**
- * Calculate the spectrum (amplitude magnitudes) of a DFT or FFT result (a
+ * Calculate the spectrum of a DFT or FFT result (a
  * signal in the frequency domain)
  *
  * @param {Object} freqDomain - the frequency domain data
- * @param {Array} spectrum - (Optional) a buffer to store the spectrum (a
- * new one will be created if no one provided)
+ * @param {Object} spectrum - (Optional) the buffers to store the spectrum
+ * (with the form { `magnitudes`: Array, `phases`: Array })
  * @return {Array} the spectrum
+ *
+ * @example
+ * const dsp = require('dsp-kit')
+ * dsp.spectrum(dsp.fft(signal)).magnitudes
  */
-export function spectrum (result, spectrum) {
-  let rval, ival
+export function spectrum (result, spectrum = {}) {
   const { real, imag } = result
   const size = real.size
+  // TODO: decide what's best: create or not buffers by default
+  if (!spectrum) spectrum = { magnitudes: zeros(size), phases: zeros(size) }
+  const { magnitudes, phases } = spectrum
   const N = size / 2
   const bSi = 2 / size
-  spectrum = spectrum || new Float64Array(size)
   for (let i = 0; i < N; i++) {
-    rval = real[i]
-    ival = imag[i]
-    spectrum[i] = bSi * sqrt(rval * rval + ival * ival)
+    const rval = real[i]
+    const ival = imag[i]
+    if (magnitudes) magnitudes[i] = bSi * sqrt(rval * rval + ival * ival)
+    if (phases) phases[i] = Math.atan2(ival, rval)
   }
   return spectrum
 }

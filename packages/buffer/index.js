@@ -44,8 +44,8 @@ export const from = Float64Array.from.bind(Float64Array)
  */
 export function generate (buffer, fn) {
   if (typeof buffer === 'number') buffer = zeros(buffer)
-  const size = buffer.length
-  for (let i = 0; i < size; i++) buffer[i] = fn(i / size, i, size)
+  const N = buffer.length
+  for (let n = 0; n < N; n++) buffer[n] = fn(n, N)
   return buffer
 }
 

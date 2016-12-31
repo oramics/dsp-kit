@@ -10,8 +10,9 @@ This is a [multimodule](https://github.com/oramics/dsp-kit/tree/master/packages)
 
 ```js
 const dsp = require('dsp-kit')
-const signal = dsp.buffer.generate(1024, (x) => Math.sin(x))
-const spectrum = dsp.spectrum(dsp.fft.forward(signal))
+const signal = dsp.generate(1024, (x) => Math.sin(x))
+const spectrum = dsp.spectrum(dsp.fft(signal))
+spectrum.magnitudes // => the magnitude spectrum of the signal
 ```
 
 ## Documentation
@@ -20,6 +21,7 @@ Read the [generated API documentation](https://github.com/oramics/dsp-kit/blob/m
 
 ## References
 
+- http://www.dafx.de/
 - [Circles, sines and signals](jackschaedler.github.io/circles-sines-signals/) by Jack Schaedler
 - [Digital signal processing for music applications](https://www.coursera.org/learn/audio-signal-processing) course in coursera.
 - [Understanding Digital Signal](https://www.amazon.com/Understanding-Digital-Signal-Processing-3rd/dp/0137027419) by Richard G. Lyons.

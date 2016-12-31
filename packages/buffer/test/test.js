@@ -22,12 +22,16 @@ test('generate', function () {
   assert.deepStrictEqual(zeros, buffer.zeros(100))
   const ones = buffer.generate(10, (x) => 1)
   assert.deepEqual(ones, from([1, 1, 1, 1, 1, 1, 1, 1, 1, 1]))
-  const values = buffer.generate(10, (x) => x)
-  assert.deepEqual(values, from([0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]))
-  const indices = buffer.generate(10, (x, i) => i)
+  const indices = buffer.generate(10, (n, N) => n)
   assert.deepEqual(indices, from([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]))
-  const lens = buffer.generate(10, (x, i, s) => s)
+  const lens = buffer.generate(10, (n, N) => N)
   assert.deepEqual(lens, from([10, 10, 10, 10, 10, 10, 10, 10, 10, 10]))
+})
+
+test('generate sine', function () {
+  const PI = Math.PI
+  const sine = buffer.generate(10, (n, N) => Math.sin(2 * PI * n / (N - 1)))
+  assert.deepEqual(sine, from([0, 0.6427876096865393, 0.984807753012208, 0.8660254037844387, 0.3420201433256689, -0.34202014332566866, -0.8660254037844385, -0.9848077530122081, -0.6427876096865396, -2.4492935982947064e-16]))
 })
 
 test('copy', function () {

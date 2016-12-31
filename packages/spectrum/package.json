@@ -1,5 +1,5 @@
 {
-  "name": "dsp-freq-domain",
+  "name": "dsp-spectrum",
   "description": "Functions to work with frequency domain signal representations",
   "version": "0.0.0",
   "main": "build/index.js",
@@ -9,7 +9,7 @@
     "test": "node test/test.js",
     "docs": "jsdoc2md index.js > README.md && cp README.md API.md"
   },
-  "repository": "https://github.com/oramics/dsp-kit/packages/dsp-freq-domain",
+  "repository": "https://github.com/oramics/dsp-kit/packages/dsp-spectrum",
   "keywords": [
     "fourier",
     "transform",
@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/oramics/dsp-kit/issues"
   },
-  "homepage": "https://github.com/oramics/dsp-kit/packages/dsp-freq-domain/#readme",
+  "homepage": "https://github.com/oramics/dsp-kit/packages/dsp-spectrum/#readme",
   "devDependencies": {
     "dsp-buffer": "0.0.1",
     "dspjs": "../../legacy"
