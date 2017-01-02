@@ -240,6 +240,9 @@ jumps.
 
 ### References
 
-- https://www.spsc.tugraz.at/sites/default/files/Bachelor%20Thesis%20Gruenwald.pdf
-- http://web.uvic.ca/~mpierce/elec484/final_project/Report/FinalReport.pdf
+- Theory, Implementation and Evaluation of the Digital Phase Vocoder in the Context of Audio Effects by Johannes Grünwald: https://www.spsc.tugraz.at/sites/default/files/Bachelor%20Thesis%20Gruenwald.pdf
+- Phase Vocoder Design, Implementation, and Effects
+Processing by Matthew Pierce: http://web.uvic.ca/~mpierce/elec484/final_project/Report/FinalReport.pdf
 - http://www.cs.princeton.edu/courses/archive/spr09/cos325/Bernardini.pdf
+- https://www.eumus.edu.uy/eme/ensenanza/electivas/dsp/presentaciones/PhaseVocoderTutorial.pdf
+- The Operation of the Phase Vocoder by Richard Dobson: http://www.composersdesktop.com/pdf/phasevocoder.pdf

@@ -30,6 +30,7 @@
  * ### References
  *
  * - https://www.spsc.tugraz.at/sites/default/files/Bachelor%20Thesis%20Gruenwald.pdf
+ * - http://www.cs.princeton.edu/courses/archive/spr09/cos325/Bernardini.pdf
  *
  * @example
  * var dsp = require('dsp-kit')
@@ -66,8 +67,22 @@ export function analysis (signal, params = {}) {
   return frames
 }
 
-function synthesis (frames, options) {
+/**
+ * It recalculates each frame phase based on the stretch factor
+ */
+function stretch (frames, options) {
+  const numFrames = frames.length
+  for (let i = 2; i < numFrames; i++) {
+    const prev = frames[i - 1]
+    const current = frames[i]
 
+  }
+}
+
+/**
+ * Synthesize a signal from a collection of frames
+ */
+function synthesis (frames, options) {
 }
 
 /*

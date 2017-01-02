@@ -7,7 +7,8 @@
   "scripts": {
     "pretest": "rollup -f cjs -o build/index.js -- index.js",
     "test": "node test/test.js",
-    "docs": "jsdoc2md index.js > README.md && cp README.md API.md"
+    "docs": "jsdoc2md index.js > README.md && cp README.md API.md",
+    "start": "budo example/live.js"
   },
   "repository": "https://github.com/oramics/dsp-kit/packages/elastica",
   "keywords": [
@@ -22,6 +23,9 @@
     "url": "https://github.com/oramics/dsp-kit/issues"
   },
   "homepage": "https://github.com/oramics/dsp-kit/packages/elastica/#readme",
-  "devDependencies": {
+  "devDependencies": {},
+  "dependencies": {
+    "dsp-buffer": "0.0.1",
+    "dsp-ola": "0.0.1"
   }
 }

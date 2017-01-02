@@ -7,7 +7,8 @@
   "scripts": {
     "pretest": "rollup -c ../../rollup.config.js",
     "test": "node test/test.js",
-    "docs": "jsdoc2md index.js > README.md && cp README.md API.md"
+    "docs": "jsdoc2md index.js > README.md && cp README.md API.md",
+    "start": "npm run pretest && budo example/example.js"
   },
   "repository": "https://github.com/oramics/dsp-kit/packages/dsp-buffer",
   "keywords": [
@@ -24,5 +25,7 @@
   },
   "homepage": "https://github.com/oramics/dsp-kit/packages/dsp-buffer/#readme",
   "devDependencies": {
+    "add-canvas": "gist:2e32779f41baefc491a370a138767fdf",
+    "draw-waveform": "gist:ffe0c4e7a06586d4bbb018ca69887ae8"
   }
 }

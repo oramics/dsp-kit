@@ -80,10 +80,13 @@ export function concat (a, b, dest = null, offset = 0) {
  */
 export function combinator (fn) {
   return function (bufferA, bufferB, dest = null, offsetA = 0, offsetB = 0, offsetD = 0) {
+    const sizeA = bufferA.length - offsetA
+    const sizeB = bufferB.length - offsetB
     const bufferD = typeof dest === 'number' ? zeros(dest)
-      : dest === null ? zeros(Math.min(bufferA.length - offsetA, bufferB.length - offsetB) + offsetD)
+      : dest === null ? zeros(Math.min(sizeA, sizeB) + offsetD)
       : dest
-    const max = bufferD.length
+    const sizeD = bufferD.length - offsetD
+    const max = Math.min(sizeA, sizeB, sizeD)
     for (let i = 0; i < max; i++) {
       bufferD[i + offsetD] = fn(bufferA[i + offsetA], bufferB[i + offsetB])
     }

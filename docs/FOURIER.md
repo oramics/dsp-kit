@@ -46,3 +46,4 @@ Here we should see two things,
 ## 4. Bibliography
 
 - `[1]`: [Understanding Digital Signal](https://www.amazon.com/Understanding-Digital-Signal-Processing-3rd/dp/0137027419) by Richard G. Lyons.
+- Spectrum and spectral density estimation by the Discrete Fourier transform (DFT), including a comprehensive list of window functions and some new flat-top windows: https://holometer.fnal.gov/GH_FFT.pdf
