@@ -25,7 +25,7 @@
  *
  * @module dsp-kit
  */
-export { zeros, generate, map, copy } from 'dsp-buffer'
+export { from, add, mult, zeros, generate, concat, combinator, map, copy, center } from 'dsp-buffer'
 export { dft, idft } from 'dsp-dft'
 export { fft, ifft } from 'dsp-fft'
 

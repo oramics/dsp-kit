@@ -31,10 +31,10 @@ Create a timestretch function using an overlap and add algorithm
 
 | Param | Type |
 | --- | --- |
-| options | <code>Object</code> |
+| options | <code>Object</code> | 
 
 **Example**  
 ```js
 const stretch = ola.overlapAdd()
-stretch(0.5, signal) // => stretch a signal 
+stretch(0.5, audio) // => a new audio buffer half of the length
 ```
