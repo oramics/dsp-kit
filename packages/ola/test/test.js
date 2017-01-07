@@ -5,7 +5,7 @@ const overlapAdd = require('..').overlapAdd
 
 const average = (arr) => arr.reduce((a, b) => a + b) / arr.length
 
-test('micro overlap', function () {
+test.skip('micro overlap', function () {
   const size = 10
   const length = 20
   const stretch = overlapAdd({ size: size })

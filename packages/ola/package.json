@@ -3,7 +3,7 @@
   "description": "Overlap and add timestretch algorithm",
   "version": "0.0.1",
   "main": "build/index.js",
-  "jsnext:main": "index",
+  "module": "index",
   "scripts": {
     "pretest": "rollup -c ../../rollup.config.js",
     "test": "node test/test.js",

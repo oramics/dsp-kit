@@ -3,5 +3,5 @@ const assert = require('assert')
 const dsp = require('..')
 
 test('export all', function () {
-  assert.equal(Object.keys(dsp).length, 9)
+  assert.equal(Object.keys(dsp).length, 18)
 })

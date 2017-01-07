@@ -25,6 +25,6 @@
   "homepage": "https://github.com/oramics/dsp-kit/packages/dsp-fft/#readme",
   "devDependencies": {
     "dsp-dft": "^0.0.1",
-    "dspjs": "../../legacy"
+    "dspjs": "../../benchmarks/dspjs"
   }
 }

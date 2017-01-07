@@ -26,6 +26,6 @@
   "devDependencies": {
     "dsp-buffer": "0.0.1",
     "dsp-fft": "0.0.1",
-    "dspjs": "../../legacy"
+    "dspjs": "../../benchmarks/dspjs"
   }
 }

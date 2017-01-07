@@ -28,7 +28,8 @@
 export { from, add, mult, zeros, generate, concat, combinator, map, copy, center } from 'dsp-buffer'
 export { dft, idft } from 'dsp-dft'
 export { fft, ifft } from 'dsp-fft'
+export { bandWidth, bandFrequency, spectrum } from 'dsp-spectrum'
 
 // window is exported into it's own namespace
-import win from 'dsp-window'
+import * as win from 'dsp-window'
 export const window = win
