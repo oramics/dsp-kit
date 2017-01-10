@@ -5,7 +5,7 @@
   "main": "build/index.js",
   "module": "index",
   "scripts": {
-    "pretest": "rollup -c ../../rollup.config.js",
+    "pretest": "rollup -c ./rollup.config.js",
     "test": "node test/test.js",
     "docs": "jsdoc2md index.js > README.md && cp README.md API.md"
   },

@@ -23,9 +23,9 @@ Read the [generated API documentation](https://github.com/oramics/dsp-kit/blob/m
 
 Clone the repo and install dependencies: `npm install` and init lerna: `lerna bootstrap`
 
-- To run test: `npm test`
-- To generate documentation: `npm run docs`
-- To generate distribution file: `npm run dist`
+- __run tests__: `npm test`
+- __run benchmarks__: `npm run benchmarks`
+- __generate documentation__: `npm run docs`
 
 ## References
 
