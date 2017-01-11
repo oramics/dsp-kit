@@ -25,8 +25,6 @@
   "homepage": "https://github.com/oramics/dsp-kit/packages/dsp-ola/#readme",
   "devDependencies": {
     "dsp-buffer": "^0.0.1",
-    "dsp-window": "^0.0.1",
-    "add-canvas": "gist:2e32779f41baefc491a370a138767fdf",
-    "draw-waveform": "gist:ffe0c4e7a06586d4bbb018ca69887ae8"
+    "dsp-window": "^0.0.1"
   }
 }

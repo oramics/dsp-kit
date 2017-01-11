@@ -112,20 +112,20 @@ export function copy (src, dest, srcOffset, destOffset) {
  * @param {Array} bufferB - the B buffer
  * @param {Array|Integer} destination - (Optional) the destination buffer or the
  * number of samples to add. If not present, a new buffer is created.
- * @param {Integer} offsetA - the start offset of the A buffer
- * @param {Integer} offsetA - the start offset of the B buffer
- * @param {Integer} offsetDestination - the start offset of the destination buffer
+ * @param {Integer} offsetA - (Optional) the start offset of the A buffer
+ * @param {Integer} offsetA - (Optional) the start offset of the B buffer
+ * @param {Integer} offsetDestination - (Optional) the start offset of the destination buffer
  * @return {Array} the destination buffer (the provided or a new one if no one provided)
  *
  * @example
  * // add to buffers into a new one
  * const result = buffer.add(bufferA, bufferB)
- *
- * @example
  * // add to buffers into a third
  * buffer.add(bufferA, bufferB, dest)
  */
 export const add = combinator((a, b) => a + b)
+
+export const substr = combinator((a, b) => a - b)
 
 /**
  * Multiply two buffers.

@@ -15,53 +15,53 @@
  *
  * @example
  * const dsp = require('dsp-kit')
- * dsp.spectrum(dsp.fft(signal))
+ * const fft = new dsp.FFT(1024)
+ * dsp.spectrum(fft.forward(signal))
  *
  * @example
- * const fft = require('dsp-fft')
- * const forward = fft.fft(1024)
- * output = forward(signal) // the signal must have 1024 samples length
- * forward(signal, output) // reuse the output buffers
- * const inverse = fft.ifft(1024)
- * inverse(output) // => signal
+ * const FFT = require('dsp-fft').FFT
+ * const fft = new FFT(1024)
+ * output = fft.forward(signal) // the signal must have 1024 samples length
+ * fft.forward(signal, output) // reuse the output buffers
+ * fft.inverse(output) // => signal
  *
  * @module fft
  */
 
-// https://github.com/mikolalysenko/bit-twiddle/blob/master/twiddle.js#L42
+// Checks if a number is a power of two
+// https://github.com/mikolalysenko/bit-twiddle/blob/master/twiddle.js#L41
 function isPow2 (v) { return !(v & (v - 1)) && (!!v) }
 
 /**
- * Create a forward Fast Fourier Transform function
- *
- * This code is adapted from the unmaintained library dsp.js
- *
- * @param {Integer} size - must be a power of 2
- * @return {Function} the forward function.
- */
-export function fft (size, FloatArray) {
-  if (!isPow2(size)) throw Error('Size must be a power of 2, but was ' + size)
-  FloatArray = FloatArray || Float64Array
-  const tables = generateTables(size, FloatArray)
+* Performs a forward transform on the sample buffer.
+* Converts a time domain signal to frequency domain complex signal.
+*
+* The result is an object with the form `{ real: <Array>, imag: <Array> }`
+* representing a complex signal.
+*
+* @memberof FFT
+* @name forward
+* @param {Array} buffer The sample buffer. Buffer Length must be power of 2
+* @param {Object} output - (Optional) pass a complex signal object to reuse
+* buffers (instead of create new if no ones provided)
+*
+* @returns The frequency domain complex signal object
+*/
+export function fft (size, b, o) {
+  if (arguments.length > 1) return fft(size)(b, o)
+  const { cosTable, sinTable, reverseTable } = tables(size)
 
   return function forward (buffer, output) {
-    output = output || { real: new FloatArray(size), imag: new FloatArray(size) }
-    const { cosTable, sinTable, revTable } = tables
+    if (buffer.length !== size) throw Error('Buffer length must be ' + size + ' but was ' + buffer.length)
+    if (!output) output = { real: new Float64Array(size), imag: new Float64Array(size) }
     const { real, imag } = output
 
     let halfSize = 1
-    var phaseShiftStepReal,
-      phaseShiftStepImag,
-      currentPhaseShiftReal,
-      currentPhaseShiftImag,
-      off,
-      tr,
-      ti,
-      tmpReal,
-      i
+    let phaseShiftStepReal, phaseShiftStepImag, currentPhaseShiftReal, currentPhaseShiftImag
+    let off, tr, ti, tmpReal, i
 
     for (i = 0; i < size; i++) {
-      real[i] = buffer[revTable[i]]
+      real[i] = buffer[reverseTable[i]]
       imag[i] = 0
     }
 
@@ -95,42 +95,45 @@ export function fft (size, FloatArray) {
 
       halfSize = halfSize << 1
     }
+
     return output
   }
 }
 
 /**
-* Perform an inverse Fast Fourier Transform over a complex signal
+* Performs a inverse FFT transformation
+* Converts a frequency domain spectra to a time domain signal
 *
-* The complex signal is an object with the form `{ real: Array<Number>, imag: Array<Number> }`
-* with the same length. Also the length must be a power of 2
+* @param {Integer} size - the size of the FFT buffer
+* @param {Object} signal - A complex signal object
+* @param {Object} output - (Optional) a complex signal output buffers
+* @returns The signal after the inverse process
 *
-* It returns a real signal (`Array<Number>`) with the same size.
-*
-* @param {Object} input - The complex signal
-* @param {Array<Number>} output - (Optional) the output buffer (if you want
-* to reuse a buffer for performance issues)
-* @return {Array<Number>} the real signal
+* @example
+* const freqDomain = dsp.fft(1024, timeDomain) // => { real: <Array>, imag: <Array> }
 */
-export function ifft (size, FloatArray) {
-  if (!isPow2(size)) throw Error('Size must be a power of 2, but was ' + size)
-  FloatArray = FloatArray || Float64Array
-  const tables = generateTables(size, FloatArray)
-  const { cosTable, sinTable, revTable } = tables
+export function ifft (size, c, o) {
+  if (arguments.length > 1) return ifft(size)(c, o)
 
-  return function inverse (input, output) {
-    output = output || { real: new FloatArray(size), imag: new FloatArray(size) }
+  const cache = tables(size)
+  return function inverse (complex, output) {
+    const { size, cosTable, sinTable, reverseTable } = cache
+    const rs = complex.real
+    const is = complex.imag
+    if (rs.length !== size) throw Error('Real buffer length must be ' + size + ' but was ' + rs.length)
+    if (is.length !== size) throw Error('Imag buffer length must be ' + size + ' but was ' + is.length)
+    if (!output) output = { real: new Float64Array(size), imag: new Float64Array(size) }
     const { real, imag } = output
 
-    for (let i = 0; i < size; i++) {
-      real[i] = input.real[revTable[i]]
-      imag[i] = -1 * input.imag[revTable[i]]
+    let i
+    for (i = 0; i < size; i++) {
+      real[i] = rs[reverseTable[i]]
+      imag[i] = -1 * is[reverseTable[i]]
     }
 
+    let phaseShiftStepReal, phaseShiftStepImag, currentPhaseShiftReal, currentPhaseShiftImag
+    let off, tr, ti, tmpReal
     let halfSize = 1
-    let phaseShiftStepReal, phaseShiftStepImag, currentPhaseShiftReal,
-      currentPhaseShiftImag, off, tr, ti, tmpReal, i
-
     while (halfSize < size) {
       phaseShiftStepReal = cosTable[halfSize]
       phaseShiftStepImag = sinTable[halfSize]
@@ -161,25 +164,28 @@ export function ifft (size, FloatArray) {
       halfSize = halfSize << 1
     }
 
+    // normalize
     for (i = 0; i < size; i++) {
-      real[i] = real[i] / size
+      real[i] /= size
+      imag[i] /= size
     }
+
     return output
   }
 }
 
-function generateTables (size, FloatArray) {
-  const revTable = new Uint32Array(size)
-  const sinTable = new FloatArray(size)
-  const cosTable = new FloatArray(size)
-
-  let bit = size >> 1
+function tables (size) {
+  if (!isPow2(size)) throw Error('Size must be a power of 2, and was: ' + size)
+  let reverseTable = new Uint32Array(size)
+  let sinTable = new Float64Array(size)
+  let cosTable = new Float64Array(size)
   let limit = 1
+  let bit = size >> 1
+
   while (limit < size) {
     for (let i = 0; i < limit; i++) {
-      revTable[i + limit] = revTable[i] + bit
+      reverseTable[i + limit] = reverseTable[i] + bit
     }
-
     limit = limit << 1
     bit = bit >> 1
   }
@@ -188,5 +194,5 @@ function generateTables (size, FloatArray) {
     sinTable[i] = Math.sin(-Math.PI / i)
     cosTable[i] = Math.cos(-Math.PI / i)
   }
-  return { sinTable, cosTable, revTable }
+  return { size, reverseTable, sinTable, cosTable }
 }

@@ -23,6 +23,8 @@
     "url": "https://github.com/oramics/dsp-kit/issues"
   },
   "homepage": "https://github.com/oramics/dsp-kit/packages/dsp-fft/#readme",
+  "dependencies": {
+  },
   "devDependencies": {
     "dsp-buffer": "^0.0.1",
     "dsp-dft": "^0.0.1",

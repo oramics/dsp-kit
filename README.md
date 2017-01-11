@@ -4,15 +4,17 @@
 
 Since I usually learn by coding, this is the result of my learning on dsp.
 
-Work in progress. Experimental API. Use at your own risk.
+This is largely based in the now abandoned [dsp.js](https://github.com/corbanbrook/dsp.js) code. Work in progress. Experimental API. Use at your own risk.
 
 This is a [multimodule](https://github.com/oramics/dsp-kit/tree/master/packages) repository.
 
 ```js
 const dsp = require('dsp-kit')
 const signal = dsp.generate(1024, (x) => Math.sin(x))
-const spectrum = dsp.spectrum(dsp.fft(signal))
+const fft = new dsp.FFT(1024)
+const spectrum = dsp.spectrum(fft.forward(signal))
 spectrum.magnitudes // => the magnitude spectrum of the signal
+spectrum.phases // => the phase spectrum of the signal
 ```
 
 ## Documentation

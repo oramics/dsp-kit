@@ -10,7 +10,7 @@
 var ola = require('dsp-ola')
 var ac = require('audio-context')
 
-function stretch(factor, buffer, context) {
+function stretch (factor, buffer, context) {
   context = context || ac
   var stretch = ola.overlapAdd({ size: 512, hop: 256 })
   var result = stretch(factor, buffer.getChannelData(0))

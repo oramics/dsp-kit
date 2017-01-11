@@ -18,56 +18,21 @@ This is part of [dsp-kit](https://github.com/oramics/dsp-kit)
 **Example**  
 ```js
 const dsp = require('dsp-kit')
-dsp.spectrum(dsp.fft(signal))
+const fft = new dsp.FFT(1024)
+dsp.spectrum(fft.forward(signal))
 ```
 **Example**  
 ```js
-const fft = require('dsp-fft')
-const signal = ...
-// invertible fft
-fft.ifft(fft.fft(signal)) === signal
+const FFT = require('dsp-fft').FFT
+const fft = new FFT(1024)
+output = fft.forward(signal) // the signal must have 1024 samples length
+fft.forward(signal, output) // reuse the output buffers
+fft.inverse(output) // => signal
 ```
+<a name="module_fft.FFT"></a>
 
-* [fft](#module_fft)
-    * [.fft(signal, output)](#module_fft.fft) ⇒ <code>Object</code>
-    * [.ifft(input, output)](#module_fft.ifft) ⇒ <code>Array.&lt;Number&gt;</code>
+### fft.FFT
+FFT is a class for calculating the Discrete Fourier Transform of a signal
+with the Fast Fourier Transform algorithm.
 
-<a name="module_fft.fft"></a>
-
-### fft.fft(signal, output) ⇒ <code>Object</code>
-Perform a forward Fast Fourier Transform over a real signal (represented
-as an array of numbers)
-
-The length of the input array must be a power of 2.
-
-The result is a complex signal, represented with an object with two arrays
-of same length: `{ real: Array<Number>, imag: Array<Number> }`
-
-This code is adapted from the unmaintained library dsp.js
-
-**Kind**: static method of <code>[fft](#module_fft)</code>  
-**Returns**: <code>Object</code> - the output buffers  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| signal | <code>Array</code> | The signal to perform the forward fft to. It's length must be a power of 2 |
-| output | <code>Object</code> | (Optional) the output buffers. If you want to recycle some arrays for performance reason, you can given them here |
-
-<a name="module_fft.ifft"></a>
-
-### fft.ifft(input, output) ⇒ <code>Array.&lt;Number&gt;</code>
-Perform an inverse Fast Fourier Transform over a complex signal
-
-The complex signal is an object with the form `{ real: Array<Number>, imag: Array<Number> }`
-with the same length. Also the length must be a power of 2
-
-It returns a real signal (`Array<Number>`) with the same size.
-
-**Kind**: static method of <code>[fft](#module_fft)</code>  
-**Returns**: <code>Array.&lt;Number&gt;</code> - the real signal  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| input | <code>Object</code> | The complex signal |
-| output | <code>Array.&lt;Number&gt;</code> | (Optional) the output buffer (if you want to reuse a buffer for performance issues) |
-
+**Kind**: static class of <code>[fft](#module_fft)</code>  
