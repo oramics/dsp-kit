@@ -20,31 +20,31 @@ test('small signal against dft', function () {
     real: [10.981576461657575, -0.5115049640867155, -0.40341004810465325, -0.3851709565429806, -0.3814045241888795, -0.3851709565429834, -0.40341004810465736, -0.5115049640867091],
     imag: [0, 0.89478152366568, 0.3627155627753045, 0.149692012762088, -8.107593852744347e-16, -0.14969201276208866, -0.36271556277530603, -0.8947815236656782]
   }
-  assert.deepEqual(dftForward.real, Float64Array.from(result.real))
-  assert.deepEqual(dftForward.imag, Float64Array.from(result.imag))
-  const fftForward = fft.fft(signal)
-  assert.deepEqual(round(fftForward.real), round(Float64Array.from(result.real)))
-  assert.deepEqual(round(fftForward.imag), round(Float64Array.from(result.imag)))
+  assert.deepEqual(round(dftForward.real), round(Float64Array.from(result.real)))
+  assert.deepEqual(round(dftForward.imag), round(Float64Array.from(result.imag)))
+  const freqDomain = fft.fft(size)(signal)
+  assert.deepEqual(round(freqDomain.real), round(Float64Array.from(result.real)))
+  assert.deepEqual(round(freqDomain.imag), round(Float64Array.from(result.imag)))
 
   // inverse-able
   const dftInverse = dft.idft(dftForward).real
   assert.deepEqual(round(dftInverse), round(signal))
-  const fftInverse = fft.ifft(dftForward)
-  assert.deepEqual(round(fftInverse), round(signal))
+  const timeDomain = fft.ifft(size)(freqDomain).real
+  assert.deepEqual(round(timeDomain), round(signal))
 })
 
-test('common signal', () => {
+test('common signal against legacy dspjs', () => {
   const size = 1024
-  var legacy = new FFT(size, 44100)
 
   // create signal
   var signal = generate(size, (x) => sin(x) - cos(x + 0.75 * PI))
   assert.equal(Math.max(...signal), 1.8182117098462318)
 
   // forward
+  var legacy = new FFT(size, 44100)
   legacy.forward(signal)
   const dspForward = { real: legacy.real, imag: legacy.imag }
-  const fftForward = fft.fft(signal)
+  const fftForward = fft.fft(size)(signal)
   const dftForward = dft.dft(signal)
 
   assert.deepEqual(round(fftForward.real), round(dspForward.real))
@@ -56,7 +56,7 @@ test('common signal', () => {
 
   // inverse
   const dspInverse = legacy.inverse(dspForward.real, dspForward.imag)
-  const fftInverse = fft.ifft(fftForward)
+  const fftInverse = fft.ifft(size)(fftForward).real
   const dftInverse = dft.idft(dftForward).real
   assert.deepEqual(round(fftInverse), round(dspInverse))
   assert.deepEqual(round(fftInverse), round(dftInverse))

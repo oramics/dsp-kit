@@ -8,6 +8,7 @@
  * ### References
  *
  * - http://www.earlevel.com/main/2012/05/09/a-wavetable-oscillator%E2%80%94part-3/
+ * - https://github.com/OpenDAWN/wavetable
  *
  * @example
  * const oscillator = require('dsp-oscillator')

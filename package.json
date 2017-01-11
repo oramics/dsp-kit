@@ -2,6 +2,7 @@
   "name": "dsp-kit-tools",
   "private": true,
   "scripts": {
+    "build": "lerna run pretest",
     "test": "lerna exec -- npm test",
     "predocs": "lerna exec -- npm run docs",
     "docs": "cat ./packages/*/API.md > docs/API.md",

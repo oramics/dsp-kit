@@ -48,6 +48,7 @@ import { spectrum } from 'dsp-spectrum'
  */
 export function analysis (signal, params = {}) {
   const { size = 1024, hop = size / 5 } = params
+  const forward = fft(size)
   const numFrames = Math.floor((signal.length - size) / hop)
   // create the window buffer
   const window = generate(size, params.window || hanning())
@@ -62,7 +63,7 @@ export function analysis (signal, params = {}) {
     mult(window, frame, frame)
     // 3. Cyclic shift to phase zero windowing
     // 4. Perform the fft to the frame
-    frames[i] = spectrum(fft(center(frame)))
+    frames[i] = spectrum(forward(center(frame)))
   }
   return frames
 }
@@ -75,7 +76,6 @@ function stretch (frames, options) {
   for (let i = 2; i < numFrames; i++) {
     const prev = frames[i - 1]
     const current = frames[i]
-
   }
 }
 

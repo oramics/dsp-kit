@@ -44,18 +44,19 @@ const { sin, cos, PI } = Math
  * @return {Object} the resulted dft as an object `{ real, imag }`
  */
 function perform (signal, result, inverse) {
-  let real, imag, theta
+  let r, i, theta
+  const { real, imag } = signal
   // we take the size of the result. It can be smaller than the source
   const size = result.real.length
   for (let k = 0; k < size; k++) {
-    real = imag = 0.0
+    r = i = 0.0
     for (let n = 0; n < size; n++) {
       theta = 2 * PI * k * n / size
-      real += signal.real[n] * cos(theta) - (signal.imag ? signal.imag[n] * sin(theta) : 0)
-      imag -= signal.real[n] * sin(theta) + (signal.imag ? signal.imag[n] * cos(theta) : 0)
+      r += real[n] * cos(theta) - (imag ? imag[n] * sin(theta) : 0)
+      i -= real[n] * sin(theta) + (imag ? imag[n] * cos(theta) : 0)
     }
-    result.real[k] = inverse ? real / size : real
-    result.imag[k] = inverse ? imag / size : imag
+    result.real[k] = inverse ? r / size : r
+    result.imag[k] = inverse ? i / size : i
   }
 }
 

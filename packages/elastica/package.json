@@ -2,13 +2,14 @@
   "name": "elastica",
   "description": "Audio timestretch for Web Audio API",
   "version": "0.0.1",
-  "main": "build/index.js",
+  "main": "index.js",
   "module": "index",
   "scripts": {
     "pretest": "rollup -f cjs -o build/index.js -- index.js",
     "test": "node test/test.js",
     "docs": "jsdoc2md index.js > README.md && cp README.md API.md",
-    "start": "budo example/live.js"
+    "example": "budo --open example/example.js",
+    "example:ola": "budo --open example/amen-ola.js"
   },
   "repository": "https://github.com/oramics/dsp-kit/packages/elastica",
   "keywords": [
@@ -23,7 +24,14 @@
     "url": "https://github.com/oramics/dsp-kit/issues"
   },
   "homepage": "https://github.com/oramics/dsp-kit/packages/elastica/#readme",
-  "devDependencies": {},
+  "devDependencies": {
+    "add-canvas": "gist:2e32779f41baefc491a370a138767fdf",
+    "audio-context": "^0.1.0",
+    "exemplary": "gist:2e32779f41baefc491a370a138767fdf",
+    "h": "^0.1.0",
+    "inferno": "^1.1.2",
+    "inferno-hyperscript": "^1.1.2"
+  },
   "dependencies": {
     "dsp-buffer": "0.0.1",
     "dsp-ola": "0.0.1"
