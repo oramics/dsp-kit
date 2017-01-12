@@ -1,3 +1,4 @@
+/* eslint-disable comma-spacing */
 const test = require('tst')
 const assert = require('assert')
 const buffer = require('..')
@@ -10,10 +11,17 @@ test('zeros', () => {
   assert.deepEqual(zeros, from([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]))
 })
 
+test('window', () => {
+  var signal = buffer.generate(1024, (n) => 1)
+  var hamming = buffer.generate(100, (n, N) => 0.54 - 0.46 * Math.cos(2 * Math.PI * n / (N - 1)))
+  var windowed = buffer.window(hamming, signal)
+  assert.deepEqual(windowed, hamming)
+})
+
 test('concat', () => {
   const ones = buffer.generate(5, (x) => 1)
   const twos = buffer.generate(5, (x) => 2)
-  assert.deepEqual(buffer.concat(ones, twos), buffer.from([1, 1, 1, 1, 1, 2, 2, 2, 2, 2]))
+  assert.deepEqual(buffer.concat(ones, twos), from([1, 1, 1, 1, 1, 2, 2, 2, 2, 2]))
 })
 
 test('generate', function () {

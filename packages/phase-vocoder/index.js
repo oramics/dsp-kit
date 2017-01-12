@@ -38,10 +38,11 @@
  *
  * @module phase-vocoder
  */
-import { fft } from 'dsp-fft'
+import { fft, ifft } from 'dsp-fft'
 import { hanning } from 'dsp-window'
-import { generate, copy, mult } from 'dsp-buffer'
-import { polar, bandFrequency, fftshift } from 'dsp-spectrum'
+import { fftshift, ifftshift } from 'dsp-fftshift'
+import { generate, add, zeros, window } from 'dsp-buffer'
+import { polar, rectangular, bandFrequency } from 'dsp-spectrum'
 const { PI } = Math
 const PI2 = 2 * PI
 
@@ -53,19 +54,23 @@ export function analysis (signal, params = {}) {
   const forward = fft(size)
   const numFrames = Math.floor((signal.length - size) / hop)
   // create the window buffer
-  const window = generate(size, params.window || hanning())
-  // create frame buffer (and reuse it for performance)
-  const frame = new Float64Array(size)
+  const win = generate(size, params.window || hanning())
+
   // create an array to store all frames
   const frames = new Array(numFrames)
+
+  // create some intermediate buffers (and reuse it for performance)
+  const windowed = zeros(size)
+  const freqDomain = { real: zeros(size), imag: zeros(size) }
   for (let i = 0; i < numFrames; i++) {
-    // 1. copy a slice into the frame
-    copy(signal, frame, i * hop)
-    // 2. multiply the frame by the window
-    mult(window, frame, frame)
+    // 1. place a window into the signal
+    window(win, signal, i * hop, windowed) // => windowed
     // 3. Cyclic shift to phase zero windowing
-    // 4. Perform the fft to the frame
-    frames[i] = polar(forward(fftshift(frame)))
+    fftshift(windowed) // => centered
+    // 4. Perform the forward fft
+    forward(windowed, freqDomain)
+    // 5. Convert to polar form in a new frame
+    frames[i] = polar(freqDomain)
   }
   return frames
 }
@@ -73,7 +78,34 @@ export function analysis (signal, params = {}) {
 /**
  * Synthesize a signal from a collection of frames
  */
-export function synthesis (frames, output, { size, hop, factor, sampleRate }) {
+export function synthesis (frames, { hop, sampleRate }, output) {
+  if (!frames || !frames.length) throw Error('"frames" parameter is required in synthesis')
+
+  const len = frames.length
+  const size = frames[0].magnitudes.length
+  if (!output) output = zeros((len - 1) * hop + len)
+  const inverse = ifft(size)
+
+  // create some intermediate buffers (and reuse it for performance)
+  const rectFD = { real: zeros(size), imag: zeros(size) }
+  const timeDomain = { real: zeros(size), imag: zeros(size) }
+  for (let i = 0; i < len; i++) {
+    // 1. Convert freq-domain from polar to rectangular
+    rectangular(frames[i], rectFD)
+    // 2. Convert from freq-domain in rectangular to time-domain
+    let signal = inverse(rectFD, timeDomain).real
+    // 3. Unshift the previous cycling shift
+    ifftshift(signal)
+    // 4. Overlap add
+    add(signal, output, output, 0, i * hop, i * hop)
+  }
+  return output
+}
+
+/**
+ * Recalculate the phases of each frame when stretched
+ */
+function phaseCalculation (frames, { size, hop, factor, sampleRate }) {
   const original = hop / sampleRate
   const modified = (hop * factor) / sampleRate
 
@@ -98,35 +130,3 @@ export function synthesis (frames, output, { size, hop, factor, sampleRate }) {
     }
   }
 }
-
-/*
-          var fft = new FFT(points, freq);
-          fft.forward(hanning.process(section));
-          output_frames.push(fft);
-          var this_frame = fft;
-          frames_processed++;
-
-          if (frames_processed > 1) {
-            var last_frame = output_frames[frames_processed - 2];
-            // For each bin
-            for (var bin = 0; bin < points; ++bin) { // only work on the lower freqs
-              var phase_shift = phase(this_frame, bin) - phase(last_frame, bin);
-              var freq_deviation = (phase_shift / (hop / freq)) - fft.getBandFrequency(bin);
-              var wrapped_deviation = ((freq_deviation + Math.PI) % (2 * Math.PI)) - Math.PI;
-              var true_freq = fft.getBandFrequency(bin) + wrapped_deviation;
-              var new_phase = phase(last_frame, bin) + ((hop_synthesis / freq) * true_freq);
-
-              // Calculate new spectrum
-              var new_mag = Math.sqrt(
-                (this_frame.real[bin] * this_frame.real[bin]) +
-                (this_frame.imag[bin] * this_frame.imag[bin]));
-
-              this_frame.real[bin] = new_mag * Math.cos(new_phase);
-              this_frame.imag[bin] = new_mag * Math.sin(new_phase);
-            }
-          }
-        } else {
-          output_frames.push(hanning.process(section));
-          frames_processed++;
-        }
-*/

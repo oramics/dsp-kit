@@ -51,8 +51,3 @@ test('phase unwrap', function () {
   assert.deepEqual(negative, from(0,-1,-2,-3,-4,-5,-6,-0.7168146928204138,-1.7168146928204138,-2.7168146928204138))
   assert.deepEqual(spectrum.unwrap(negative), from(0,-1,-2,-3,-4,-5,-6,-7,-8,-9))
 })
-
-test('fftshift', function () {
-  const result = spectrum.fftshift([1, 2, 3, 4, 5])
-  assert.deepEqual(result, Float64Array.from([4, 5, 1, 2, 3]))
-})

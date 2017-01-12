@@ -14,23 +14,32 @@ var ac = require('audio-context')
 function stretch (factor, buffer, context) {
   context = context || ac
   var stretch = ola.overlapAdd({ size: 512, hop: 256 })
-  var result = stretch(factor, buffer.getChannelData(0))
-  var buffer = ac.createBuffer(1, result.length, ac.sampleRate)
-  buffer.copyToChannel(result, 0)
+  return toAudioBuffer(stretch(factor, buffer.getChannelData(0)))
+}
+
+function toAudioBuffer (left) {
+  var len = left.length
+  var buffer = ac.createBuffer(1, len, ac.sampleRate)
+  var data = buffer.getChannelData(0)
+  for (var i = 0; i < len; i++) {
+    data[i] = left[i]
+  }
   return buffer
 }
 
-function vocoder(factor, buffer, context) {
+function vocoder (factor, buffer, context) {
   console.log('phase vocoder!')
-  var stretch = phaseVocoder({ size: 512, hop: 125 })
-  var result = stretch(factor, buffer.getChannelData(0))
+  var stretch = phaseVocoder()
+  return toAudioBuffer(stretch(factor, buffer.getChannelData(0)))
 }
 
 // TODO: move this inside phase-vocoder
-function phaseVocoder(params) {
-  return function stretch(factor, data) {
-    var frames = pv.analysis(data, params)
+function phaseVocoder ({ size = 512, hop = 125, sampleRate = 44100 } = {}) {
+  return function stretch (factor, data) {
+    var frames = pv.analysis(data, { size, hop })
     console.log('We have frames', frames.length)
+    console.log(frames[1000])
+    return pv.synthesis(frames, { hop, sampleRate })
   }
 }
 module.exports = { stretch, vocoder }

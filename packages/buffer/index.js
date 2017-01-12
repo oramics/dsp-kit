@@ -6,13 +6,13 @@
  * This is part of [dsp-kit](https://github.com/oramics/dsp-kit)
  *
  * @example
- * var dsp = require('dsp-kit')
- * dsp.generate(...)
- *
- * @example
- * // require only this module
  * var buffer = require('dsp-buffer')
  * const sine = buffer.generate(1024, (x) => Math.sin(0.5 * x))
+ *
+ * @example
+ * // included in dsp-kit package
+ * var dsp = require('dsp-kit')
+ * dsp.generate(...)
  *
  * @module buffer
  */
@@ -24,11 +24,6 @@
  * @return {Array} the buffer
  */
 export function zeros (size) { return new Float64Array(size) }
-
-/**
- * Create a buffer from an array (an alias for Float64Array.from)
- */
-export const from = Float64Array.from.bind(Float64Array)
 
 /**
  * Generate a buffer using a function
@@ -67,6 +62,33 @@ export function concat (a, b, dest = null, offset = 0) {
   for (let i = 0; i < al; i++) dest[i + offset] = a[i]
   for (let i = 0; i < bl; i++) dest[i + al + offset] = b[i]
   return dest
+}
+
+/**
+ * Apply a window to a signal.
+ *
+ * @param {Array} window - the window to apply
+ * @param {Array} signal - the signal
+ * @param {Integer} offset - (Optional) the offset in the signal to place
+ * the window (0 by default)
+ * @param {Array} output - (Optional) the output buffer (must be at least the
+ * same size as the window)
+ * @return {Array} the signal fragment after the window applied
+ *
+ * @example
+ * var signal = buffer.generate(1024, ...)
+ * var hamming = buffer.generate(100, (n, N) => 0.54 - 0.46 * Math.cos(2 * Math.PI * n / (N - 1)))
+ * var windowed = buffer.window(hamming, signal)
+ * windowed.length // => 100
+ */
+export function window (win, signal, offset, output) {
+  const size = win.length
+  if (!output) output = zeros(size)
+  offset = offset || 0
+  for (let i = 0; i < size; i++) {
+    output[i] = signal[i + offset] * win[i]
+  }
+  return output
 }
 
 /**

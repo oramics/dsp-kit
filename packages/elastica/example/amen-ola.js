@@ -3,7 +3,8 @@ var h = require('h')
 var ac = require('audio-context')
 var draw = require('draw-waveform')
 var elastica = require('..')
-var decodeArrayBuffer = require('./decode-array-buffer')
+var decodeArrayBuffer = require('./lib/decode-array-buffer')
+var player = require('./lib/player.js')
 
 print('Amen break with OLA timestretch', 'h1')
 console.log(elastica)
@@ -29,7 +30,7 @@ fetch('example/amen-mono.wav').then(function (response) {
     )
   )
   var canvas = addCanvas(600)
-  function performStretch(factor) {
+  function performStretch (factor) {
     console.time('ola')
     var result = elastica.stretch(1.2, buffer)
     console.timeEnd('ola')
@@ -38,28 +39,6 @@ fetch('example/amen-mono.wav').then(function (response) {
   }
 })
 
-function player (buffer) {
-  var player = null
-  return function (e, el) {
-    if (player) {
-      player.stop()
-      player = null
-      el.innerText = 'Play'
-    } else {
-      el.innerText = 'Stop'
-      player = play(buffer, true)
-    }
-  }
-}
-
-function play (buffer, loop) {
-  var source = ac.createBufferSource()
-  source.buffer = buffer
-  source.connect(ac.destination)
-  if (loop === true) source.loop = true
-  source.start()
-  return source
-}
 
 function link (text, fn, parent) {
   parent = parent || document.body

@@ -156,12 +156,16 @@ export function unwrap (data, output) {
  * @param {Array} source - the source buffer
  * @param {Array} result - (Optional) the result buffer
  */
-export function fftshift (buffer, result) {
+export function fftshift (buffer, output) {
   const size = buffer.length
   const n = Math.floor((size / 2) + 1)
-  if (!result) result = new Float64Array(size)
+  if (!output) output = new Float64Array(size)
   for (let i = 0; i < size; i++) {
-    result[i] = buffer[(i + n) % size]
+    output[i] = buffer[(i + n) % size]
   }
-  return result
+  return output
+}
+
+export function fftunshift (buffer, output) {
+  return fftshift(buffer, output)
 }

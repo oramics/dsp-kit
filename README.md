@@ -6,8 +6,7 @@ Since I usually learn by coding, this is the result of my learning on dsp.
 
 This is largely based in the now abandoned [dsp.js](https://github.com/corbanbrook/dsp.js) code. Work in progress. Experimental API. Use at your own risk.
 
-
-This is a [multimodule](https://github.com/oramics/dsp-kit/tree/master/packages) repository.
+[![npm install dsp-kit](https://nodei.co/npm/dsp-kit.png?mini=true)](https://npmjs.org/package/dsp-kit/)
 
 ```js
 const dsp = require('dsp-kit')
@@ -18,13 +17,17 @@ spectrum.magnitudes // => the magnitude spectrum of the signal
 spectrum.phases // => the phase spectrum of the signal
 ```
 
+This is a [multimodule](https://github.com/oramics/dsp-kit/tree/master/packages) repository.
+
 ## Documentation
 
-Read the [generated API documentation](https://github.com/oramics/dsp-kit/blob/master/docs/README.md)
+Read the [generated API documentation](https://github.com/oramics/dsp-kit/blob/master/docs/API.md)
 
 ## Development
 
 Clone the repo and install dependencies: `npm install` and init lerna: `lerna bootstrap`
+
+Then you can list all the npm tasks with `npm run`:
 
 - __run tests__: `npm test`
 - __run benchmarks__: `npm run benchmarks`
@@ -32,7 +35,7 @@ Clone the repo and install dependencies: `npm install` and init lerna: `lerna bo
 
 ## Credits
 
-Lot of the code is based on the now unmantained [dsp.js]() library by @corbanbrook, that in turn was based on [code samples](http://code.almeros.com/code-examples/delay-firefox-audio-api) by Almer Thie
+Lot of the code is based on the now unmantained [dsp.js]() library by @corbanbrook, that in turn was based on [code samples](http://code.almeros.com/code-examples/delay-firefox-audio-api) by Almer Thie.
 
 Also, this library takes (steal) inspiration from:
 

@@ -25,10 +25,11 @@
  *
  * @module dsp-kit
  */
-export { from, add, mult, zeros, generate, concat, combinator, map, copy, round } from 'dsp-buffer'
+export { add, mult, zeros, generate, concat, combinator, map, copy, round } from 'dsp-buffer'
 export { dft, idft } from 'dsp-dft'
 export { fft, ifft } from 'dsp-fft'
-export { bandWidth, bandFrequency, polar, rectangular, fftshift } from 'dsp-spectrum'
+export { fftshift, ifftshift } from 'dsp-fftshift'
+export { bandWidth, bandFrequency, polar, rectangular } from 'dsp-spectrum'
 
 // window is exported into it's own namespace
 import * as win from 'dsp-window'

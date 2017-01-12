@@ -9,34 +9,28 @@ This is part of [dsp-kit](https://github.com/oramics/dsp-kit)
 
 **Example**  
 ```js
-var dsp = require('dsp-kit')
-dsp.generate(...)
-```
-**Example**  
-```js
-// require only this module
 var buffer = require('dsp-buffer')
 const sine = buffer.generate(1024, (x) => Math.sin(0.5 * x))
 ```
+**Example**  
+```js
+// included in dsp-kit package
+var dsp = require('dsp-kit')
+dsp.generate(...)
+```
 
 * [buffer](#module_buffer)
-    * [.from](#module_buffer.from)
     * [.add](#module_buffer.add) ⇒ <code>Array</code>
     * [.mult](#module_buffer.mult)
     * [.zeros(size)](#module_buffer.zeros) ⇒ <code>Array</code>
     * [.generate(buffer, fn)](#module_buffer.generate)
     * [.concat(bufferA, bufferB, destination)](#module_buffer.concat) ⇒ <code>Array</code>
+    * [.window(window, signal, offset, output)](#module_buffer.window) ⇒ <code>Array</code>
     * [.combinator(fn)](#module_buffer.combinator) ⇒ <code>function</code>
     * [.copy(source, destination)](#module_buffer.copy) ⇒ <code>Array</code>
     * [.map(fn, source, destination)](#module_buffer.map) ⇒ <code>Array</code>
     * [.round(array, decimals)](#module_buffer.round)
 
-<a name="module_buffer.from"></a>
-
-### buffer.from
-Create a buffer from an array (an alias for Float64Array.from)
-
-**Kind**: static constant of <code>[buffer](#module_buffer)</code>  
 <a name="module_buffer.add"></a>
 
 ### buffer.add ⇒ <code>Array</code>
@@ -133,6 +127,28 @@ Concatenate two buffers
 ```js
 // concat into a new buffer
 const bufferC = buffer.concat(bufferA, bufferB)
+```
+<a name="module_buffer.window"></a>
+
+### buffer.window(window, signal, offset, output) ⇒ <code>Array</code>
+Apply a window to a signal.
+
+**Kind**: static method of <code>[buffer](#module_buffer)</code>  
+**Returns**: <code>Array</code> - the signal fragment after the window applied  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| window | <code>Array</code> | the window to apply |
+| signal | <code>Array</code> | the signal |
+| offset | <code>Integer</code> | (Optional) the offset in the signal to place the window (0 by default) |
+| output | <code>Array</code> | (Optional) the output buffer (must be at least the same size as the window) |
+
+**Example**  
+```js
+var signal = buffer.generate(1024, ...)
+var hamming = buffer.generate(100, (n, N) => 0.54 - 0.46 * Math.cos(2 * Math.PI * n / (N - 1)))
+var windowed = buffer.window(hamming, signal)
+windowed.length // => 100
 ```
 <a name="module_buffer.combinator"></a>
 

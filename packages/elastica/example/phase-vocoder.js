@@ -1,10 +1,12 @@
+/* global fetch */
 var h = require('h')
-var ac = require('audio-context')
 var draw = require('draw-waveform')
 var elastica = require('..')
-var decodeArrayBuffer = require('./decode-array-buffer')
+var decodeArrayBuffer = require('./lib/decode-array-buffer')
+var player = require('./lib/player.js')
 
 const add = (el) => { document.body.appendChild(el); return el }
+const canvas = (opts) => h('canvas', opts)
 
 Promise.resolve('Phase vocoder elastica example')
 .then((title) => {
@@ -17,10 +19,17 @@ Promise.resolve('Phase vocoder elastica example')
 })
 .then((buffer) => {
   // draw buffer
-  draw(add(h('canvas', { width: 600, height: 300 })), buffer.getChannelData(0))
+  var c = canvas({ width: 600, height: 300, onClick: player(buffer) })
+  c.onclick = player(buffer)
+  draw(add(c), buffer.getChannelData(0))
   return buffer
 })
 .then((buffer) => {
   // perform time stretch
-  elastica.vocoder(1.2, buffer)
+  return elastica.vocoder(1.2, buffer)
+})
+.then((stretched) => {
+  var c = canvas({ width: 600, height: 300 })
+  c.onclick = player(stretched)
+  draw(add(c), stretched.getChannelData(0))
 })
