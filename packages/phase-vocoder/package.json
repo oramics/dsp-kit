@@ -1,6 +1,6 @@
 {
-  "name": "phase-vocoder",
-  "description": "Phase vocoder in javascript",
+  "name": "dsp-phase-vocoder",
+  "description": "Phase vocoder algorithm in javascript",
   "version": "0.0.1",
   "main": "build/index.js",
   "module": "index",
@@ -11,9 +11,9 @@
   },
   "repository": "https://github.com/oramics/dsp-kit/packages/phase-vocoder",
   "keywords": [
-    "fast",
-    "fourier",
-    "transform",
+    "timestretch",
+    "pitchshift",
+    "phase-vocoder",
     "dsp",
     "dsp-kit"
   ],
@@ -23,10 +23,12 @@
     "url": "https://github.com/oramics/dsp-kit/issues"
   },
   "homepage": "https://github.com/oramics/dsp-kit/packages/phase-vocoder/#readme",
-  "devDependencies": {
+  "dependencies": {
     "dsp-buffer": "^0.0.1",
     "dsp-window": "^0.0.1",
     "dsp-spectrum": "^0.0.0",
     "dsp-fft": "^0.0.1"
+  },
+  "devDependencies": {
   }
 }

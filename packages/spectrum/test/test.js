@@ -1,30 +1,58 @@
+/* eslint-disable comma-spacing */
 const test = require('tst')
 const assert = require('assert')
 const dspjs = require('dspjs')
-const buffer = require('dsp-buffer')
 const fft = require('dsp-fft')
-const { bandFrequency, bandWidth, spectrum } = require('..')
+const spectrum = require('..')
+const { generate, round } = require('dsp-buffer')
 
-function FFT (size = 2048, rate = 44100) {
-  return new dspjs.FFT(size, rate)
-}
+function from (...v) { return Float64Array.from(v) }
 
 test('band width', function () {
-  const old = FFT()
-  assert.equal(bandWidth(old.bufferSize, old.sampleRate), old.bandwidth)
+  const old = new dspjs.FFT(2048, 44100)
+  assert.equal(spectrum.bandWidth(2048, 44100), old.bandwidth)
 })
 
 test('center frequency', function () {
-  const old = FFT()
+  const old = new dspjs.FFT(2048, 44100)
   for (let i = 0; i < 100; i += 10) {
-    assert.equal(bandFrequency(i, old.bufferSize, old.sampleRate), old.getBandFrequency(i))
+    assert.equal(spectrum.bandFrequency(i, 2048, 44100), old.getBandFrequency(i))
   }
 })
 
 test('spectrum', function () {
-  const signal = buffer.generate(64, (n, N) => Math.sin(2 * Math.PI * n / (N - 1)))
-  const old = FFT(64)
+  const size = 64
+  const signal = generate(size, (n, N) => Math.sin(2 * Math.PI * n / (N - 1)))
+  const old = new dspjs.FFT(size, 44100)
   old.forward(signal)
-  const spec = spectrum(fft.fft(64)(signal))
-  assert.deepEqual(spec.magnitudes, old.spectrum)
+  // the result from the dsp.js is divided by `2 / size` so we have to denormalize
+  const magnitudes = old.spectrum.map((n) => n * size / 2)
+  const polar = spectrum.polar(fft.fft(size, signal))
+  // by default the length of magnitures array is the same length as signal
+  // although some simmetry can be found
+  assert.deepEqual(polar.magnitudes.length, size)
+  assert.deepEqual(polar.magnitudes.slice(0, magnitudes.length), magnitudes)
+})
+
+test('rectangular form', function () {
+  const size = 8
+  const signal = generate(size, (n, N) => Math.sin(2 * Math.PI * n / (N - 1)))
+  const complex = fft.fft(size, signal)
+  const polar = spectrum.polar(complex)
+  const rect = spectrum.rectangular(polar)
+  assert.deepEqual(round(rect.real), round(complex.real))
+})
+
+test('phase unwrap', function () {
+  const positive = generate(10, (i) => i % (2 * Math.PI))
+  assert.deepEqual(positive, from(0,1,2,3,4,5,6,0.7168146928204138,1.7168146928204138,2.7168146928204138))
+  assert.deepEqual(spectrum.unwrap(positive), from(0,1,2,3,4,5,6,7,8,9))
+  const negative = generate(10, (i) => -i % (2 * Math.PI))
+  assert.deepEqual(negative, from(0,-1,-2,-3,-4,-5,-6,-0.7168146928204138,-1.7168146928204138,-2.7168146928204138))
+  assert.deepEqual(spectrum.unwrap(negative), from(0,-1,-2,-3,-4,-5,-6,-7,-8,-9))
+})
+
+test('fftshift', function () {
+  const result = spectrum.fftshift([1, 2, 3, 4, 5])
+  assert.deepEqual(result, Float64Array.from([4, 5, 1, 2, 3]))
 })

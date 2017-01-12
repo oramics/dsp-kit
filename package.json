@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "build": "lerna run pretest",
-    "test": "lerna exec -- npm test",
+    "test": "lerna run test",
     "predocs": "lerna exec -- npm run docs",
     "docs": "cat ./packages/*/API.md > docs/API.md",
     "dist": "npm run dist:pack && npm run dist:minify && ls -hall dist/",

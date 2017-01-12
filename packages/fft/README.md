@@ -23,16 +23,41 @@ dsp.spectrum(fft.forward(signal))
 ```
 **Example**  
 ```js
-const FFT = require('dsp-fft').FFT
-const fft = new FFT(1024)
-output = fft.forward(signal) // the signal must have 1024 samples length
-fft.forward(signal, output) // reuse the output buffers
-fft.inverse(output) // => signal
+const FFT = require('dsp-fft')
+const forward = FFT.fft(1024)
+const freqDomainSignal = forward(timeDomainSignal)
+
+const inverse = FFT.ifft(1024)
+const timeDomainSignal = inverse(freqDomainSignal)
+
+// the forward and inverse transformations are reversible
+inverse(forward(signal)) // => signal
 ```
-<a name="module_fft.FFT"></a>
+<a name="module_fft.ifft"></a>
 
-### fft.FFT
-FFT is a class for calculating the Discrete Fourier Transform of a signal
-with the Fast Fourier Transform algorithm.
+### fft.ifft(size, signal, output) ⇒
+Performs a inverse FFT transformation
+Converts a frequency domain spectra to a time domain signal
 
-**Kind**: static class of <code>[fft](#module_fft)</code>  
+**Kind**: static method of <code>[fft](#module_fft)</code>  
+**Returns**: The signal after the inverse process  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| size | <code>Integer</code> | the size of the FFT buffer |
+| signal | <code>Object</code> | A complex signal object |
+| output | <code>Object</code> | (Optional) a complex signal output buffers |
+
+**Example**  
+```js
+// simple usage:
+const FFT = require('dsp-fft')
+FFT.ifft(1024, complexSignal)
+```
+**Example**  
+```js
+// performant usage:
+const inverse = FFT.ifft(1024)
+inverse(complexSignal1)
+inverse(complexSignal2)
+```

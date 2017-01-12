@@ -19,11 +19,15 @@
  * dsp.spectrum(fft.forward(signal))
  *
  * @example
- * const FFT = require('dsp-fft').FFT
- * const fft = new FFT(1024)
- * output = fft.forward(signal) // the signal must have 1024 samples length
- * fft.forward(signal, output) // reuse the output buffers
- * fft.inverse(output) // => signal
+ * const FFT = require('dsp-fft')
+ * const forward = FFT.fft(1024)
+ * const freqDomainSignal = forward(timeDomainSignal)
+ *
+ * const inverse = FFT.ifft(1024)
+ * const timeDomainSignal = inverse(freqDomainSignal)
+ *
+ * // the forward and inverse transformations are reversible
+ * inverse(forward(signal)) // => signal
  *
  * @module fft
  */
@@ -44,8 +48,19 @@ function isPow2 (v) { return !(v & (v - 1)) && (!!v) }
 * @param {Array} buffer The sample buffer. Buffer Length must be power of 2
 * @param {Object} output - (Optional) pass a complex signal object to reuse
 * buffers (instead of create new if no ones provided)
-*
 * @returns The frequency domain complex signal object
+*
+* @example
+* // simple usage:
+* const FFT = require('dsp-fft')
+* FFT.fft(1024, signal)
+*
+* @example
+* // performant usage:
+* const forward = FFT.fft(1024)
+* forward(signal1)
+* forward(signal2)
+* ...
 */
 export function fft (size, b, o) {
   if (arguments.length > 1) return fft(size)(b, o)
@@ -110,7 +125,15 @@ export function fft (size, b, o) {
 * @returns The signal after the inverse process
 *
 * @example
-* const freqDomain = dsp.fft(1024, timeDomain) // => { real: <Array>, imag: <Array> }
+* // simple usage:
+* const FFT = require('dsp-fft')
+* FFT.ifft(1024, complexSignal)
+*
+* @example
+* // performant usage:
+* const inverse = FFT.ifft(1024)
+* inverse(complexSignal1)
+* inverse(complexSignal2)
 */
 export function ifft (size, c, o) {
   if (arguments.length > 1) return ifft(size)(c, o)

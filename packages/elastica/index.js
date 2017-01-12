@@ -8,6 +8,7 @@
  */
 
 var ola = require('dsp-ola')
+var pv = require('dsp-phase-vocoder')
 var ac = require('audio-context')
 
 function stretch (factor, buffer, context) {
@@ -19,4 +20,17 @@ function stretch (factor, buffer, context) {
   return buffer
 }
 
-module.exports = { stretch: stretch }
+function vocoder(factor, buffer, context) {
+  console.log('phase vocoder!')
+  var stretch = phaseVocoder({ size: 512, hop: 125 })
+  var result = stretch(factor, buffer.getChannelData(0))
+}
+
+// TODO: move this inside phase-vocoder
+function phaseVocoder(params) {
+  return function stretch(factor, data) {
+    var frames = pv.analysis(data, params)
+    console.log('We have frames', frames.length)
+  }
+}
+module.exports = { stretch, vocoder }

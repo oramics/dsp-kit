@@ -1,4 +1,3 @@
-'use strict'
 const test = require('tst')
 const assert = require('assert')
 const buffer = require('..')
@@ -9,11 +8,6 @@ test('zeros', () => {
   const zeros = buffer.zeros(10)
   assert.equal(zeros.length, 10)
   assert.deepEqual(zeros, from([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]))
-})
-
-test('center', function () {
-  const result = buffer.center([1, 2, 3, 4, 5])
-  assert.deepEqual(result, Float64Array.from([4, 5, 1, 2, 3]))
 })
 
 test('concat', () => {
@@ -78,4 +72,10 @@ test('add to a buffer', function () {
   const result = buffer.zeros(100)
   buffer.add(ones, ones, result)
   assert.deepEqual(result, buffer.generate(100, (x) => 2))
+})
+
+test('round', function () {
+  const signal = buffer.generate(10, (n, N) => Math.sin(2 * Math.PI * n / (N - 1)))
+  assert.deepEqual(buffer.round(signal, 2), from([0,0.64,0.98,0.87,0.34,-0.34,-0.87,-0.98,-0.64,0]))
+  assert.deepEqual(buffer.round(signal, 3), from([0,0.643,0.985,0.866,0.342,-0.342,-0.866,-0.985,-0.643,0]))
 })

@@ -2,20 +2,20 @@ const test = require('tst')
 const assert = require('assert')
 const dft = require('dsp-dft')
 const dspjs = require('dspjs')
-const buffer = require('dsp-buffer')
 const dspkit = require('..')
 const { PI, sin, cos } = Math
+const { generate, round } = require('dsp-buffer')
 
 test('generate', function () {
   // we don't want generate to fail and break our tests
-  const signal = generate(10, (x) => sin(x))
+  const signal = generate(10, (n, N) => sin(n / N))
   assert.deepEqual(signal, Float64Array.from([0, 0.09983341664682815, 0.19866933079506122, 0.29552020666133955, 0.3894183423086505, 0.479425538604203, 0.5646424733950354, 0.644217687237691, 0.7173560908995228, 0.7833269096274834]))
   assert.equal(Math.max(...signal), 0.7833269096274834)
 })
 
 test('small signal against dft', function () {
   const size = 8
-  const signal = generate(size, (x) => sin(x) + cos(0.5 * x))
+  const signal = generate(size, (n, N) => sin(n / N) + cos(0.5 * n / N))
   const dftFreqDomain = dft.dft(signal)
   const fftFreqDomain = dspkit.fft(size, signal)
   assert.deepEqual(round(fftFreqDomain.real), round(dftFreqDomain.real))
@@ -33,7 +33,7 @@ test('common signal against legacy dspjs', () => {
   const size = 1024
 
   // create signal
-  var signal = generate(size, (x) => sin(x) - cos(x + 0.75 * PI))
+  var signal = generate(size, (n, N) => sin(n / N) - cos(n / N + 0.75 * PI))
   assert.equal(Math.max(...signal), 1.8182117098462318)
 
   // forward
@@ -56,20 +56,3 @@ test('common signal against legacy dspjs', () => {
   assert.deepEqual(round(fftTimeDomain.real), round(dftTimeDomain.real))
   assert.deepEqual(round(fftTimeDomain.imag), round(dftTimeDomain.imag))
 })
-
-// A handy signal generator
-function generate (size, fn) {
-  var arr = new Float64Array(size)
-  for (let i = 0; i < size; i++) arr[i] = fn(i / size, i, size)
-  return arr
-}
-
-// There are small differences of precission between algorithms. We round all
-// the values to a default precision of 8 decimals to get comparable results
-function round (arr, n = 8) {
-  const m = Math.pow(10, n)
-  return arr.map(function (x) {
-    const r = Math.round(x * m) / m
-    return Object.is(r, -0) ? 0 : r
-  })
-}

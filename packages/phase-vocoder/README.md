@@ -39,25 +39,16 @@ var dsp = require('dsp-kit')
 ```
 
 * [phase-vocoder](#module_phase-vocoder)
-    * _static_
-        * [.analysis()](#module_phase-vocoder.analysis)
-    * _inner_
-        * [~stretch()](#module_phase-vocoder..stretch)
-        * [~synthesis()](#module_phase-vocoder..synthesis)
+    * [.analysis()](#module_phase-vocoder.analysis)
+    * [.synthesis()](#module_phase-vocoder.synthesis)
 
 <a name="module_phase-vocoder.analysis"></a>
 
 ### phase-vocoder.analysis()
 **Kind**: static method of <code>[phase-vocoder](#module_phase-vocoder)</code>  
-<a name="module_phase-vocoder..stretch"></a>
+<a name="module_phase-vocoder.synthesis"></a>
 
-### phase-vocoder~stretch()
-It recalculates each frame phase based on the stretch factor
-
-**Kind**: inner method of <code>[phase-vocoder](#module_phase-vocoder)</code>  
-<a name="module_phase-vocoder..synthesis"></a>
-
-### phase-vocoder~synthesis()
+### phase-vocoder.synthesis()
 Synthesize a signal from a collection of frames
 
-**Kind**: inner method of <code>[phase-vocoder](#module_phase-vocoder)</code>  
+**Kind**: static method of <code>[phase-vocoder](#module_phase-vocoder)</code>  

@@ -29,7 +29,7 @@ const sine = buffer.generate(1024, (x) => Math.sin(0.5 * x))
     * [.combinator(fn)](#module_buffer.combinator) ⇒ <code>function</code>
     * [.copy(source, destination)](#module_buffer.copy) ⇒ <code>Array</code>
     * [.map(fn, source, destination)](#module_buffer.map) ⇒ <code>Array</code>
-    * [.center(source, result)](#module_buffer.center)
+    * [.round(array, decimals)](#module_buffer.round)
 
 <a name="module_buffer.from"></a>
 
@@ -50,17 +50,14 @@ Add two buffers.
 | bufferA | <code>Array</code> | the source buffer |
 | bufferB | <code>Array</code> | the B buffer |
 | destination | <code>Array</code> &#124; <code>Integer</code> | (Optional) the destination buffer or the number of samples to add. If not present, a new buffer is created. |
-| offsetA | <code>Integer</code> | the start offset of the A buffer |
-| offsetA | <code>Integer</code> | the start offset of the B buffer |
-| offsetDestination | <code>Integer</code> | the start offset of the destination buffer |
+| offsetA | <code>Integer</code> | (Optional) the start offset of the A buffer |
+| offsetA | <code>Integer</code> | (Optional) the start offset of the B buffer |
+| offsetDestination | <code>Integer</code> | (Optional) the start offset of the destination buffer |
 
 **Example**  
 ```js
 // add to buffers into a new one
 const result = buffer.add(bufferA, bufferB)
-```
-**Example**  
-```js
 // add to buffers into a third
 buffer.add(bufferA, bufferB, dest)
 ```
@@ -188,20 +185,34 @@ buffer.map((x) => x * 2, sine) // => a buffer with the gain doubled
 const doubleGain = buffer.map((x) => x * 2)
 doubleGain(buffer) // => a buffer with the gain doubled
 ```
-<a name="module_buffer.center"></a>
+<a name="module_buffer.round"></a>
 
-### buffer.center(source, result)
-Perform a cyclic shifting (rotation) to set the first sample at the middle
-of the buffer (it reorder buffer samples from (0:N-1) to [(N/2:N-1) (0:(N/2-1))])
+### buffer.round(array, decimals)
+Round the values of an array to a number of decimals.
 
-This is the same function as mathlab's `fftshift`
+There are small differences of precission between algorithms. This helper
+function allows to compare them discarding the precission errors.
 
 **Kind**: static method of <code>[buffer](#module_buffer)</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| source | <code>Array</code> | the source buffer |
-| result | <code>Array</code> | (Optional) the result buffer |
+| array | <code>Array</code> |  |
+| decimals | <code>Integer</code> | (Optional) the number of decimals (8 by default) |
+
+<a name="module_delay"></a>
+
+## delay
+> Delay a signal
+
+[![npm install dsp-delay](https://nodei.co/npm/dsp-delay.png?mini=true)](https://npmjs.org/package/dsp-delay/)
+
+The code of this module is adapted from the unmaintained
+[dsp.js](https://github.com/corbanbrook/dsp.js) by Corban Brook
+which in turn is adapted from
+http://code.almeros.com/code-examples/delay-firefox-audio-api by Almer Thie
+
+This is part of [dsp-kit](https://github.com/oramics/dsp-kit)
 
 <a name="module_dft"></a>
 
@@ -316,6 +327,17 @@ const windowed = dsp.map(signal, dsp.window.hanning())
 // apply a window to the same buffer
 dsp.map(signal, dsp.window.hanning(), signal)
 ```
+<a name="ola"></a>
+
+## ola
+> timestretch audio in the browser
+
+It bridges the web audio api (audio buffers, audio workers) with the
+timestretch functions of dsp-kit
+
+Will be published as an independent module
+
+**Kind**: global variable  
 <a name="module_fft"></a>
 
 ## fft
@@ -336,59 +358,49 @@ This is part of [dsp-kit](https://github.com/oramics/dsp-kit)
 **Example**  
 ```js
 const dsp = require('dsp-kit')
-dsp.spectrum(dsp.fft(signal))
+const fft = new dsp.FFT(1024)
+dsp.spectrum(fft.forward(signal))
 ```
 **Example**  
 ```js
-const fft = require('dsp-fft')
-const signal = ...
-// invertible fft
-fft.ifft(fft.fft(signal)) === signal
+const FFT = require('dsp-fft')
+const forward = FFT.fft(1024)
+const freqDomainSignal = forward(timeDomainSignal)
+
+const inverse = FFT.ifft(1024)
+const timeDomainSignal = inverse(freqDomainSignal)
+
+// the forward and inverse transformations are reversible
+inverse(forward(signal)) // => signal
 ```
-
-* [fft](#module_fft)
-    * [.fft(signal, output)](#module_fft.fft) ⇒ <code>Object</code>
-    * [.ifft(input, output)](#module_fft.ifft) ⇒ <code>Array.&lt;Number&gt;</code>
-
-<a name="module_fft.fft"></a>
-
-### fft.fft(signal, output) ⇒ <code>Object</code>
-Perform a forward Fast Fourier Transform over a real signal (represented
-as an array of numbers)
-
-The length of the input array must be a power of 2.
-
-The result is a complex signal, represented with an object with two arrays
-of same length: `{ real: Array<Number>, imag: Array<Number> }`
-
-This code is adapted from the unmaintained library dsp.js
-
-**Kind**: static method of <code>[fft](#module_fft)</code>  
-**Returns**: <code>Object</code> - the output buffers  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| signal | <code>Array</code> | The signal to perform the forward fft to. It's length must be a power of 2 |
-| output | <code>Object</code> | (Optional) the output buffers. If you want to recycle some arrays for performance reason, you can given them here |
-
 <a name="module_fft.ifft"></a>
 
-### fft.ifft(input, output) ⇒ <code>Array.&lt;Number&gt;</code>
-Perform an inverse Fast Fourier Transform over a complex signal
-
-The complex signal is an object with the form `{ real: Array<Number>, imag: Array<Number> }`
-with the same length. Also the length must be a power of 2
-
-It returns a real signal (`Array<Number>`) with the same size.
+### fft.ifft(size, signal, output) ⇒
+Performs a inverse FFT transformation
+Converts a frequency domain spectra to a time domain signal
 
 **Kind**: static method of <code>[fft](#module_fft)</code>  
-**Returns**: <code>Array.&lt;Number&gt;</code> - the real signal  
+**Returns**: The signal after the inverse process  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| input | <code>Object</code> | The complex signal |
-| output | <code>Array.&lt;Number&gt;</code> | (Optional) the output buffer (if you want to reuse a buffer for performance issues) |
+| size | <code>Integer</code> | the size of the FFT buffer |
+| signal | <code>Object</code> | A complex signal object |
+| output | <code>Object</code> | (Optional) a complex signal output buffers |
 
+**Example**  
+```js
+// simple usage:
+const FFT = require('dsp-fft')
+FFT.ifft(1024, complexSignal)
+```
+**Example**  
+```js
+// performant usage:
+const inverse = FFT.ifft(1024)
+inverse(complexSignal1)
+inverse(complexSignal2)
+```
 <a name="module_ola"></a>
 
 ## ola
@@ -441,6 +453,7 @@ This is part of [dsp-kit](https://github.com/oramics/dsp-kit)
 ### References
 
 - http://www.earlevel.com/main/2012/05/09/a-wavetable-oscillator%E2%80%94part-3/
+- https://github.com/OpenDAWN/wavetable
 
 **Example**  
 ```js
@@ -487,35 +500,31 @@ var dsp = require('dsp-kit')
 ```
 
 * [phase-vocoder](#module_phase-vocoder)
-    * _static_
-        * [.analysis()](#module_phase-vocoder.analysis)
-    * _inner_
-        * [~stretch()](#module_phase-vocoder..stretch)
-        * [~synthesis()](#module_phase-vocoder..synthesis)
+    * [.analysis()](#module_phase-vocoder.analysis)
+    * [.synthesis()](#module_phase-vocoder.synthesis)
 
 <a name="module_phase-vocoder.analysis"></a>
 
 ### phase-vocoder.analysis()
 **Kind**: static method of <code>[phase-vocoder](#module_phase-vocoder)</code>  
-<a name="module_phase-vocoder..stretch"></a>
+<a name="module_phase-vocoder.synthesis"></a>
 
-### phase-vocoder~stretch()
-It recalculates each frame phase based on the stretch factor
-
-**Kind**: inner method of <code>[phase-vocoder](#module_phase-vocoder)</code>  
-<a name="module_phase-vocoder..synthesis"></a>
-
-### phase-vocoder~synthesis()
+### phase-vocoder.synthesis()
 Synthesize a signal from a collection of frames
 
-**Kind**: inner method of <code>[phase-vocoder](#module_phase-vocoder)</code>  
+**Kind**: static method of <code>[phase-vocoder](#module_phase-vocoder)</code>  
 <a name="module_spectrum"></a>
 
 ## spectrum
 > Transformations of frequency domain information
 
-> In virtually all cases, the result from the DFT has to be converted into polar coordinates in
-order to permit the desired modifications in an appropriate way as magnitudes and phases:
+This module is a collection of functions to work with spectrum of a signal
+
+Before we do anything in the field of spectral modeling, we must be able to
+competently compute the spectrum of a signal. The spectrum is given by
+the Fourier transform of a signal, but in virtually all cases, the result
+from the DFT has to be converted into polar coordinates in order to permit
+the desired modifications in an appropriate way as magnitudes and phases
 
 [![npm install dsp-spectrum](https://nodei.co/npm/dsp-spectrum.png?mini=true)](https://npmjs.org/package/dsp-spectrum/)
 
@@ -523,6 +532,9 @@ This module contains function to work with the result of a DFT (or FFT),
 the signal in the frequency domain.
 
 This is part of [dsp-kit](https://github.com/oramics/dsp-kit)
+
+### References
+- Polar notation: http://www.dspguide.com/ch8/8.htm
 
 **Example**  
 ```js
@@ -533,7 +545,10 @@ dsp.spectrum(dft.fft(signal))
 * [spectrum](#module_spectrum)
     * [.bandWidth(size, sampleRate)](#module_spectrum.bandWidth) ⇒ <code>Number</code>
     * [.bandFrequency(index, size, sampleRate)](#module_spectrum.bandFrequency) ⇒ <code>Number</code>
-    * [.spectrum(freqDomain, spectrum)](#module_spectrum.spectrum) ⇒ <code>Array</code>
+    * [.polar(freqDomain, output)](#module_spectrum.polar) ⇒ <code>Array</code>
+    * [.rectangular()](#module_spectrum.rectangular)
+    * [.unwrap(data, output)](#module_spectrum.unwrap) ⇒ <code>Array</code>
+    * [.fftshift(source, result)](#module_spectrum.fftshift)
 
 <a name="module_spectrum.bandWidth"></a>
 
@@ -564,25 +579,78 @@ Calculates the center frequency of an DFT band (or bin)
 | size | <code>Integer</code> | the DFT (or FFT) buffer size |
 | sampleRate | <code>Integer</code> | the sample rate of the original signal |
 
-<a name="module_spectrum.spectrum"></a>
+<a name="module_spectrum.polar"></a>
 
-### spectrum.spectrum(freqDomain, spectrum) ⇒ <code>Array</code>
-Calculate the spectrum of a DFT or FFT result (a
-signal in the frequency domain)
+### spectrum.polar(freqDomain, output) ⇒ <code>Array</code>
+Convert a signal in frequency domain from rectangular `{ real, imag }` to
+polar form `{ magnitudes, phases }`
+
+It returns an object with two arrays: `{ magnitures: <Array>, phases: <Array> }`
+If not provided, the magnitudes and phases lengths will be the same as the
+real and imaginary parts (you can remove calculations by providing arrays
+of `length = (N / 2) + 1` in real signals because the symetric properties)
 
 **Kind**: static method of <code>[spectrum](#module_spectrum)</code>  
-**Returns**: <code>Array</code> - the spectrum  
+**Returns**: <code>Array</code> - the frequency domain data in polar notation: an object
+with the form: `{ magnitudes: <Array>, phases: <Array> }`  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| freqDomain | <code>Object</code> | the frequency domain data |
-| spectrum | <code>Object</code> | (Optional) the buffers to store the spectrum (with the form { `magnitudes`: Array, `phases`: Array }) |
+| freqDomain | <code>Object</code> | the frequency domain data in rectangular notation |
+| output | <code>Object</code> | (Optional) the buffers to store the data in polar form if you want to reuse buffers for performance reasons |
 
 **Example**  
 ```js
 const dsp = require('dsp-kit')
-dsp.spectrum(dsp.fft(signal)).magnitudes
+dsp.polar(dsp.fft(signal)).magnitudes
 ```
+<a name="module_spectrum.rectangular"></a>
+
+### spectrum.rectangular()
+Given a spectrum in rectangular form (`{ magnitudes, phases }`) convert
+into a spectrum in polar form (`{ real, imag }`).
+
+This is the inverse operation of `polar` function
+
+**Kind**: static method of <code>[spectrum](#module_spectrum)</code>  
+**See**: polar  
+<a name="module_spectrum.unwrap"></a>
+
+### spectrum.unwrap(data, output) ⇒ <code>Array</code>
+Perfroms a phase-unwrapping of a phase data
+
+**Kind**: static method of <code>[spectrum](#module_spectrum)</code>  
+**Returns**: <code>Array</code> - the unrapped phase data  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| data | <code>Array</code> | phase data |
+| output | <code>Array</code> | (Optional) the output array to store the unrapped phase data (or a new array will be created if not provided) |
+
+**Example**  
+```js
+// get the spectrum of a 1024 size signal fragment
+const spectrum = dsp.spectrum(dsp.fft(1024, signal))
+// unwrap the phases
+const unwrapped = dsp.unwrap(spectrum.phases)
+```
+<a name="module_spectrum.fftshift"></a>
+
+### spectrum.fftshift(source, result)
+Perform a cyclic shifting (rotation) to set the first sample at the middle
+of the buffer (it reorder buffer samples from (0:N-1) to [(N/2:N-1) (0:(N/2-1))])
+
+This is useful to perform zero-phase windowing
+
+This is the same function as mathlab's `fftshift`
+
+**Kind**: static method of <code>[spectrum](#module_spectrum)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| source | <code>Array</code> | the source buffer |
+| result | <code>Array</code> | (Optional) the result buffer |
+
 <a name="module_window"></a>
 
 ## window
@@ -596,6 +664,9 @@ All window functions have some extra properties:
 - rov: recommended overlap
 
 This is part of [dsp-kit](https://github.com/oramics/dsp-kit)
+
+### References
+https://www.dsprelated.com/freebooks/sasp/Spectrum_Analysis_Windows.html
 
 **Example**  
 ```js
@@ -613,10 +684,13 @@ dsp.generate(1024, dsp.window.hanning())
 ### window.rectangular
 The rectangular window, also sometimes called ‘uniform window’, is given by
 w = 1, equivalent to using no window at all.
+
 Although there are some special applications where the rectangular
 window is advantageous, it is probably not useful for any of our applications
 
-- recommended overlap: 50%
+- Abrupt transition from 1 to 0 at the window endpoints
+- Roll-off is asymptotically -6dB per octave
+- First side lobe is -13dB relative to main-lobe peak
 
 **Kind**: static constant of <code>[window](#module_window)</code>  
 <a name="module_window.hanning"></a>
@@ -624,6 +698,10 @@ window is advantageous, it is probably not useful for any of our applications
 ### window.hanning
 The Hanning window (one of a family of ‘raised cosine’ windows) is also known
 as ‘Hann window’. Do not confuse it with the ‘Hamming’ window.
+
+- Smooth transition to zero at window endpoints
+- Roll-off is asymptotically -18 dB per octave
+- First side lobe is -31dB relative to main-lobe peak
 
 **Kind**: static constant of <code>[window](#module_window)</code>  
 <a name="module_window.blackmanHarris"></a>

@@ -40,8 +40,10 @@
  */
 import { fft } from 'dsp-fft'
 import { hanning } from 'dsp-window'
-import { generate, copy, mult, center } from 'dsp-buffer'
-import { spectrum } from 'dsp-spectrum'
+import { generate, copy, mult } from 'dsp-buffer'
+import { polar, bandFrequency, fftshift } from 'dsp-spectrum'
+const { PI } = Math
+const PI2 = 2 * PI
 
 /**
  *
@@ -63,26 +65,38 @@ export function analysis (signal, params = {}) {
     mult(window, frame, frame)
     // 3. Cyclic shift to phase zero windowing
     // 4. Perform the fft to the frame
-    frames[i] = spectrum(forward(center(frame)))
+    frames[i] = polar(forward(fftshift(frame)))
   }
   return frames
 }
 
 /**
- * It recalculates each frame phase based on the stretch factor
+ * Synthesize a signal from a collection of frames
  */
-function stretch (frames, options) {
+export function synthesis (frames, output, { size, hop, factor, sampleRate }) {
+  const original = hop / sampleRate
+  const modified = (hop * factor) / sampleRate
+
   const numFrames = frames.length
   for (let i = 2; i < numFrames; i++) {
     const prev = frames[i - 1]
     const current = frames[i]
+    // for each frame, update each bin
+    for (let bin = 0; bin < size; bin++) {
+      // calculate the difference between phases
+      const deltaPhi = current.phases[bin] - prev.phases[bin]
+      // get the current band frequency
+      const freq = bandFrequency(bin, size, sampleRate)
+      // calculate the frequency deviation with the given hop size
+      const deltaFreq = (deltaPhi / original) - freq
+      // wrap the deviation
+      var wrappedDeltaFreq = ((deltaFreq + PI) % PI2) - PI
+      // and calculate the real frequency
+      var realFreq = freq + wrappedDeltaFreq
+      // update the phase
+      current.phases[bin] = prev.phases[bin] + modified * realFreq
+    }
   }
-}
-
-/**
- * Synthesize a signal from a collection of frames
- */
-function synthesis (frames, options) {
 }
 
 /*

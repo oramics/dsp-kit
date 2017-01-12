@@ -173,21 +173,24 @@ export function map (fn, src, dest) {
   return dest
 }
 
+const isSame = Object.is
 /**
- * Perform a cyclic shifting (rotation) to set the first sample at the middle
- * of the buffer (it reorder buffer samples from (0:N-1) to [(N/2:N-1) (0:(N/2-1))])
+ * Round the values of an array to a number of decimals.
  *
- * This is the same function as mathlab's `fftshift`
+ * There are small differences of precission between algorithms. This helper
+ * function allows to compare them discarding the precission errors.
  *
- * @param {Array} source - the source buffer
- * @param {Array} result - (Optional) the result buffer
+ * @param {Array} array
+ * @param {Integer} decimals - (Optional) the number of decimals (8 by default)
  */
-export function center (buffer, result) {
-  const size = buffer.length
-  const n = Math.floor((size / 2) + 1)
-  if (!result) result = new Float64Array(size)
-  for (let i = 0; i < size; i++) {
-    result[i] = buffer[(i + n) % size]
+export function round (arr, n = 8, output) {
+  const size = arr.length
+  if (!output) output = new Float64Array(size)
+  const limit = Math.min(size, output.length)
+  const m = Math.pow(10, n)
+  for (let i = 0; i < limit; i++) {
+    const r = Math.round(arr[i] * m) / m
+    output[i] = isSame(r, -0) ? 0 : r
   }
-  return result
+  return output
 }

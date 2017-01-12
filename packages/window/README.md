@@ -12,6 +12,9 @@ All window functions have some extra properties:
 
 This is part of [dsp-kit](https://github.com/oramics/dsp-kit)
 
+### References
+https://www.dsprelated.com/freebooks/sasp/Spectrum_Analysis_Windows.html
+
 **Example**  
 ```js
 const dsp = require('dsp-kit')
@@ -28,10 +31,13 @@ dsp.generate(1024, dsp.window.hanning())
 ### window.rectangular
 The rectangular window, also sometimes called ‘uniform window’, is given by
 w = 1, equivalent to using no window at all.
+
 Although there are some special applications where the rectangular
 window is advantageous, it is probably not useful for any of our applications
 
-- recommended overlap: 50%
+- Abrupt transition from 1 to 0 at the window endpoints
+- Roll-off is asymptotically -6dB per octave
+- First side lobe is -13dB relative to main-lobe peak
 
 **Kind**: static constant of <code>[window](#module_window)</code>  
 <a name="module_window.hanning"></a>
@@ -39,6 +45,10 @@ window is advantageous, it is probably not useful for any of our applications
 ### window.hanning
 The Hanning window (one of a family of ‘raised cosine’ windows) is also known
 as ‘Hann window’. Do not confuse it with the ‘Hamming’ window.
+
+- Smooth transition to zero at window endpoints
+- Roll-off is asymptotically -18 dB per octave
+- First side lobe is -31dB relative to main-lobe peak
 
 **Kind**: static constant of <code>[window](#module_window)</code>  
 <a name="module_window.blackmanHarris"></a>

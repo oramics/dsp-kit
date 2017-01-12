@@ -208,6 +208,12 @@ is correct: the periodicity of the framing window should be equal to the
 declared argument of its function definition. A hanning window, for example,
 must begin by a zero-valued sample and end by a non-zero valued sample
 
+From Bernardini.pdf:
+
+> A well-known fact is that the choice of the size of the window is extremely important: a bigger window will perform a better FFT. However, to avoid the loss of substantial signal information it is also important to perform a STFT with many FFTs spreaded over time, that is, to perform a STFT with a small hop size
+
+
+
 ---
 
 The frames captures _instantaneous phase_ and _instantaneous frequency_.
@@ -240,9 +246,10 @@ jumps.
 
 ### References
 
+- Traditional implementations of a phase-vocoder: http://www.cs.princeton.edu/courses/archive/spr09/cos325/Bernardini.pdf
 - Theory, Implementation and Evaluation of the Digital Phase Vocoder in the Context of Audio Effects by Johannes Grünwald: https://www.spsc.tugraz.at/sites/default/files/Bachelor%20Thesis%20Gruenwald.pdf
 - Phase Vocoder Design, Implementation, and Effects
 Processing by Matthew Pierce: http://web.uvic.ca/~mpierce/elec484/final_project/Report/FinalReport.pdf
-- http://www.cs.princeton.edu/courses/archive/spr09/cos325/Bernardini.pdf
 - https://www.eumus.edu.uy/eme/ensenanza/electivas/dsp/presentaciones/PhaseVocoderTutorial.pdf
 - The Operation of the Phase Vocoder by Richard Dobson: http://www.composersdesktop.com/pdf/phasevocoder.pdf
+- FLWT and TD-PSOLA: https://github.com/terrykong/Phase-Vocoder/blob/master/finalReport.pdf

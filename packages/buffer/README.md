@@ -29,7 +29,7 @@ const sine = buffer.generate(1024, (x) => Math.sin(0.5 * x))
     * [.combinator(fn)](#module_buffer.combinator) ⇒ <code>function</code>
     * [.copy(source, destination)](#module_buffer.copy) ⇒ <code>Array</code>
     * [.map(fn, source, destination)](#module_buffer.map) ⇒ <code>Array</code>
-    * [.center(source, result)](#module_buffer.center)
+    * [.round(array, decimals)](#module_buffer.round)
 
 <a name="module_buffer.from"></a>
 
@@ -50,17 +50,14 @@ Add two buffers.
 | bufferA | <code>Array</code> | the source buffer |
 | bufferB | <code>Array</code> | the B buffer |
 | destination | <code>Array</code> &#124; <code>Integer</code> | (Optional) the destination buffer or the number of samples to add. If not present, a new buffer is created. |
-| offsetA | <code>Integer</code> | the start offset of the A buffer |
-| offsetA | <code>Integer</code> | the start offset of the B buffer |
-| offsetDestination | <code>Integer</code> | the start offset of the destination buffer |
+| offsetA | <code>Integer</code> | (Optional) the start offset of the A buffer |
+| offsetA | <code>Integer</code> | (Optional) the start offset of the B buffer |
+| offsetDestination | <code>Integer</code> | (Optional) the start offset of the destination buffer |
 
 **Example**  
 ```js
 // add to buffers into a new one
 const result = buffer.add(bufferA, bufferB)
-```
-**Example**  
-```js
 // add to buffers into a third
 buffer.add(bufferA, bufferB, dest)
 ```
@@ -188,18 +185,18 @@ buffer.map((x) => x * 2, sine) // => a buffer with the gain doubled
 const doubleGain = buffer.map((x) => x * 2)
 doubleGain(buffer) // => a buffer with the gain doubled
 ```
-<a name="module_buffer.center"></a>
+<a name="module_buffer.round"></a>
 
-### buffer.center(source, result)
-Perform a cyclic shifting (rotation) to set the first sample at the middle
-of the buffer (it reorder buffer samples from (0:N-1) to [(N/2:N-1) (0:(N/2-1))])
+### buffer.round(array, decimals)
+Round the values of an array to a number of decimals.
 
-This is the same function as mathlab's `fftshift`
+There are small differences of precission between algorithms. This helper
+function allows to compare them discarding the precission errors.
 
 **Kind**: static method of <code>[buffer](#module_buffer)</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| source | <code>Array</code> | the source buffer |
-| result | <code>Array</code> | (Optional) the result buffer |
+| array | <code>Array</code> |  |
+| decimals | <code>Integer</code> | (Optional) the number of decimals (8 by default) |
 

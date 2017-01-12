@@ -6,6 +6,7 @@ Since I usually learn by coding, this is the result of my learning on dsp.
 
 This is largely based in the now abandoned [dsp.js](https://github.com/corbanbrook/dsp.js) code. Work in progress. Experimental API. Use at your own risk.
 
+
 This is a [multimodule](https://github.com/oramics/dsp-kit/tree/master/packages) repository.
 
 ```js
@@ -29,8 +30,19 @@ Clone the repo and install dependencies: `npm install` and init lerna: `lerna bo
 - __run benchmarks__: `npm run benchmarks`
 - __generate documentation__: `npm run docs`
 
+## Credits
+
+Lot of the code is based on the now unmantained [dsp.js]() library by @corbanbrook, that in turn was based on [code samples](http://code.almeros.com/code-examples/delay-firefox-audio-api) by Almer Thie
+
+Also, this library takes (steal) inspiration from:
+
+- https://github.com/kunstmusik/pink
+- https://github.com/colinbdclark/Flocking
+- https://github.com/mohayonao/timbre.js/
+
 ## References
 
+- https://dsprelated.com in general, and Spectral Audio Signal Processing in particular: https://www.dsprelated.com/freebooks/sasp/
 - http://www.dafx.de/
 - [Circles, sines and signals](jackschaedler.github.io/circles-sines-signals/) by Jack Schaedler
 - [Digital signal processing for music applications](https://www.coursera.org/learn/audio-signal-processing) course in coursera.

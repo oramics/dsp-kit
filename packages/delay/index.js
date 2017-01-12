@@ -31,8 +31,6 @@ export function delay ({
     const size = input.length
     if (!output) output = zeros(size)
 
-    console.log('joder', feedback)
-
     for (let i = 0; i < size; i++) {
       buffer[writeAt] = input[i]
       output[i] = buffer[ndx(writeAt - delay)] * delayGain

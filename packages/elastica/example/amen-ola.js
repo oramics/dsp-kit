@@ -3,6 +3,7 @@ var h = require('h')
 var ac = require('audio-context')
 var draw = require('draw-waveform')
 var elastica = require('..')
+var decodeArrayBuffer = require('./decode-array-buffer')
 
 print('Amen break with OLA timestretch', 'h1')
 console.log(elastica)
@@ -58,18 +59,6 @@ function play (buffer, loop) {
   if (loop === true) source.loop = true
   source.start()
   return source
-}
-
-function decodeArrayBuffer (context) {
-  context = context || ac
-  return function (response) {
-    const next = typeof response.arrayBuffer === 'function'
-      ? response.arrayBuffer() : Promise.resolve(response)
-
-    return next.then(arrayBuffer => new Promise(function (resolve, reject) {
-      context.decodeAudioData(arrayBuffer, resolve, reject)
-    }))
-  }
 }
 
 function link (text, fn, parent) {
