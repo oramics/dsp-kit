@@ -16,7 +16,7 @@
  *
  * @module oscillator
  */
-import { zeros } from 'dsp-buffer'
+import { zeros } from 'dsp-array'
 const { round, PI, sin } = Math
 const PI2 = 2 * PI
 

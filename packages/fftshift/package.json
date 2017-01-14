@@ -27,6 +27,6 @@
   "dependencies": {
   },
   "devDependencies": {
-    "dsp-buffer": "^0.0.1"
+    "dsp-array": "^0.0.1"
   }
 }

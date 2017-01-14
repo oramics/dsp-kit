@@ -1,6 +1,6 @@
 const draw = require('draw-waveform')
 const addCanvas = require('add-canvas')
-const buffer = require('dsp-buffer')
+const buffer = require('dsp-array')
 const ola = require('..').overlapAdd
 
 print('Add and overlap examples', 'h3')

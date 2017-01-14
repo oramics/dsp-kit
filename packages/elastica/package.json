@@ -32,7 +32,7 @@
     "inferno-hyperscript": "^1.1.2"
   },
   "dependencies": {
-    "dsp-buffer": "0.0.1",
+    "dsp-array": "0.0.1",
     "dsp-ola": "0.0.1",
     "dsp-phase-vocoder": "0.0.1"
   }

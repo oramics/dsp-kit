@@ -1,7 +1,7 @@
 var waa = require('dsp-waa')
 var h = require('h')
 var dsp = require('..')
-var buffer = require('dsp-buffer')
+var buffer = require('dsp-array')
 
 const add = (el) => { document.body.appendChild(el); return el }
 const canvas = ({ width = 1024, height = 200 } = {}) => h('canvas', { width, height })

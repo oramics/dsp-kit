@@ -1,7 +1,7 @@
 const test = require('tst')
 const assert = require('assert')
 const pv = require('..')
-const buffer = require('dsp-buffer')
+const buffer = require('dsp-array')
 
 test('analysis', function () {
   const signal = buffer.generate(1024, (x) => Math.sin(2 * Math.PI * (x / (x - 1))))

@@ -1,6 +1,6 @@
 const test = require('tst')
 const assert = require('assert')
-const buffer = require('dsp-buffer')
+const buffer = require('dsp-array')
 const overlapAdd = require('..').overlapAdd
 
 const average = (arr) => arr.reduce((a, b) => a + b) / arr.length

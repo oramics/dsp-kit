@@ -4,7 +4,7 @@ const assert = require('assert')
 const dspjs = require('dspjs')
 const fft = require('dsp-fft')
 const spectrum = require('..')
-const { generate, round } = require('dsp-buffer')
+const { generate, round } = require('dsp-array')
 
 function from (...v) { return Float64Array.from(v) }
 

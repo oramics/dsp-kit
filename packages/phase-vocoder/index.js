@@ -41,7 +41,7 @@
 import { fft, ifft } from 'dsp-fft'
 import { hanning } from 'dsp-window'
 import { fftshift, ifftshift } from 'dsp-fftshift'
-import { generate, add, zeros, window } from 'dsp-buffer'
+import { generate, add, zeros, window } from 'dsp-array'
 import { polar, rectangular, bandFrequency } from 'dsp-spectrum'
 const { PI, random } = Math
 const PI2 = 2 * PI

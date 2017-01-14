@@ -1,7 +1,7 @@
 /* eslint-disable comma-spacing */
 const test = require('tst')
 const assert = require('assert')
-const buffer = require('dsp-buffer')
+const buffer = require('dsp-array')
 const shift = require('..')
 
 const from = (x) => Float64Array.from(x || [])

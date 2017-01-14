@@ -12,7 +12,7 @@
  *
  * @module delay
  */
-const { zeros } = require('dsp-buffer')
+const { zeros } = require('dsp-array')
 
 // return a function to the index of a circular buffer
 const circular = (l) => (n) => (l + n) % l

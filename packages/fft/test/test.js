@@ -4,7 +4,7 @@ const dft = require('dsp-dft')
 const dspjs = require('dspjs')
 const dspkit = require('..')
 const { PI, sin, cos } = Math
-const { generate, round } = require('dsp-buffer')
+const { generate, round } = require('dsp-array')
 
 test('generate', function () {
   // we don't want generate to fail and break our tests

@@ -19,7 +19,7 @@
  *
  * @module ola
  */
-import { zeros, generate, add, mult } from 'dsp-buffer'
+import { zeros, generate, add, mult } from 'dsp-array'
 const cos = Math.cos
 const PI2 = 2 * Math.PI
 

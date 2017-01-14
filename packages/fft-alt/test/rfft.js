@@ -1,6 +1,6 @@
 var test = require('tst')
 var assert = require('assert')
-var buffer = require('dsp-buffer')
+var buffer = require('dsp-array')
 var dspjs = require('dspjs')
 var rfft = require('../rfft.js')
 
