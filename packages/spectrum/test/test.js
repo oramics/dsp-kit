@@ -51,3 +51,10 @@ test('phase unwrap', function () {
   assert.deepEqual(negative, from(0,-1,-2,-3,-4,-5,-6,-0.7168146928204138,-1.7168146928204138,-2.7168146928204138))
   assert.deepEqual(spectrum.unwrap(negative), from(0,-1,-2,-3,-4,-5,-6,-7,-8,-9))
 })
+
+test('phase unwrap in place', function () {
+  var signal = generate(1024, (i) => i % (2 * Math.PI))
+  var unwrapped = spectrum.unwrap(signal)
+  spectrum.unwrap(signal, signal)
+  assert.deepEqual(signal, unwrapped)
+})

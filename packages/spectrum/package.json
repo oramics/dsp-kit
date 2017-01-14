@@ -1,13 +1,14 @@
 {
   "name": "dsp-spectrum",
   "description": "Functions to work with frequency domain signal representations",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "build/index.js",
   "module": "index",
   "scripts": {
     "pretest": "rollup -f cjs -o build/index.js -- index.js",
     "test": "node test/test.js",
-    "docs": "jsdoc2md index.js > README.md && cp README.md ../../docs/API/spectrum.md"
+    "docs": "jsdoc2md index.js > README.md && cp README.md ../../docs/API/spectrum.md",
+    "start": "budo --open example/unwrap.js"
   },
   "repository": "https://github.com/oramics/dsp-kit/packages/dsp-spectrum",
   "keywords": [
@@ -26,6 +27,8 @@
   "devDependencies": {
     "dsp-array": "0.0.1",
     "dsp-fft": "0.0.1",
-    "dspjs": "../../benchmarks/dspjs"
+    "dsp-waa": "0.0.1",
+    "dspjs": "../../benchmarks/dspjs",
+    "h": "^0.1.0"
   }
 }

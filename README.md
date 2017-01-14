@@ -51,19 +51,20 @@ Then you can list all the npm tasks with `npm run`:
 
 ## Credits
 
-Lot of the code is based on the now unmantained [dsp.js]() library by @corbanbrook, that in turn was based on [code samples](http://code.almeros.com/code-examples/delay-firefox-audio-api) by Almer Thie.
+Large part of the code is based on the now unmantained [dsp.js](https://github.com/corbanbrook/dsp.js) library by @corbanbrook, that in turn was based on [code samples](http://code.almeros.com/code-examples/delay-firefox-audio-api) by Almer Thie.
 
 Also, this library takes (steal) inspiration from:
 
 - https://github.com/kunstmusik/pink
 - https://github.com/colinbdclark/Flocking
 - https://github.com/mohayonao/timbre.js/
+- https://github.com/MTG/sms-tools
 
 ## References
 
 - https://dsprelated.com in general, and Spectral Audio Signal Processing in particular: https://www.dsprelated.com/freebooks/sasp/
 - http://www.dafx.de/
-- [Circles, sines and signals](jackschaedler.github.io/circles-sines-signals/) by Jack Schaedler
-- [Digital signal processing for music applications](https://www.coursera.org/learn/audio-signal-processing) course in coursera.
-- [Understanding Digital Signal](https://www.amazon.com/Understanding-Digital-Signal-Processing-3rd/dp/0137027419) by Richard G. Lyons.
+- The awesome [Circles, sines and signals](jackschaedler.github.io/circles-sines-signals/) by Jack Schaedler
+- Thanks Xavier for the [Digital signal processing for music applications](https://www.coursera.org/learn/audio-signal-processing) course in coursera.
+- The most accessible book I found: [Understanding Digital Signal](https://www.amazon.com/Understanding-Digital-Signal-Processing-3rd/dp/0137027419) by Richard G. Lyons.
 - [Spectrum and spectral density estimation by the Discrete Fourier transform (DFT), including a comprehensive list of window functions and some new flat-top windows](https://holometer.fnal.gov/GH_FFT.pdf) by G. Heinzel and others.

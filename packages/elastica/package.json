@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/oramics/dsp-kit/packages/elastica/#readme",
   "devDependencies": {
+    "dsp-waa": "0.0.1",
     "audio-context": "^0.1.0",
     "h": "^0.1.0",
     "inferno": "^1.1.2",

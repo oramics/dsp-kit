@@ -42,7 +42,7 @@ import { fft, ifft } from 'dsp-fft'
 import { hanning } from 'dsp-window'
 import { fftshift, ifftshift } from 'dsp-fftshift'
 import { generate, add, zeros, window } from 'dsp-array'
-import { polar, rectangular, bandFrequency } from 'dsp-spectrum'
+import { polar, rectangular, bandFrequency, unwrap } from 'dsp-spectrum'
 const { PI, random } = Math
 const PI2 = 2 * PI
 
@@ -54,7 +54,7 @@ export function phaseVocoder ({ size = 512, hop = 125, sampleRate = 44100 } = {}
   return function stretch (factor, data) {
     var frames = analysis(data, { size, hop })
     console.log('phase calculation', hop, factor, hop * factor)
-    // phaseCalculation(frames, { size, hop, sampleRate, factor })
+    calculatePhases(frames, { size, factor })
 
     return synthesis(frames, { size, hop, factor, sampleRate })
   }
@@ -91,7 +91,7 @@ export function analysis (signal, params = {}) {
     // 1. place a window into the signal
     window(win, signal, i * hop, windowed) // => windowed
     // 3. Cyclic shift to phase zero windowing
-    // fftshift(windowed) // => centered
+    fftshift(windowed) // => centered
     // 4. Perform the forward fft
     forward(windowed, freqDomain)
     // 5. Convert to polar form in a new frame
@@ -121,12 +121,33 @@ export function synthesis (frames, { size, hop, sampleRate, factor }, output) {
     // 2. Convert from freq-domain in rectangular to time-domain
     let signal = inverse(rectFD, timeDomain).real
     // 3. Unshift the previous cycling shift
-    // ifftshift(signal)
+    ifftshift(signal)
     // 4. Overlap add
     add(signal, output, output, 0, position, position)
     position += hopDest
   }
   return output
+}
+
+function calculatePhases (frames, { size, factor, hop }) {
+  const numFrames = frames.length
+
+  // Unwrap the phases of the first frame
+  let prev = frames[0].phases
+  unwrap(prev, prev)
+
+  for (let f = 1; f < numFrames; f++) {
+    // 1. unwrap phases (in place for maximum performance)
+    let current = frames[f].phases
+    unwrap(current, current)
+
+    // that phase increment may be multiplied the synthesis hop
+    for (let i = 0; i < size; i++) {
+      // 2. find the correct phase increment
+      let inc = current[i] - prev[i]
+      current[i] = prev[i] + inc * factor
+    }
+  }
 }
 
 /**

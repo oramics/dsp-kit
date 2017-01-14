@@ -26,7 +26,7 @@
   "dependencies": {
     "dsp-array": "^0.0.1",
     "dsp-window": "^0.0.1",
-    "dsp-spectrum": "^0.0.0",
+    "dsp-spectrum": "^0.0.1",
     "dsp-fft": "^0.0.1",
     "dsp-fftshift": "^0.0.1"
   },
