@@ -61,6 +61,6 @@ export function rfftSpectrum (x, spectrum) {
     mag = bSi * sqrt(rval * rval + ival * ival)
     spectrum[i] = mag
   }
-  spectrum[0] = bSi * x[0]
+  spectrum[0] = Math.abs(bSi * x[0])
   return spectrum
 }
