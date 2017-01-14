@@ -7,7 +7,7 @@
   "scripts": {
     "pretest": "rollup -c ../../rollup.config.js",
     "test": "node test/*.js",
-    "docs": "jsdoc2md index.js > README.md && cp README.md API.md"
+    "docs": "jsdoc2md index.js > README.md && cp README.md ../../docs/API/rfft.md"
   },
   "repository": "https://github.com/oramics/dsp-kit/packages/dsp-rfft",
   "keywords": [

@@ -37,7 +37,7 @@ This is a [multimodule](https://github.com/oramics/dsp-kit/tree/master/packages)
 
 ## Documentation
 
-Read the [generated API documentation](https://github.com/oramics/dsp-kit/blob/master/docs/API.md)
+Take a look to the [generated API documentation](https://github.com/oramics/dsp-kit/blob/master/docs/API/)
 
 ## Development
 

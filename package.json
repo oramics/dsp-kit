@@ -5,7 +5,7 @@
     "build": "lerna run pretest",
     "test": "lerna run test",
     "predocs": "lerna exec -- npm run docs",
-    "docs": "cat ./packages/*/API.md > docs/API.md",
+    "docs": "lerna run docs",
     "dist": "npm run dist:pack && npm run dist:minify && ls -hall dist/",
     "dist:pack": "browserify packages/dsp/browser.js -o dist/dsp-kit.js",
     "dist:minify": "uglifyjs dist/dsp-kit.js > dist/dsp-kit.min.js",

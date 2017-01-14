@@ -15,7 +15,7 @@
  * @example
  * const dsp = require('dsp-kit')
  * const forward = dsp.rfft(1024)
- * const { real, imag } = forward(signal)
+ * const result = forward(signal)
  *
  * @module rfft
  */
