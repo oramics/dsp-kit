@@ -1,0 +1,27 @@
+{
+  "name": "dsp-rfft",
+  "description": "Real split radix FFT algorithm",
+  "version": "0.0.1",
+  "main": "build/index.js",
+  "module": "index",
+  "scripts": {
+    "pretest": "rollup -c ../../rollup.config.js",
+    "test": "node test/*.js",
+    "docs": "jsdoc2md index.js > README.md && cp README.md API.md"
+  },
+  "repository": "https://github.com/oramics/dsp-kit/packages/dsp-rfft",
+  "keywords": [
+    "fft",
+    "dsp-kit"
+  ],
+  "author": "danigb",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oramics/dsp-kit/issues"
+  },
+  "homepage": "https://github.com/oramics/dsp-kit/packages/dsp-rfft/#readme",
+  "devDependencies": {
+    "dsp-buffer": "^0.0.1",
+    "dspjs": "../../benchmarks/dspjs"
+  }
+}

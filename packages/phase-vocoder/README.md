@@ -40,11 +40,26 @@ var dsp = require('dsp-kit')
 
 * [phase-vocoder](#module_phase-vocoder)
     * _static_
+        * [.phaseVocoder()](#module_phase-vocoder.phaseVocoder)
+        * [.paulStretch()](#module_phase-vocoder.paulStretch)
         * [.analysis()](#module_phase-vocoder.analysis)
         * [.synthesis()](#module_phase-vocoder.synthesis)
     * _inner_
-        * [~phaseCalculation()](#module_phase-vocoder..phaseCalculation)
+        * [~phaseCalculation2()](#module_phase-vocoder..phaseCalculation2)
 
+<a name="module_phase-vocoder.phaseVocoder"></a>
+
+### phase-vocoder.phaseVocoder()
+Implements a standard phase vocoder timestretch algorithm. It returns a
+function that process the data.
+
+**Kind**: static method of <code>[phase-vocoder](#module_phase-vocoder)</code>  
+<a name="module_phase-vocoder.paulStretch"></a>
+
+### phase-vocoder.paulStretch()
+Implements the paul stretch algorithm for extreme timestretching
+
+**Kind**: static method of <code>[phase-vocoder](#module_phase-vocoder)</code>  
 <a name="module_phase-vocoder.analysis"></a>
 
 ### phase-vocoder.analysis()
@@ -55,9 +70,9 @@ var dsp = require('dsp-kit')
 Synthesize a signal from a collection of frames
 
 **Kind**: static method of <code>[phase-vocoder](#module_phase-vocoder)</code>  
-<a name="module_phase-vocoder..phaseCalculation"></a>
+<a name="module_phase-vocoder..phaseCalculation2"></a>
 
-### phase-vocoder~phaseCalculation()
+### phase-vocoder~phaseCalculation2()
 Recalculate the phases of each frame when stretched
 
 **Kind**: inner method of <code>[phase-vocoder](#module_phase-vocoder)</code>  

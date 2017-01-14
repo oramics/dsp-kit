@@ -537,6 +537,18 @@ This is part of [dsp-kit](https://github.com/oramics/dsp-kit)
 ```js
 const oscillator = require('dsp-oscillator')
 ```
+<a name="module_oscillator.oscillator"></a>
+
+### oscillator.oscillator(params)
+Create an oscillator. Returns a function that generates the oscillator
+signal
+
+**Kind**: static method of <code>[oscillator](#module_oscillator)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>Object</code> | oscillator parameters: - type: one of 'sine' - sampleRate: 44100 by default - defaultSize: the length of the generated buffer |
+
 <a name="module_phase-vocoder"></a>
 
 ## phase-vocoder
@@ -579,11 +591,26 @@ var dsp = require('dsp-kit')
 
 * [phase-vocoder](#module_phase-vocoder)
     * _static_
+        * [.phaseVocoder()](#module_phase-vocoder.phaseVocoder)
+        * [.paulStretch()](#module_phase-vocoder.paulStretch)
         * [.analysis()](#module_phase-vocoder.analysis)
         * [.synthesis()](#module_phase-vocoder.synthesis)
     * _inner_
-        * [~phaseCalculation()](#module_phase-vocoder..phaseCalculation)
+        * [~phaseCalculation2()](#module_phase-vocoder..phaseCalculation2)
 
+<a name="module_phase-vocoder.phaseVocoder"></a>
+
+### phase-vocoder.phaseVocoder()
+Implements a standard phase vocoder timestretch algorithm. It returns a
+function that process the data.
+
+**Kind**: static method of <code>[phase-vocoder](#module_phase-vocoder)</code>  
+<a name="module_phase-vocoder.paulStretch"></a>
+
+### phase-vocoder.paulStretch()
+Implements the paul stretch algorithm for extreme timestretching
+
+**Kind**: static method of <code>[phase-vocoder](#module_phase-vocoder)</code>  
 <a name="module_phase-vocoder.analysis"></a>
 
 ### phase-vocoder.analysis()
@@ -594,9 +621,9 @@ var dsp = require('dsp-kit')
 Synthesize a signal from a collection of frames
 
 **Kind**: static method of <code>[phase-vocoder](#module_phase-vocoder)</code>  
-<a name="module_phase-vocoder..phaseCalculation"></a>
+<a name="module_phase-vocoder..phaseCalculation2"></a>
 
-### phase-vocoder~phaseCalculation()
+### phase-vocoder~phaseCalculation2()
 Recalculate the phases of each frame when stretched
 
 **Kind**: inner method of <code>[phase-vocoder](#module_phase-vocoder)</code>  
@@ -737,6 +764,13 @@ This is the same function as mathlab's `fftshift`
 | --- | --- | --- |
 | source | <code>Array</code> | the source buffer |
 | result | <code>Array</code> | (Optional) the result buffer |
+
+<a name="module_waa"></a>
+
+## waa
+> Web Audio API utilities
+
+It provides web audio api utilities
 
 <a name="module_window"></a>
 

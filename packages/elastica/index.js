@@ -29,17 +29,15 @@ function toAudioBuffer (left) {
 
 function vocoder (factor, buffer, context) {
   console.log('phase vocoder!')
-  var stretch = phaseVocoder()
+  var stretch = pv.phaseVocoder()
+  return toAudioBuffer(stretch(factor, buffer.getChannelData(0)))
+}
+
+function paulStretch (factor, buffer, context) {
+  console.log('paul stretch algorithm')
+  var stretch = pv.paulStretch()
   return toAudioBuffer(stretch(factor, buffer.getChannelData(0)))
 }
 
 // TODO: move this inside phase-vocoder
-function phaseVocoder ({ size = 512, hop = 125, sampleRate = 44100 } = {}) {
-  return function stretch (factor, data) {
-    var frames = pv.analysis(data, { size, hop })
-    console.log('We have frames', frames.length)
-    console.log(frames[1000])
-    return pv.synthesis(frames, { hop, sampleRate })
-  }
-}
-module.exports = { stretch, vocoder }
+module.exports = { stretch, vocoder, paulStretch }

@@ -17,7 +17,23 @@ spectrum.magnitudes // => the magnitude spectrum of the signal
 spectrum.phases // => the phase spectrum of the signal
 ```
 
-This is a [multimodule](https://github.com/oramics/dsp-kit/tree/master/packages) repository.
+This is a [multimodule](https://github.com/oramics/dsp-kit/tree/master/packages) repository, each functionallity wrapped in its own package:
+
+- [array](https://github.com/oramics/dsp-kit/tree/master/packages/buffer): array utilities
+- [delay](https://github.com/oramics/dsp-kit/tree/master/packages/delay): work in progress
+- [dft](https://github.com/oramics/dsp-kit/tree/master/packages/dft): discrete fourier implementation (very slow, but easy to understand)
+- [dsp](https://github.com/oramics/dsp-kit/tree/master/packages/dsp): a facade module that exposes the functions of the rest of the modules
+- [elastica](https://github.com/oramics/dsp-kit/tree/master/packages/elastica): timestretch for web audio api (it will be extracted from this)
+- [fft](https://github.com/oramics/dsp-kit/tree/master/packages/fft): fast forward fourier algorithm
+- [fft-alt](https://github.com/oramics/dsp-kit/tree/master/packages/fft-alt): alternative fast forward fourier algorithms (see benchmarks)
+- [fftshift](https://github.com/oramics/dsp-kit/tree/master/packages/fftshift): rotate arrays to perform zero-phasing windowing
+- [ola](https://github.com/oramics/dsp-kit/tree/master/packages/ola): overlap and add algorithm for time strething
+- [oscillator](https://github.com/oramics/dsp-kit/tree/master/packages/oscillator): work in progress
+- [phase-vocoder](https://github.com/oramics/dsp-kit/tree/master/packages/phase-vocoder): phase vocoder algorithm to perform time strething and other signal transformations
+- [rfft](https://github.com/oramics/dsp-kit/tree/master/packages/rfft): real split radix FFT (work in progress)
+- [spectrum](https://github.com/oramics/dsp-kit/tree/master/packages/spectrum): spectrum manipulation utilities
+- [waa](https://github.com/oramics/dsp-kit/tree/master/packages/waa): web audio api interop utilities (wip)
+- [window](https://github.com/oramics/dsp-kit/tree/master/packages/window): windowing functions
 
 ## Documentation
 

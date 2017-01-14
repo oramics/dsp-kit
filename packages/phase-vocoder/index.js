@@ -43,8 +43,33 @@ import { hanning } from 'dsp-window'
 import { fftshift, ifftshift } from 'dsp-fftshift'
 import { generate, add, zeros, window } from 'dsp-buffer'
 import { polar, rectangular, bandFrequency } from 'dsp-spectrum'
-const { PI } = Math
+const { PI, random } = Math
 const PI2 = 2 * PI
+
+/**
+ * Implements a standard phase vocoder timestretch algorithm. It returns a
+ * function that process the data.
+ */
+export function phaseVocoder ({ size = 512, hop = 125, sampleRate = 44100 } = {}) {
+  return function stretch (factor, data) {
+    var frames = analysis(data, { size, hop })
+    console.log('phase calculation', hop, factor, hop * factor)
+    // phaseCalculation(frames, { size, hop, sampleRate, factor })
+
+    return synthesis(frames, { size, hop, factor, sampleRate })
+  }
+}
+
+/**
+ * Implements the paul stretch algorithm for extreme timestretching
+ */
+export function paulStretch ({ size = 512, hop = 125, sampleRate = 44100 } = {}) {
+  return function stretch (factor, data) {
+    var frames = analysis(data, { size, hop })
+    randomPhases(frames, size)
+    return synthesis(frames, { size, hop, factor, sampleRate })
+  }
+}
 
 /**
  *
@@ -66,7 +91,7 @@ export function analysis (signal, params = {}) {
     // 1. place a window into the signal
     window(win, signal, i * hop, windowed) // => windowed
     // 3. Cyclic shift to phase zero windowing
-    fftshift(windowed) // => centered
+    // fftshift(windowed) // => centered
     // 4. Perform the forward fft
     forward(windowed, freqDomain)
     // 5. Convert to polar form in a new frame
@@ -78,13 +103,14 @@ export function analysis (signal, params = {}) {
 /**
  * Synthesize a signal from a collection of frames
  */
-export function synthesis (frames, { hop, sampleRate }, output) {
+export function synthesis (frames, { size, hop, sampleRate, factor }, output) {
   if (!frames || !frames.length) throw Error('"frames" parameter is required in synthesis')
 
   const len = frames.length
-  const size = frames[0].magnitudes.length
-  if (!output) output = zeros((len - 1) * hop + len)
+  const hopDest = hop * factor
+  if (!output) output = zeros(len * hopDest)
   const inverse = ifft(size)
+  let position = 0
 
   // create some intermediate buffers (and reuse it for performance)
   const rectFD = { real: zeros(size), imag: zeros(size) }
@@ -95,17 +121,31 @@ export function synthesis (frames, { hop, sampleRate }, output) {
     // 2. Convert from freq-domain in rectangular to time-domain
     let signal = inverse(rectFD, timeDomain).real
     // 3. Unshift the previous cycling shift
-    ifftshift(signal)
+    // ifftshift(signal)
     // 4. Overlap add
-    add(signal, output, output, 0, i * hop, i * hop)
+    add(signal, output, output, 0, position, position)
+    position += hopDest
   }
   return output
 }
 
 /**
+ * Set random phases of a collection of frames
+ * @private
+ */
+function randomPhases (frames, { size }) {
+  for (let n = 0; n < frames.length; n++) {
+    var phases = frames[n].phases
+    for (let i = 0; i < size; i++) {
+      phases[i] = PI2 * random()
+    }
+  }
+}
+
+/**
  * Recalculate the phases of each frame when stretched
  */
-function phaseCalculation (frames, { size, hop, factor, sampleRate }) {
+function phaseCalculation2 (frames, { size, hop, factor, sampleRate }) {
   const original = hop / sampleRate
   const modified = (hop * factor) / sampleRate
 

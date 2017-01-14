@@ -1,0 +1,28 @@
+{
+  "name": "dsp-waa",
+  "description": "Audio timestretch for Web Audio API",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/test.js",
+    "docs": "jsdoc2md index.js > README.md && cp README.md API.md",
+    "start": "budo --open example/example.js"
+  },
+  "repository": "https://github.com/oramics/dsp-kit/packages/dsp-waa",
+  "keywords": [
+    "dsp",
+    "web audio api",
+    "dsp-kit"
+  ],
+  "author": "danigb",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oramics/dsp-kit/issues"
+  },
+  "homepage": "https://github.com/oramics/dsp-kit/packages/dsp-waa/#readme",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "audio-context": "^0.1.0"
+  }
+}

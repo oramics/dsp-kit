@@ -16,3 +16,15 @@ This is part of [dsp-kit](https://github.com/oramics/dsp-kit)
 ```js
 const oscillator = require('dsp-oscillator')
 ```
+<a name="module_oscillator.oscillator"></a>
+
+### oscillator.oscillator(params)
+Create an oscillator. Returns a function that generates the oscillator
+signal
+
+**Kind**: static method of <code>[oscillator](#module_oscillator)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>Object</code> | oscillator parameters: - type: one of 'sine' - sampleRate: 44100 by default - defaultSize: the length of the generated buffer |
+

@@ -28,6 +28,7 @@
 export { add, mult, zeros, generate, concat, combinator, map, copy, round } from 'dsp-buffer'
 export { dft, idft } from 'dsp-dft'
 export { fft, ifft } from 'dsp-fft'
+export { rfft } from 'dsp-rfft'
 export { fftshift, ifftshift } from 'dsp-fftshift'
 export { bandWidth, bandFrequency, polar, rectangular } from 'dsp-spectrum'
 

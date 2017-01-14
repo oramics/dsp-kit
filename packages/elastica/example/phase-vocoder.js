@@ -26,7 +26,7 @@ Promise.resolve('Phase vocoder elastica example')
 })
 .then((buffer) => {
   // perform time stretch
-  return elastica.vocoder(1.2, buffer)
+  return elastica.paulStretch(10, buffer)
 })
 .then((stretched) => {
   var c = canvas({ width: 600, height: 300 })

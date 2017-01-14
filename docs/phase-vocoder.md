@@ -253,3 +253,7 @@ Processing by Matthew Pierce: http://web.uvic.ca/~mpierce/elec484/final_project/
 - https://www.eumus.edu.uy/eme/ensenanza/electivas/dsp/presentaciones/PhaseVocoderTutorial.pdf
 - The Operation of the Phase Vocoder by Richard Dobson: http://www.composersdesktop.com/pdf/phasevocoder.pdf
 - FLWT and TD-PSOLA: https://github.com/terrykong/Phase-Vocoder/blob/master/finalReport.pdf
+- NEW PHASE-VOCODER TECHNIQUES FOR PITCH-SHIFTING, HARMONIZING AND
+OTHER EXOTIC EFFECTS: http://labrosa.ee.columbia.edu/~dpwe/papers/LaroD99-pvoc.pdf
+- Automatic technique in frequency domain
+for near-lossless time-scale modification of audio: http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.18.6415&rep=rep1&type=pdf
