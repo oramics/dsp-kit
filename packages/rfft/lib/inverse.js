@@ -136,14 +136,13 @@ export default function inverse (bufferSize, buffer, output) {
     ix = 2 * (id - 1)
   }
 
-  reverseBinPermuteInPlace(x)
+  reverseBinPermuteInPlace(bufferSize, x)
   return x
 }
 
 // don't use a lookup table to do the permute, use this instead
 // the inverse transform needs to do this in place so we have this
-function reverseBinPermuteInPlace (buf) {
-  var bufferSize = this.bufferSize
+function reverseBinPermuteInPlace (bufferSize, buf) {
   var halfSize = bufferSize >>> 1
   var nm1 = bufferSize - 1
   var i = 1, r = 0, h, t

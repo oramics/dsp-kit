@@ -45,8 +45,7 @@ export function rfft (bufferSize) {
 
 export function irfft (bufferSize) {
   return function (trans, output) {
-    inverse(bufferSize, trans, output)
-    return output
+    return inverse(bufferSize, trans, output)
   }
 }
 

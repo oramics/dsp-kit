@@ -12,6 +12,7 @@
 // trans[n/2+2] = im[n/2-2]
 //             ...
 // trans[n-1]   = im[1]
+const { sin, cos, PI, SQRT1_2 } = Math
 
 /**
  * Perform FFT using a real split radix FFT algorithm
@@ -23,17 +24,10 @@
 export default function forward (bufferSize, buffer, trans, spectrum, table) {
   var n = bufferSize,
     x = trans,
-    TWO_PI = 2 * Math.PI,
-    sqrt = Math.sqrt,
-    i = n >>> 1,
-    bSi = 2 / n,
     n2, n4, n8, nn,
     t1, t2, t3, t4,
     i1, i2, i3, i4, i5, i6, i7, i8,
-    st1, cc1, ss1, cc3, ss3,
-    e,
-    a,
-    rval, ival, mag
+    st1, cc1, ss1, cc3, ss3, e, a
 
   // reverseBinPermute(bufferSize, x, buffer)
 
@@ -84,8 +78,8 @@ export default function forward (bufferSize, buffer, trans, spectrum, table) {
           t1 = x[i3] + x[i4]
           t2 = x[i3] - x[i4]
 
-          t1 = -t1 * Math.SQRT1_2
-          t2 *= Math.SQRT1_2
+          t1 = -t1 * SQRT1_2
+          t2 *= SQRT1_2
 
           //  sumdiff(t1, x[i2], x[i4], x[i3]); // {s, d}  <--| {a+b, a-b}
           st1 = x[i2]
@@ -117,12 +111,12 @@ export default function forward (bufferSize, buffer, trans, spectrum, table) {
       id = id << 2
     } while (ix < n)
 
-    e = TWO_PI / n2
+    e = 2 * PI / n2
 
     for (var j = 1; j < n8; j++) {
       a = j * e
-      ss1 = Math.sin(a)
-      cc1 = Math.cos(a)
+      ss1 = sin(a)
+      cc1 = cos(a)
 
       //  ss3 = sin(3*a); cc3 = cos(3*a)
       cc3 = 4 * cc1 * (cc1 * cc1 - 0.75)
@@ -184,17 +178,6 @@ export default function forward (bufferSize, buffer, trans, spectrum, table) {
       } while (ix < n)
     }
   }
-
-  console.log('joder', bufferSize, i, n)
-  while (--i) {
-    rval = x[i]
-    ival = x[n - i - 1]
-    mag = bSi * sqrt(rval * rval + ival * ival)
-
-    spectrum[i] = mag
-  }
-
-  spectrum[0] = bSi * x[0]
 
   return spectrum
 }
