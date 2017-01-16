@@ -6,7 +6,7 @@ const ola = require('..').overlapAdd
 print('Add and overlap examples', 'h3')
 
 print('Example signal: a constant')
-const constant = buffer.generate(400, (x) => 0.5)
+const constant = buffer.gen(400, (x) => 0.5)
 draw(addCanvas(400), constant)
 
 print('Stretch to double, with hop size factor 0.5')

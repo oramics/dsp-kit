@@ -12,12 +12,12 @@
  *
  * @example
  * const dsp = require('dsp-kit')
- * const signal = dsp.generate(1024, (x) => Math.sin(x))
+ * const signal = dsp.gen(1024, (x) => Math.sin(x))
  * dsp.fft.forward(signal)
  *
  * @example
  * // apply a window to a new buffer
- * const signal = dsp.generate(1024, (x) => Math.sin(x))
+ * const signal = dsp.gen(1024, (x) => Math.sin(x))
  * const windowed = dsp.map(signal, dsp.window.hanning())
  * // apply a window to the same buffer
  * dsp.map(signal, dsp.window.hanning(), signal)
@@ -25,7 +25,7 @@
  *
  * @module dsp-kit
  */
-export { add, mult, zeros, generate, concat, combinator, map, copy, round } from 'dsp-array'
+export { add, mult, zeros, gen, concat, round, testAll } from 'dsp-array'
 export { dft, idft } from 'dsp-dft'
 export { fft, ifft } from 'dsp-fft'
 export { rfft } from 'dsp-rfft'

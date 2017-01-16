@@ -1,18 +1,27 @@
 /**
  * > Array manipulation functions
  *
+ * This module contains helper functions to work with arrays (usually typed arrays,
+ * but not required).
+ *
+ * This module accepts the premise that explicit is better than implicit.
+ * For this reason:
+ * - The first parameter of all the functions is the number of samples to process.
+ * - The last parameter of all modifyng functions is the array to use as output
+ * allowing _explicit_ in-place modification
+ *
  * [![npm install dsp-array](https://nodei.co/npm/dsp-array.png?mini=true)](https://npmjs.org/package/dsp-array/)
  *
  * This is part of [dsp-kit](https://github.com/oramics/dsp-kit)
  *
  * @example
  * var array = require('dsp-array')
- * const sine = array.generate(1024, (x) => Math.sin(0.5 * x))
+ * const sine = array.gen(1024, (x) => Math.sin(0.5 * x))
  *
  * @example
  * // included in dsp-kit package
  * var dsp = require('dsp-kit')
- * dsp.generate(...)
+ * dsp.gen(...)
  *
  * @module array
  */
@@ -35,13 +44,12 @@ export function zeros (size) { return new Float64Array(size) }
  * - index: a number from [0...length]
  * - length: the array length
  * @example
- * const sine = array.generate(10, (x) => Math.sin(x))
+ * const sine = array.gen(10, (x) => Math.sin(x))
  */
-export function generate (array, fn) {
-  if (typeof array === 'number') array = zeros(array)
-  const N = array.length
-  for (let n = 0; n < N; n++) array[n] = fn(n, N)
-  return array
+export function gen (N, fn, output) {
+  if (arguments.length < 3) output = zeros(N)
+  for (let n = 0; n < N; n++) output[n] = fn(n, N)
+  return output
 }
 
 /**
@@ -65,134 +73,62 @@ export function concat (a, b, dest = null, offset = 0) {
 }
 
 /**
- * Apply a window to a signal.
+ * Add elements from two arrays. Can work in-place
  *
- * @param {Array} window - the window to apply
- * @param {Array} signal - the signal
- * @param {Integer} offset - (Optional) the offset in the signal to place
- * the window (0 by default)
- * @param {Array} output - (Optional) the output array (must be at least the
- * same size as the window)
- * @return {Array} the signal fragment after the window applied
- *
+ * @param {Integer} numberOfSamples - the number of samples to add
+ * @param {Array} a - one buffer to add
+ * @param {Array} b - the other buffer
+ * @param {Array} output - (Optional) the output buffer (or a new one if not provided)
+ * @return {Array} the output buffer
  * @example
- * var signal = array.generate(1024, ...)
- * var hamming = array.generate(100, (n, N) => 0.54 - 0.46 * Math.cos(2 * Math.PI * n / (N - 1)))
- * var windowed = array.window(hamming, signal)
- * windowed.length // => 100
+ * add(10, signalA, signalB)
+ * // in-place (store the result in signalA)
+ * add(10, signalA, signalB, signalA)
  */
-export function window (win, signal, offset, output) {
-  const size = win.length
-  if (!output) output = zeros(size)
-  offset = offset || 0
-  for (let i = 0; i < size; i++) {
-    output[i] = signal[i + offset] * win[i]
-  }
-  return output
+export function add (N, a, b, out) {
+  out = out || zeros(N)
+  for (var i = 0; i < N; i++) out[i] = a[i] + b[i]
+  return out
 }
 
 /**
- * Create an array combinator. Given a function, returns a function to combine
- * two arrays using that function.
+ * Multiply elements from two arrays. Can work in-place
  *
- * @param {Function} fn - the function used to combine the arrays. It accepts
- * two parameters: the numbers of each array to combine
- * @return {Function} the combinator function
- * @see copyTo, add, mult
+ * @param {Integer} numberOfSamples - the number of samples to add
+ * @param {Array} a - one buffer to add
+ * @param {Array} b - the other buffer
+ * @param {Array} output - (Optional) the output buffer (or a new one if not provided)
+ * @return {Array} the output buffer
+ * @example
+ * mult(10, signalA, signalB)
+ * // in-place (store the result in signalA)
+ * mult(10, signalA, signalB, signalA)
  */
-export function combinator (fn) {
-  return function (arrayA, arrayB, dest = null, offsetA = 0, offsetB = 0, offsetD = 0) {
-    const sizeA = arrayA.length - offsetA
-    const sizeB = arrayB.length - offsetB
-    const arrayD = typeof dest === 'number' ? zeros(dest)
-      : dest === null ? zeros(Math.min(sizeA, sizeB) + offsetD)
-      : dest
-    const sizeD = arrayD.length - offsetD
-    const max = Math.min(sizeA, sizeB, sizeD)
-    for (let i = 0; i < max; i++) {
-      arrayD[i + offsetD] = fn(arrayA[i + offsetA], arrayB[i + offsetB])
-    }
-    return arrayD
-  }
-}
-
-const copyTo = combinator((a, b) => a)
-/**
- * Copy an array
- * @param {Array} source
- * @param {Array} destination - (Optional)
- * @return {Array} destination
- */
-export function copy (src, dest, srcOffset, destOffset) {
-  return copyTo(src, src, dest, srcOffset, srcOffset, destOffset)
+export function mult (N, a, b, out) {
+  out = out || zeros(N)
+  for (var i = 0; i < N; i++) out[i] = a[i] * b[i]
+  return out
 }
 
 /**
- * Add two arrays.
+ * Substract elements from two arrays. Can work in-place
  *
- * @param {Array} arrayA - the source array
- * @param {Array} arrayB - the B array
- * @param {Array|Integer} destination - (Optional) the destination array or the
- * number of samples to add. If not present, a new array is created.
- * @param {Integer} offsetA - (Optional) the start offset of the A array
- * @param {Integer} offsetA - (Optional) the start offset of the B array
- * @param {Integer} offsetDestination - (Optional) the start offset of the destination array
- * @return {Array} the destination array (the provided or a new one if no one provided)
- *
+ * @param {Integer} numberOfSamples - the number of samples to add
+ * @param {Array} minuend - the buffer to substract from
+ * @param {Array} subtrahend - the buffer to get the numbers to being subtracted
+ * @param {Array} output - (Optional) the output buffer (or a new one if not provided)
+ * @return {Array} the output buffer
  * @example
- * // add to arrays into a new one
- * const result = array.add(arrayA, arrayB)
- * // add to arrays into a third
- * array.add(arrayA, arrayB, dest)
+ * var signalA = [3, 3, 3, 3]
+ * var signalB = [0, 1, 2, 3]
+ * substr(10, signalA, signalB) // => [3, 2, 1, 0]
+ * // in-place (store the result in signalA)
+ * substr(10, signalA, signalB, signalA) // => signalA contains the result
  */
-export const add = combinator((a, b) => a + b)
-
-export const substr = combinator((a, b) => a - b)
-
-/**
- * Multiply two arrays.
- *
- * @param {Array} arrayA - the source array
- * @param {Array} arrayB - the B array
- * @param {Array|Integer} destination - (Optional) the destination array or the
- * number of samples to add. If not present, a new array is created.
- * @param {Integer} offsetA - the start offset of the A array
- * @param {Integer} offsetA - the start offset of the B array
- * @param {Integer} offsetDestination - the start offset of the destination array
- *
- * @example
- * // add to arrays into a new one
- * const result = array.add(arrayA, arrayB)
- *
- * @example
- * // add to arrays into a third
- * array.add(arrayA, arrayB, dest)
- */
-export const mult = combinator((a, b) => a * b)
-
-/**
- * Map an array with a function
- *
- * This function can be partially applied (see examples)
- *
- * @param {Function} fn - the mapping function
- * @param {Array} source - the source
- * @param {Array} destination - (Optional) if no one is provided, a new array
- * is created
- * @return {Array} the mapped array
- * @example
- * const sine = array.generate(1024, (x) => Math.sin(x))
- * array.map((x) => x * 2, sine) // => an array with the gain doubled
- * // partially applied
- * const doubleGain = array.map((x) => x * 2)
- * doubleGain(array) // => an array with the gain doubled
- */
-export function map (fn, src, dest) {
-  if (arguments.length === 1) return (s, d) => map(fn, s, d)
-  const len = src.length
-  if (!dest) dest = zeros(len)
-  for (let i = 0; i < len; i++) dest[i] = fn(src[i])
-  return dest
+export function substr (N, a, b, out) {
+  out = out || zeros(N)
+  for (var i = 0; i < N; i++) out[i] = a[i] - b[i]
+  return out
 }
 
 const isSame = Object.is
@@ -215,4 +151,25 @@ export function round (arr, n = 8, output) {
     output[i] = isSame(r, -0) ? 0 : r
   }
   return output
+}
+
+/**
+ * Test if the N first elements of an array is true for a given predicate
+ *
+ * @param {Integer} N - the number of elements to test
+ * @param {Function} predicate - a function that receive an element of the
+ * array and should return true or false
+ * @param {Array} array - the array
+ * @return {Boolean}
+ *
+ * @example
+ * var signal = [1, 1, 1, 2, 2, 2]
+ * testAll(3, signal, (x) => x === 1) // => true
+ * testAll(4, signal, (x) => x === 1) // => false
+ */
+export function testAll (N, fn, array) {
+  for (var i = 0; i < N; i++) {
+    if (!fn(array[i])) return false
+  }
+  return true
 }

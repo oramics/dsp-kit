@@ -30,6 +30,7 @@ This is part of [dsp-kit](https://github.com/oramics/dsp-kit)
 
 ### References
 
+- https://github.com/echo66/time-stretch-wac-article/blob/master/ts-ps-wac.pdf
 - https://www.spsc.tugraz.at/sites/default/files/Bachelor%20Thesis%20Gruenwald.pdf
 - http://www.cs.princeton.edu/courses/archive/spr09/cos325/Bernardini.pdf
 
@@ -39,13 +40,8 @@ var dsp = require('dsp-kit')
 ```
 
 * [phase-vocoder](#module_phase-vocoder)
-    * _static_
-        * [.phaseVocoder()](#module_phase-vocoder.phaseVocoder)
-        * [.paulStretch()](#module_phase-vocoder.paulStretch)
-        * [.analysis()](#module_phase-vocoder.analysis)
-        * [.synthesis()](#module_phase-vocoder.synthesis)
-    * _inner_
-        * [~phaseCalculation2()](#module_phase-vocoder..phaseCalculation2)
+    * [.phaseVocoder()](#module_phase-vocoder.phaseVocoder)
+    * [.paulStretch()](#module_phase-vocoder.paulStretch)
 
 <a name="module_phase-vocoder.phaseVocoder"></a>
 
@@ -60,19 +56,3 @@ function that process the data.
 Implements the paul stretch algorithm for extreme timestretching
 
 **Kind**: static method of <code>[phase-vocoder](#module_phase-vocoder)</code>  
-<a name="module_phase-vocoder.analysis"></a>
-
-### phase-vocoder.analysis()
-**Kind**: static method of <code>[phase-vocoder](#module_phase-vocoder)</code>  
-<a name="module_phase-vocoder.synthesis"></a>
-
-### phase-vocoder.synthesis()
-Synthesize a signal from a collection of frames
-
-**Kind**: static method of <code>[phase-vocoder](#module_phase-vocoder)</code>  
-<a name="module_phase-vocoder..phaseCalculation2"></a>
-
-### phase-vocoder~phaseCalculation2()
-Recalculate the phases of each frame when stretched
-
-**Kind**: inner method of <code>[phase-vocoder](#module_phase-vocoder)</code>  

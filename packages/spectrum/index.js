@@ -144,28 +144,3 @@ export function unwrap (data, output) {
   }
   return output
 }
-
-/**
- * Perform a cyclic shifting (rotation) to set the first sample at the middle
- * of the buffer (it reorder buffer samples from (0:N-1) to [(N/2:N-1) (0:(N/2-1))])
- *
- * This is useful to perform zero-phase windowing
- *
- * This is the same function as mathlab's `fftshift`
- *
- * @param {Array} source - the source buffer
- * @param {Array} result - (Optional) the result buffer
- */
-export function fftshift (buffer, output) {
-  const size = buffer.length
-  const n = Math.floor((size / 2) + 1)
-  if (!output) output = new Float64Array(size)
-  for (let i = 0; i < size; i++) {
-    output[i] = buffer[(i + n) % size]
-  }
-  return output
-}
-
-export function fftunshift (buffer, output) {
-  return fftshift(buffer, output)
-}

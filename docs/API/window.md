@@ -18,7 +18,7 @@ https://www.dsprelated.com/freebooks/sasp/Spectrum_Analysis_Windows.html
 **Example**  
 ```js
 const dsp = require('dsp-kit')
-dsp.generate(1024, dsp.window.hanning())
+dsp.gen(1024, dsp.window.hanning())
 ```
 
 * [window](#module_window)

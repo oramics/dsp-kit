@@ -6,7 +6,7 @@ var forward = require('../inplace.js')
 
 test('in-place fft algorithm', function () {
   var fft = new dspjs.FFT(1024, 44100)
-  var signal = buffer.generate(1024, (n, N) => Math.sin(2 * Math.PI * n / (N - 1)))
+  var signal = buffer.gen(1024, (n, N) => Math.sin(2 * Math.PI * n / (N - 1)))
   fft.forward(signal)
   var result = { real: buffer.zeros(1024), imag: buffer.zeros(1024) }
   result.real.set(signal)

@@ -10,7 +10,7 @@ const canvas = ({ width = 1024, height = 150 } = {}) => h('canvas', { width, hei
 add(h('h1', 'Unwrap phase examples'))
 
 
-var signal = arr.generate(1024, (n, N) => Math.sin(10 * 2 * Math.PI * n / (N - 1)))
+var signal = arr.gen(1024, (n, N) => Math.sin(10 * 2 * Math.PI * n / (N - 1)))
 
 add(h('h3', 'Signal'))
 waa.drawWaveform(add(canvas()), signal)

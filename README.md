@@ -2,28 +2,25 @@
 
 > A digital signal processing library in Javascript
 
-Since I usually learn by coding, this is the result of my learning on dsp.
+Since I usually learn by coding, this is the result of my learning on dsp. I'm building while trying to understand the main concepts of dsp targeting audio applications.
 
-This is largely based in the now abandoned [dsp.js](https://github.com/corbanbrook/dsp.js) code. Work in progress. Experimental API. Use at your own risk.
+Work in progress. Experimental API. Use at your own risk.
 
 [![npm install dsp-kit](https://nodei.co/npm/dsp-kit.png?mini=true)](https://npmjs.org/package/dsp-kit/)
 
 ```js
 const dsp = require('dsp-kit')
 const signal = dsp.generate(1024, (x) => Math.sin(x))
-const fft = new dsp.FFT(1024)
-const spectrum = dsp.spectrum(fft.forward(signal))
-spectrum.magnitudes // => the magnitude spectrum of the signal
-spectrum.phases // => the phase spectrum of the signal
+const { magnitudes, phases } = dsp.spectrum(dsp.fft(1024, signal))
 ```
 
 This is a [multimodule](https://github.com/oramics/dsp-kit/tree/master/packages) repository, each functionallity wrapped in its own package:
 
 - [array](https://github.com/oramics/dsp-kit/tree/master/packages/buffer): array utilities
-- [delay](https://github.com/oramics/dsp-kit/tree/master/packages/delay): work in progress
+- [delay](https://github.com/oramics/dsp-kit/tree/master/packages/delay): delay unit
 - [dft](https://github.com/oramics/dsp-kit/tree/master/packages/dft): discrete fourier implementation (very slow, but easy to understand)
-- [dsp](https://github.com/oramics/dsp-kit/tree/master/packages/dsp): a facade module that exposes the functions of the rest of the modules
-- [elastica](https://github.com/oramics/dsp-kit/tree/master/packages/elastica): timestretch for web audio api (it will be extracted from this)
+- [dsp](https://github.com/oramics/dsp-kit/tree/master/packages/dsp): a _facade_ module that exposes the functions of the rest of the modules. Probably you just need to install and use that one.
+- [elastica](https://github.com/oramics/dsp-kit/tree/master/packages/elastica): timestretch for web audio api (it will be extracted it is own repo when ready).
 - [fft](https://github.com/oramics/dsp-kit/tree/master/packages/fft): fast forward fourier algorithm
 - [fft-alt](https://github.com/oramics/dsp-kit/tree/master/packages/fft-alt): alternative fast forward fourier algorithms (see benchmarks)
 - [fftshift](https://github.com/oramics/dsp-kit/tree/master/packages/fftshift): rotate arrays to perform zero-phasing windowing

@@ -29,6 +29,7 @@
  *
  * ### References
  *
+ * - https://github.com/echo66/time-stretch-wac-article/blob/master/ts-ps-wac.pdf
  * - https://www.spsc.tugraz.at/sites/default/files/Bachelor%20Thesis%20Gruenwald.pdf
  * - http://www.cs.princeton.edu/courses/archive/spr09/cos325/Bernardini.pdf
  *
@@ -38,24 +39,26 @@
  *
  * @module phase-vocoder
  */
-import { fft, ifft } from 'dsp-fft'
+import analysis from './lib/analysis'
+import synthesis from './lib/synthesis'
+import recalcPhases from './lib/recalcPhases'
+import randomPhases from './lib/randomPhases'
+import { gen } from 'dsp-array'
+import { bandFrequency } from 'dsp-spectrum'
 import { hanning } from 'dsp-window'
-import { fftshift, ifftshift } from 'dsp-fftshift'
-import { generate, add, zeros, window } from 'dsp-array'
-import { polar, rectangular, bandFrequency, unwrap } from 'dsp-spectrum'
-const { PI, random } = Math
-const PI2 = 2 * PI
 
 /**
  * Implements a standard phase vocoder timestretch algorithm. It returns a
  * function that process the data.
  */
-export function phaseVocoder ({ size = 512, hop = 125, sampleRate = 44100 } = {}) {
-  return function stretch (factor, data) {
-    var frames = analysis(data, { size, hop })
-    console.log('phase calculation', hop, factor, hop * factor)
-    calculatePhases(frames, { size, factor })
+export function phaseVocoder ({ size = 512, hop = 125, sampleRate = 44100, windowFn = hanning() } = {}) {
+  // a lookup table of bin center frecuencies
+  var omega = gen(size, (x) => bandFrequency(x, size, sampleRate))
 
+  return function stretch (factor, signal, output, timeFreqProccessing) {
+    var frames = analysis(signal, { size, hop, windowFn })
+    if (timeFreqProccessing) timeFreqProccessing(frames, { size, hop, sampleRate })
+    recalcPhases(frames, { size, factor, hop }, omega)
     return synthesis(frames, { size, hop, factor, sampleRate })
   }
 }
@@ -64,130 +67,9 @@ export function phaseVocoder ({ size = 512, hop = 125, sampleRate = 44100 } = {}
  * Implements the paul stretch algorithm for extreme timestretching
  */
 export function paulStretch ({ size = 512, hop = 125, sampleRate = 44100 } = {}) {
-  return function stretch (factor, data) {
-    var frames = analysis(data, { size, hop })
+  return function stretch (factor, signal) {
+    var frames = analysis(signal, { size, hop })
     randomPhases(frames, size)
     return synthesis(frames, { size, hop, factor, sampleRate })
-  }
-}
-
-/**
- *
- */
-export function analysis (signal, params = {}) {
-  const { size = 1024, hop = size / 5 } = params
-  const forward = fft(size)
-  const numFrames = Math.floor((signal.length - size) / hop)
-  // create the window buffer
-  const win = generate(size, params.window || hanning())
-
-  // create an array to store all frames
-  const frames = new Array(numFrames)
-
-  // create some intermediate buffers (and reuse it for performance)
-  const windowed = zeros(size)
-  const freqDomain = { real: zeros(size), imag: zeros(size) }
-  for (let i = 0; i < numFrames; i++) {
-    // 1. place a window into the signal
-    window(win, signal, i * hop, windowed) // => windowed
-    // 3. Cyclic shift to phase zero windowing
-    fftshift(windowed) // => centered
-    // 4. Perform the forward fft
-    forward(windowed, freqDomain)
-    // 5. Convert to polar form in a new frame
-    frames[i] = polar(freqDomain)
-  }
-  return frames
-}
-
-/**
- * Synthesize a signal from a collection of frames
- */
-export function synthesis (frames, { size, hop, sampleRate, factor }, output) {
-  if (!frames || !frames.length) throw Error('"frames" parameter is required in synthesis')
-
-  const len = frames.length
-  const hopDest = hop * factor
-  if (!output) output = zeros(len * hopDest)
-  const inverse = ifft(size)
-  let position = 0
-
-  // create some intermediate buffers (and reuse it for performance)
-  const rectFD = { real: zeros(size), imag: zeros(size) }
-  const timeDomain = { real: zeros(size), imag: zeros(size) }
-  for (let i = 0; i < len; i++) {
-    // 1. Convert freq-domain from polar to rectangular
-    rectangular(frames[i], rectFD)
-    // 2. Convert from freq-domain in rectangular to time-domain
-    let signal = inverse(rectFD, timeDomain).real
-    // 3. Unshift the previous cycling shift
-    ifftshift(signal)
-    // 4. Overlap add
-    add(signal, output, output, 0, position, position)
-    position += hopDest
-  }
-  return output
-}
-
-function calculatePhases (frames, { size, factor, hop }) {
-  const numFrames = frames.length
-
-  // Unwrap the phases of the first frame
-  let prev = frames[0].phases
-  unwrap(prev, prev)
-
-  for (let f = 1; f < numFrames; f++) {
-    // 1. unwrap phases (in place for maximum performance)
-    let current = frames[f].phases
-    unwrap(current, current)
-
-    // that phase increment may be multiplied the synthesis hop
-    for (let i = 0; i < size; i++) {
-      // 2. find the correct phase increment
-      let inc = current[i] - prev[i]
-      current[i] = prev[i] + inc * factor
-    }
-  }
-}
-
-/**
- * Set random phases of a collection of frames
- * @private
- */
-function randomPhases (frames, { size }) {
-  for (let n = 0; n < frames.length; n++) {
-    var phases = frames[n].phases
-    for (let i = 0; i < size; i++) {
-      phases[i] = PI2 * random()
-    }
-  }
-}
-
-/**
- * Recalculate the phases of each frame when stretched
- */
-function phaseCalculation2 (frames, { size, hop, factor, sampleRate }) {
-  const original = hop / sampleRate
-  const modified = (hop * factor) / sampleRate
-
-  const numFrames = frames.length
-  for (let i = 2; i < numFrames; i++) {
-    const prev = frames[i - 1]
-    const current = frames[i]
-    // for each frame, update each bin
-    for (let bin = 0; bin < size; bin++) {
-      // calculate the difference between phases
-      const deltaPhi = current.phases[bin] - prev.phases[bin]
-      // get the current band frequency
-      const freq = bandFrequency(bin, size, sampleRate)
-      // calculate the frequency deviation with the given hop size
-      const deltaFreq = (deltaPhi / original) - freq
-      // wrap the deviation
-      var wrappedDeltaFreq = ((deltaFreq + PI) % PI2) - PI
-      // and calculate the real frequency
-      var realFreq = freq + wrappedDeltaFreq
-      // update the phase
-      current.phases[bin] = prev.phases[bin] + modified * realFreq
-    }
   }
 }

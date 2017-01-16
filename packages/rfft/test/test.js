@@ -5,7 +5,7 @@ var dspjs = require('dspjs')
 var dsp = require('..')
 
 test.skip('fft and rfft returns the same spectrum', function () {
-  var signal = arr.generate(1024, (n, N) => Math.sin(2 * Math.PI * n / (N - 1)))
+  var signal = arr.gen(1024, (n, N) => Math.sin(2 * Math.PI * n / (N - 1)))
   var rfft = new dspjs.RFFT(1024, 44100)
   var fft = new dspjs.FFT(1024, 44100)
   rfft.forward(signal)
@@ -15,7 +15,7 @@ test.skip('fft and rfft returns the same spectrum', function () {
 })
 
 test('legacy rfft implementation and new one gives same result', function () {
-  var signal = arr.generate(1024, (n, N) => Math.sin(2 * Math.PI * n / (N - 1)))
+  var signal = arr.gen(1024, (n, N) => Math.sin(2 * Math.PI * n / (N - 1)))
   var rfft = new dspjs.RFFT(1024, 44100)
   var forward = dsp.rfft(1024)
   rfft.forward(signal)
@@ -23,7 +23,7 @@ test('legacy rfft implementation and new one gives same result', function () {
 })
 
 test.skip('inverse rfft restores the signal', function () {
-  var signal = arr.generate(1024, (n, N) => Math.sin(2 * Math.PI * n / (N - 1)))
+  var signal = arr.gen(1024, (n, N) => Math.sin(2 * Math.PI * n / (N - 1)))
   var forward = dsp.rfft(1024)
   var inverse = dsp.irfft(1024)
   assert.deepEqual(inverse(forward(signal)), signal)

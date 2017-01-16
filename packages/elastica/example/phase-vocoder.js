@@ -27,6 +27,7 @@ Promise.resolve('Phase vocoder elastica example')
   return elastica.vocoder(1.2, buffer)
 })
 .then((stretched) => {
+  console.log('joder', stretched.length, stretched.length / 44100)
   var c = canvas({ width: 600, height: 300 })
   c.onclick = waa.player(stretched, true)
   waa.drawWaveform(add(c), stretched.getChannelData(0))

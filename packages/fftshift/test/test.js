@@ -13,15 +13,15 @@ test('fftshift', () => {
   assert.deepEqual(odd, from([4, 5, 1, 2, 3]))
 
   const N = 1000
-  const signal = buffer.generate(N + 1, x => x)
-  const shifted = buffer.generate(N + 1, x => x < N / 2 ? N / 2 + x + 1 : x - N / 2)
+  const signal = buffer.gen(N + 1, x => x)
+  const shifted = buffer.gen(N + 1, x => x < N / 2 ? N / 2 + x + 1 : x - N / 2)
   assert.deepEqual(shift.fftshift(signal.slice()), shifted)
   assert.deepEqual(shift.ifftshift(shifted.slice()), signal)
 })
 
 test('inverse fftshift', () => {
-  const even = buffer.generate(100, x => x)
+  const even = buffer.gen(100, x => x)
   assert.deepEqual(shift.ifftshift(shift.fftshift(even)), even)
-  const odd = buffer.generate(101, x => x)
+  const odd = buffer.gen(101, x => x)
   assert.deepEqual(shift.ifftshift(shift.fftshift(odd)), odd)
 })
