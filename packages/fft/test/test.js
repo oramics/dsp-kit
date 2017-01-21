@@ -8,7 +8,7 @@ const arr = require('dsp-array')
 
 test('small signal against dft', function () {
   const size = 8
-  const signal = arr.gen(size, (n, N) => sin(n / N) + cos(0.5 * n / N))
+  const signal = arr.fill(size, (n, N) => sin(n / N) + cos(0.5 * n / N))
   const dftFreqDomain = dft.dft(signal)
   const fftFreqDomain = dspkit.fft(size, signal)
   assert.deepEqual(arr.round(fftFreqDomain.real), arr.round(dftFreqDomain.real))
@@ -26,7 +26,7 @@ test('common signal against legacy dspjs', () => {
   const size = 1024
 
   // create signal
-  var signal = arr.gen(size, (n, N) => sin(n / N) - cos(n / N + 0.75 * PI))
+  var signal = arr.fill(size, (n, N) => sin(n / N) - cos(n / N + 0.75 * PI))
   assert.equal(Math.max(...signal), 1.8182117098462318)
 
   // forward
@@ -56,8 +56,8 @@ test('semi real example', function () {
   const SIZE = 1024
   const WINDOW = 128
   const HOP = 40
-  const signal = arr.gen(SIZE, (n, N) => sin(2 * PI * (n / (N - 1))))
-  const window = arr.gen(WINDOW, (n, N) => 0.5 * (1 - cos(2 * PI * n / (N - 1))))
+  const signal = arr.fill(SIZE, (n, N) => sin(2 * PI * (n / (N - 1))))
+  const window = arr.fill(WINDOW, (n, N) => 0.5 * (1 - cos(2 * PI * n / (N - 1))))
   const buffer = arr.zeros(WINDOW)
   const win = arr.zeros(WINDOW)
   const complex = { real: arr.zeros(WINDOW), imag: arr.zeros(WINDOW) }
@@ -76,6 +76,6 @@ test('semi real example', function () {
   }
   const num = Math.floor(SIZE / HOP) + 1
   assert.equal(result.length, num)
-  const expected = arr.gen(num, () => true)
+  const expected = arr.fill(num, () => true)
   assert.deepEqual(result, expected)
 })

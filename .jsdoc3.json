@@ -1,0 +1,31 @@
+{
+  "source": {
+    "include": ["README.md", "packages/"],
+    "excludePattern": "node_modules"
+  },
+  "templates": {
+    "default": {
+      "outputSourceFiles": true
+    },
+    "cleverLinks": true,
+    "monospaceLinks": true,
+    "systemName": "dsp-kit",
+    "systemSummary": "A kit for digital signal processing",
+    "footer": "dsp-kit",
+    "copyright": "MIT License",
+    "navType": "vertical",
+    "inlineNav": true,
+    "theme": "spacelab",
+    "linenums": true,
+    "collapseSymbols": false,
+    "inverseNav": true,
+    "showTableOfContents": true
+  },
+  "opts": {
+    "destination": "./docs/html/",
+    "recurse": true,
+    "verbose": true,
+    "template": "./node_modules/postman-jsdoc-theme"
+  },
+  "plugins": ["plugins/markdown"]
+}

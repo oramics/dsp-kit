@@ -16,12 +16,12 @@
  *
  * @example
  * var array = require('dsp-array')
- * const sine = array.gen(1024, (x) => Math.sin(0.5 * x))
+ * const sine = array.fill(1024, (x) => Math.sin(0.5 * x))
  *
  * @example
  * // included in dsp-kit package
  * var dsp = require('dsp-kit')
- * dsp.gen(...)
+ * dsp.fill(...)
  *
  * @module array
  */
@@ -35,7 +35,7 @@
 export function zeros (size) { return new Float64Array(size) }
 
 /**
- * Generate an array using a function
+ * Fill an array using a function
  *
  * @param {Number|Array} array - The array (to reuse) or an array length to create one
  * @param {Function} fn - the generator function. It receives the following parameters:
@@ -43,10 +43,11 @@ export function zeros (size) { return new Float64Array(size) }
  * - n: a number from [0..1]
  * - index: a number from [0...length]
  * - length: the array length
+ *
  * @example
- * const sine = array.gen(10, (x) => Math.sin(x))
+ * const sine = array.fill(10, (x) => Math.sin(x))
  */
-export function gen (N, fn, output) {
+export function fill (N, fn, output) {
   if (arguments.length < 3) output = zeros(N)
   for (let n = 0; n < N; n++) output[n] = fn(n, N)
   return output

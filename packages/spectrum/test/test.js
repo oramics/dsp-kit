@@ -4,7 +4,7 @@ const assert = require('assert')
 const dspjs = require('dspjs')
 const fft = require('dsp-fft')
 const spectrum = require('..')
-const { gen, round } = require('dsp-array')
+const { fill, round } = require('dsp-array')
 
 function from (...v) { return Float64Array.from(v) }
 
@@ -22,7 +22,7 @@ test('center frequency', function () {
 
 test('spectrum', function () {
   const size = 64
-  const signal = gen(size, (n, N) => Math.sin(2 * Math.PI * n / (N - 1)))
+  const signal = fill(size, (n, N) => Math.sin(2 * Math.PI * n / (N - 1)))
   const old = new dspjs.FFT(size, 44100)
   old.forward(signal)
   // the result from the dsp.js is divided by `2 / size` so we have to denormalize
@@ -36,7 +36,7 @@ test('spectrum', function () {
 
 test('rectangular form', function () {
   const size = 8
-  const signal = gen(size, (n, N) => Math.sin(2 * Math.PI * n / (N - 1)))
+  const signal = fill(size, (n, N) => Math.sin(2 * Math.PI * n / (N - 1)))
   const complex = fft.fft(size, signal)
   const polar = spectrum.polar(complex)
   const rect = spectrum.rectangular(polar)
@@ -44,16 +44,16 @@ test('rectangular form', function () {
 })
 
 test('phase unwrap', function () {
-  const positive = gen(10, (i) => i % (2 * Math.PI))
+  const positive = fill(10, (i) => i % (2 * Math.PI))
   assert.deepEqual(positive, from(0,1,2,3,4,5,6,0.7168146928204138,1.7168146928204138,2.7168146928204138))
   assert.deepEqual(spectrum.unwrap(positive), from(0,1,2,3,4,5,6,7,8,9))
-  const negative = gen(10, (i) => -i % (2 * Math.PI))
+  const negative = fill(10, (i) => -i % (2 * Math.PI))
   assert.deepEqual(negative, from(0,-1,-2,-3,-4,-5,-6,-0.7168146928204138,-1.7168146928204138,-2.7168146928204138))
   assert.deepEqual(spectrum.unwrap(negative), from(0,-1,-2,-3,-4,-5,-6,-7,-8,-9))
 })
 
 test('phase unwrap in place', function () {
-  var signal = gen(1024, (i) => i % (2 * Math.PI))
+  var signal = fill(1024, (i) => i % (2 * Math.PI))
   var unwrapped = spectrum.unwrap(signal)
   spectrum.unwrap(signal, signal)
   assert.deepEqual(signal, unwrapped)

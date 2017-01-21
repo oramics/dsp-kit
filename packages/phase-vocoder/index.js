@@ -43,7 +43,7 @@ import analysis from './lib/analysis'
 import synthesis from './lib/synthesis'
 import recalcPhases from './lib/recalcPhases'
 import randomPhases from './lib/randomPhases'
-import { gen } from 'dsp-array'
+import { fill } from 'dsp-array'
 import { bandFrequency } from 'dsp-spectrum'
 import { hanning } from 'dsp-window'
 
@@ -53,7 +53,7 @@ import { hanning } from 'dsp-window'
  */
 export function phaseVocoder ({ size = 512, hop = 125, sampleRate = 44100, windowFn = hanning() } = {}) {
   // a lookup table of bin center frecuencies
-  var omega = gen(size, (x) => bandFrequency(x, size, sampleRate))
+  var omega = fill(size, (x) => bandFrequency(x, size, sampleRate))
 
   return function stretch (factor, signal, output, timeFreqProccessing) {
     var frames = analysis(signal, { size, hop, windowFn })

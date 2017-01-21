@@ -13,13 +13,13 @@ This is part of [dsp-kit](https://github.com/oramics/dsp-kit)
 **Example**  
 ```js
 var buffer = require('dsp-fftshift')
-const sine = buffer.gen(1024, (x) => Math.sin(0.5 * x))
+const sine = buffer.fill(1024, (x) => Math.sin(0.5 * x))
 ```
 **Example**  
 ```js
 // included in dsp-kit package
 var dsp = require('dsp-kit')
-dsp.gen(...)
+dsp.fill(...)
 ```
 
 * [fftshift](#module_fftshift)

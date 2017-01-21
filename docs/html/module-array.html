@@ -1,0 +1,1768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>array - Postman Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-array.html">array</a><ul class='methods'><li data-type='method'><a href="module-array.html#.add">add</a></li><li data-type='method'><a href="module-array.html#.concat">concat</a></li><li data-type='method'><a href="module-array.html#.fill">fill</a></li><li data-type='method'><a href="module-array.html#.mult">mult</a></li><li data-type='method'><a href="module-array.html#.round">round</a></li><li data-type='method'><a href="module-array.html#.substr">substr</a></li><li data-type='method'><a href="module-array.html#.testAll">testAll</a></li><li data-type='method'><a href="module-array.html#.zeros">zeros</a></li></ul></li><li><a href="module-delay.html">delay</a></li><li><a href="module-dft.html">dft</a><ul class='methods'><li data-type='method'><a href="module-dft.html#.dft">dft</a></li><li data-type='method'><a href="module-dft.html#.idft">idft</a></li><li data-type='method'><a href="module-dft.html#~dft">dft</a></li><li data-type='method'><a href="module-dft.html#~idft">idft</a></li></ul></li><li><a href="module-dsp-kit.html">dsp-kit</a></li><li><a href="module-fft.html">fft</a><ul class='methods'><li data-type='method'><a href="module-fft.html#.ifft">ifft</a></li><li data-type='method'><a href="module-fft.html#~ifft">ifft</a></li></ul></li><li><a href="module-fftshift.html">fftshift</a><ul class='methods'><li data-type='method'><a href="module-fftshift.html#.fftshift">fftshift</a></li><li data-type='method'><a href="module-fftshift.html#.ifftshift">ifftshift</a></li></ul></li><li><a href="module-ola.html">ola</a><ul class='methods'><li data-type='method'><a href="module-ola.html#.overlapAdd">overlapAdd</a></li><li data-type='method'><a href="module-ola.html#.overlapAdd">overlapAdd</a></li></ul></li><li><a href="module-oscillator.html">oscillator</a><ul class='methods'><li data-type='method'><a href="module-oscillator.html#.oscillator">oscillator</a></li></ul></li><li><a href="module-phase-vocoder.html">phase-vocoder</a><ul class='methods'><li data-type='method'><a href="module-phase-vocoder.html#.paulStretch">paulStretch</a></li><li data-type='method'><a href="module-phase-vocoder.html#.phaseVocoder">phaseVocoder</a></li></ul></li><li><a href="module-rfft.html">rfft</a><ul class='methods'><li data-type='method'><a href="module-rfft.html#.rfft">rfft</a></li></ul></li><li><a href="module-signal.html">signal</a></li><li><a href="module-signal_arithmetic.html">signal/arithmetic</a><ul class='methods'><li data-type='method'><a href="module-signal_arithmetic.html#.abs">abs</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.add">add</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.div">div</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.eq">eq</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.gt">gt</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.gte">gte</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.gtp">gtp</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.lt">lt</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.lte">lte</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.ltp">ltp</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.sub">sub</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.sub">sub</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.sub">sub</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.sub">sub</a></li></ul></li><li><a href="module-signal_comparasion.html">signal/comparasion</a></li><li><a href="module-signal_integrator.html">signal/integrator</a><ul class='methods'><li data-type='method'><a href="module-signal_integrator.html#.accum">accum</a></li></ul></li><li><a href="module-spectrum.html">spectrum</a><ul class='methods'><li data-type='method'><a href="module-spectrum.html#.bandFrequency">bandFrequency</a></li><li data-type='method'><a href="module-spectrum.html#.bandWidth">bandWidth</a></li><li data-type='method'><a href="module-spectrum.html#.polar">polar</a></li><li data-type='method'><a href="module-spectrum.html#.rectangular">rectangular</a></li><li data-type='method'><a href="module-spectrum.html#.unwrap">unwrap</a></li><li data-type='method'><a href="module-spectrum.html#~bandFrequency">bandFrequency</a></li><li data-type='method'><a href="module-spectrum.html#~bandWidth">bandWidth</a></li><li data-type='method'><a href="module-spectrum.html#~polar">polar</a></li><li data-type='method'><a href="module-spectrum.html#~rectangular">rectangular</a></li><li data-type='method'><a href="module-spectrum.html#~unwrap">unwrap</a></li></ul></li><li><a href="module-waa.html">waa</a></li><li><a href="module-window.html">window</a></li></ul><h3>Global</h3><ul><li><a href="global.html#cos">cos</a></li><li><a href="global.html#ola">ola</a></li><li><a href="global.html#rfft">rfft</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">array</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        
+            
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><blockquote>
+<p>Array manipulation functions</p>
+</blockquote>
+<p>This module contains helper functions to work with arrays (usually typed arrays,
+but not required).</p>
+<p>This module accepts the premise that explicit is better than implicit.
+For this reason:</p>
+<ul>
+<li>The first parameter of all the functions is the number of samples to process.</li>
+<li>The last parameter of all modifyng functions is the array to use as output
+allowing <em>explicit</em> in-place modification</li>
+</ul>
+<p><a href="https://npmjs.org/package/dsp-array/"><img src="https://nodei.co/npm/dsp-array.png?mini=true" alt="npm install dsp-array"></a></p>
+<p>This is part of <a href="https://github.com/oramics/dsp-kit">dsp-kit</a></p></div>
+        
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="array_index.js.html">array/index.js</a>, <a href="array_index.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>var array = require('dsp-array')
+const sine = array.fill(1024, (x) => Math.sin(0.5 * x))</code></pre>
+
+    <pre class="prettyprint"><code>// included in dsp-kit package
+var dsp = require('dsp-kit')
+dsp.fill(...)</code></pre>
+
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id=".add"><span class="type-signature">(static) </span>add<span class="signature">(numberOfSamples, a, b, output)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Add elements from two arrays. Can work in-place</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>numberOfSamples</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Integer</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the number of samples to add</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>a</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>one buffer to add</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>b</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the other buffer</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>output</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>(Optional) the output buffer (or a new one if not provided)</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="array_index.js.html">array/index.js</a>, <a href="array_index.js.html#line89">line 89</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>the output buffer</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>add(10, signalA, signalB)
+// in-place (store the result in signalA)
+add(10, signalA, signalB, signalA)</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".concat"><span class="type-signature">(static) </span>concat<span class="signature">(arrayA, arrayB, destination)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Concatenate two arrays</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>arrayA</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>arrayB</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>destination</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>(Optional) If provided, the length must be
+<em>at least</em> the sum of the arrayA and arrayB length plus the destOffset</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="array_index.js.html">array/index.js</a>, <a href="array_index.js.html#line67">line 67</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>destination</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// concat into a new array
+const arrayC = array.concat(arrayA, arrayB)</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".fill"><span class="type-signature">(static) </span>fill<span class="signature">(array, fn)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Fill an array using a function</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>array</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The array (to reuse) or an array length to create one</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the generator function. It receives the following parameters:</p>
+<ul>
+<li>n: a number from [0..1]</li>
+<li>index: a number from [0...length]</li>
+<li>length: the array length</li>
+</ul></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="array_index.js.html">array/index.js</a>, <a href="array_index.js.html#line50">line 50</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>const sine = array.fill(10, (x) => Math.sin(x))</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".mult"><span class="type-signature">(static) </span>mult<span class="signature">(numberOfSamples, a, b, output)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Multiply elements from two arrays. Can work in-place</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>numberOfSamples</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Integer</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the number of samples to add</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>a</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>one buffer to add</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>b</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the other buffer</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>output</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>(Optional) the output buffer (or a new one if not provided)</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="array_index.js.html">array/index.js</a>, <a href="array_index.js.html#line108">line 108</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>the output buffer</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>mult(10, signalA, signalB)
+// in-place (store the result in signalA)
+mult(10, signalA, signalB, signalA)</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".round"><span class="type-signature">(static) </span>round<span class="signature">(array, decimals)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Round the values of an array to a number of decimals.</p>
+<p>There are small differences of precission between algorithms. This helper
+function allows to compare them discarding the precission errors.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>array</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>decimals</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Integer</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>(Optional) the number of decimals (8 by default)</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="array_index.js.html">array/index.js</a>, <a href="array_index.js.html#line145">line 145</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".substr"><span class="type-signature">(static) </span>substr<span class="signature">(numberOfSamples, minuend, subtrahend, output)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Substract elements from two arrays. Can work in-place</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>numberOfSamples</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Integer</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the number of samples to add</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>minuend</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the buffer to substract from</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>subtrahend</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the buffer to get the numbers to being subtracted</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>output</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>(Optional) the output buffer (or a new one if not provided)</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="array_index.js.html">array/index.js</a>, <a href="array_index.js.html#line129">line 129</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>the output buffer</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var signalA = [3, 3, 3, 3]
+var signalB = [0, 1, 2, 3]
+substr(10, signalA, signalB) // => [3, 2, 1, 0]
+// in-place (store the result in signalA)
+substr(10, signalA, signalB, signalA) // => signalA contains the result</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".testAll"><span class="type-signature">(static) </span>testAll<span class="signature">(N, predicate, array)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Test if the N first elements of an array is true for a given predicate</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>N</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Integer</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the number of elements to test</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>predicate</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>a function that receive an element of the
+array and should return true or false</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>array</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the array</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="array_index.js.html">array/index.js</a>, <a href="array_index.js.html#line171">line 171</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var signal = [1, 1, 1, 2, 2, 2]
+testAll(3, signal, (x) => x === 1) // => true
+testAll(4, signal, (x) => x === 1) // => false</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".zeros"><span class="type-signature">(static) </span>zeros<span class="signature">(size)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Create a typed array (a Float64Array) filled with zeros</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>size</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Integer</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="array_index.js.html">array/index.js</a>, <a href="array_index.js.html#line35">line 35</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>the array</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated at Sat Jan 21 2017 13:24:53 GMT+0100 (CET)
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

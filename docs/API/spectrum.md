@@ -33,7 +33,6 @@ dsp.spectrum(dft.fft(signal))
     * [.polar(freqDomain, output)](#module_spectrum.polar) ⇒ <code>Array</code>
     * [.rectangular()](#module_spectrum.rectangular)
     * [.unwrap(data, output)](#module_spectrum.unwrap) ⇒ <code>Array</code>
-    * [.fftshift(source, result)](#module_spectrum.fftshift)
 
 <a name="module_spectrum.bandWidth"></a>
 
@@ -119,20 +118,3 @@ const spectrum = dsp.spectrum(dsp.fft(1024, signal))
 // unwrap the phases
 const unwrapped = dsp.unwrap(spectrum.phases)
 ```
-<a name="module_spectrum.fftshift"></a>
-
-### spectrum.fftshift(source, result)
-Perform a cyclic shifting (rotation) to set the first sample at the middle
-of the buffer (it reorder buffer samples from (0:N-1) to [(N/2:N-1) (0:(N/2-1))])
-
-This is useful to perform zero-phase windowing
-
-This is the same function as mathlab's `fftshift`
-
-**Kind**: static method of <code>[spectrum](#module_spectrum)</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| source | <code>Array</code> | the source buffer |
-| result | <code>Array</code> | (Optional) the result buffer |
-

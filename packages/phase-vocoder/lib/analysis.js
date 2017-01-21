@@ -1,4 +1,4 @@
-import { zeros, gen, mult } from 'dsp-array'
+import { zeros, fill, mult } from 'dsp-array'
 import { fft } from 'dsp-fft'
 import { polar } from 'dsp-spectrum'
 import { fftshift } from 'dsp-fftshift'
@@ -9,7 +9,7 @@ import { fftshift } from 'dsp-fftshift'
 export default function analysis (signal, { size, hop, windowFn } = {}) {
   var forward = fft(size)
   var numFrames = Math.floor((signal.length - size) / hop)
-  var window = gen(size, windowFn)
+  var window = fill(size, windowFn)
 
   // create an array to store all frames
   var frames = new Array(numFrames)

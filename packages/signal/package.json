@@ -1,0 +1,32 @@
+{
+  "name": "dsp-signal",
+  "description": "Functions to create and manipulate Float64Array signals",
+  "version": "0.0.1",
+  "main": "build/index.js",
+  "module": "index.js",
+  "scripts": {
+    "pretest": "rollup -c ../../rollup.config.js",
+    "test": "node test/test.js",
+    "docs": "jsdoc2md index.js > README.md && cp README.md ../../docs/API/signal.md",
+    "start": "npm run pretest && budo example/example.js"
+  },
+  "repository": "https://github.com/oramics/dsp-kit/packages/dsp-signal",
+  "keywords": [
+    "fast",
+    "fourier",
+    "transform",
+    "dsp",
+    "dsp-kit"
+  ],
+  "author": "danigb",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oramics/dsp-kit/issues"
+  },
+  "homepage": "https://github.com/oramics/dsp-kit/packages/dsp-signal/#readme",
+  "devDependencies": {
+    "dsp-array": "^0.0.1",
+    "genish.js": "^0.1.0",
+    "memory-helper": "^1.1.1"
+  }
+}

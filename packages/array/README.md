@@ -19,18 +19,18 @@ This is part of [dsp-kit](https://github.com/oramics/dsp-kit)
 **Example**  
 ```js
 var array = require('dsp-array')
-const sine = array.gen(1024, (x) => Math.sin(0.5 * x))
+const sine = array.fill(1024, (x) => Math.sin(0.5 * x))
 ```
 **Example**  
 ```js
 // included in dsp-kit package
 var dsp = require('dsp-kit')
-dsp.gen(...)
+dsp.fill(...)
 ```
 
 * [array](#module_array)
     * [.zeros(size)](#module_array.zeros) ⇒ <code>Array</code>
-    * [.gen(array, fn)](#module_array.gen)
+    * [.fill(array, fn)](#module_array.fill)
     * [.concat(arrayA, arrayB, destination)](#module_array.concat) ⇒ <code>Array</code>
     * [.add(numberOfSamples, a, b, output)](#module_array.add) ⇒ <code>Array</code>
     * [.mult(numberOfSamples, a, b, output)](#module_array.mult) ⇒ <code>Array</code>
@@ -50,10 +50,10 @@ Create a typed array (a Float64Array) filled with zeros
 | --- | --- |
 | size | <code>Integer</code> | 
 
-<a name="module_array.gen"></a>
+<a name="module_array.fill"></a>
 
-### array.gen(array, fn)
-Generate an array using a function
+### array.fill(array, fn)
+Fill an array using a function
 
 **Kind**: static method of <code>[array](#module_array)</code>  
 
@@ -64,7 +64,7 @@ Generate an array using a function
 
 **Example**  
 ```js
-const sine = array.gen(10, (x) => Math.sin(x))
+const sine = array.fill(10, (x) => Math.sin(x))
 ```
 <a name="module_array.concat"></a>
 

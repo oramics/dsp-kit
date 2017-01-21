@@ -15,7 +15,7 @@
  *
  * @example
  * const dsp = require('dsp-kit')
- * dsp.gen(1024, dsp.window.hanning())
+ * dsp.fill(1024, dsp.window.hanning())
  *
  * @module window
  */

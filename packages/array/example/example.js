@@ -2,14 +2,14 @@ var draw = require('draw-waveform')
 var addCanvas = require('add-canvas')
 var array = require('..')
 
-var constant = array.gen(600, (x) => 1)
+var constant = array.fill(600, (x) => 1)
 draw(addCanvas(600), constant)
 
-var sine = array.gen(600, (n, N) => Math.sin(10 * 2 * Math.PI * n / (N - 1)))
+var sine = array.fill(600, (n, N) => Math.sin(10 * 2 * Math.PI * n / (N - 1)))
 draw(addCanvas(600), sine)
 
 const hamming = () => (n, N) => 0.54 - 0.46 * Math.cos(2 * Math.PI * n / (N - 1))
-var window = array.gen(600, hamming())
+var window = array.fill(600, hamming())
 draw(addCanvas(600), window)
 
 var mult = array.mult(constant, window)

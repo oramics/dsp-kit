@@ -1,7 +1,7 @@
 /* eslint-disable comma-spacing */
 const test = require('tst')
 const assert = require('assert')
-const buffer = require('dsp-array')
+const arr = require('dsp-array')
 const shift = require('..')
 
 const from = (x) => Float64Array.from(x || [])
@@ -13,15 +13,15 @@ test('fftshift', () => {
   assert.deepEqual(odd, from([4, 5, 1, 2, 3]))
 
   const N = 1000
-  const signal = buffer.gen(N + 1, x => x)
-  const shifted = buffer.gen(N + 1, x => x < N / 2 ? N / 2 + x + 1 : x - N / 2)
+  const signal = arr.fill(N + 1, x => x)
+  const shifted = arr.fill(N + 1, x => x < N / 2 ? N / 2 + x + 1 : x - N / 2)
   assert.deepEqual(shift.fftshift(signal.slice()), shifted)
   assert.deepEqual(shift.ifftshift(shifted.slice()), signal)
 })
 
 test('inverse fftshift', () => {
-  const even = buffer.gen(100, x => x)
+  const even = arr.fill(100, x => x)
   assert.deepEqual(shift.ifftshift(shift.fftshift(even)), even)
-  const odd = buffer.gen(101, x => x)
+  const odd = arr.fill(101, x => x)
   assert.deepEqual(shift.ifftshift(shift.fftshift(odd)), odd)
 })
