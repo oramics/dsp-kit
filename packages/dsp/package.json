@@ -7,7 +7,7 @@
   "scripts": {
     "pretest": "rollup -c ./rollup.config.js",
     "test": "node test/test.js",
-    "docs": "jsdoc2md index.js > README.md && cp README.md ../../docs/API/dsp.md"
+    "docs": "jsdoc2md index.js > README.md && cp README.md ../../docs/modules/dsp.md"
   },
   "repository": "https://github.com/oramics/dsp-kit/packages/dsp-kit",
   "keywords": [

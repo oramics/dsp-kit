@@ -4,10 +4,9 @@
   "scripts": {
     "build": "lerna run pretest",
     "test": "lerna run test",
-    "predocs": "lerna exec -- npm run docs",
-    "docs": "npm run docs:html && npm run docs:api",
+    "docs": "npm run docs:html && npm run docs:modules",
     "docs:html": "jsdoc -c .jsdoc3.json",
-    "docs:api": "lerna run docs",
+    "docs:modules": "lerna run docs",
     "dist": "npm run dist:pack && npm run dist:minify && ls -hall dist/",
     "dist:pack": "browserify packages/dsp/browser.js -o dist/dsp-kit.js",
     "dist:minify": "uglifyjs dist/dsp-kit.js > dist/dsp-kit.min.js",
