@@ -41,7 +41,7 @@ export const div = (a, b) => a() / b()
 
 /**
  * Subtract signals
- * @name sub
+ * @name mod
  * @function
  * @memberof module:signal/arithmetic
  */
@@ -49,14 +49,14 @@ export const mod = (a, b) => a() % b()
 
 /**
  * Subtract signals
- * @name sub
+ * @name mul
  * @function
  * @memberof module:signal/arithmetic
  */
 export const mul = (a, b) => a() * b()
 /**
  * Subtract signals
- * @name sub
+ * @name pow
  * @function
  * @memberof module:signal/arithmetic
  */

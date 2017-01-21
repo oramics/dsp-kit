@@ -8,7 +8,7 @@
  * Returns 1 if two inputs are __equal__, otherwise returns 0.
  * @name eq
  * @function
- * @memberof module:signal/arithmetic
+ * @memberof module:signal/comparation
  */
 export const eq = (a, b) => () =>
   a() === b() ? 1 : 0
@@ -17,7 +17,7 @@ export const eq = (a, b) => () =>
  * Returns 1 if a is __greater__ than b, otherwise returns 0.
  * @name gt
  * @function
- * @memberof module:signal/arithmetic
+ * @memberof module:signal/comparation
  */
 export const gt = (a, b) => () =>
   a() > b() ? 1 : 0
@@ -26,7 +26,7 @@ export const gt = (a, b) => () =>
  * Returns 1 if a is __greater or equal__ than b, otherwise returns 0.
  * @name gte
  * @function
- * @memberof module:signal/arithmetic
+ * @memberof module:signal/comparation
  */
 export const gte = (a, b) => () =>
   a() >= b() ? 1 : 0
@@ -35,7 +35,7 @@ export const gte = (a, b) => () =>
  * Returns `a` if `a` is __greater__ than `b`, otherwise returns 0.
  * @name gtp
  * @function
- * @memberof module:signal/arithmetic
+ * @memberof module:signal/comparation
  */
 export const gtp = (a, b) => () => {
   const a = a()
@@ -46,7 +46,7 @@ export const gtp = (a, b) => () => {
  * Returns 1 if a is __less__ than b, otherwise returns 0.
  * @name lt
  * @function
- * @memberof module:signal/arithmetic
+ * @memberof module:signal/comparation
  */
 export const lt = (a, b) => () =>
   a() < b() ? 1 : 0
@@ -55,7 +55,7 @@ export const lt = (a, b) => () =>
  * Returns 1 if a is __less or equal__ than b, otherwise returns 0.
  * @name lte
  * @function
- * @memberof module:signal/arithmetic
+ * @memberof module:signal/comparation
  */
 export const lte = (a, b) => () =>
   a() <= b() ? 1 : 0
@@ -64,7 +64,7 @@ export const lte = (a, b) => () =>
  * Returns `a` if `a` is __less__ than `b`, otherwise returns 0.
  * @name ltp
  * @function
- * @memberof module:signal/arithmetic
+ * @memberof module:signal/comparation
  */
 export const ltp = (a, b) => () => {
   const a = a()
