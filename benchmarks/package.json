@@ -1,0 +1,20 @@
+{
+  "name": "dsp-kit-benchmarks",
+  "private": true,
+  "scripts": {
+    "start": "npm run benchmarks:forward",
+    "benchmarks:forward": "node forward.js",
+    "benchmarks:inverse": "node inverse.js"
+  },
+  "devDependencies": {
+    "benchmark": "^2.1.3",
+    "fft": "^0.2.1",
+    "microtime": "^2.1.2"
+  },
+  "dependencies": {
+    "dsp-kit": "../packages/dsp",
+    "dspjs": "./dspjs",
+    "fft-asmjs": "./fft-asmjs",
+    "fourier-transform": "^1.0.2"
+  }
+}

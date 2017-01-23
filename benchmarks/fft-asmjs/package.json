@@ -1,0 +1,12 @@
+{
+  "name": "fft-asmjs",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A packaged version of https://github.com/g200kg/Fft-asm.js",
+  "main": "fft-asm-lib.js",
+  "scripts": {
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
