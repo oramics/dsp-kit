@@ -1,86 +1,94 @@
-/**
-* This module is a port of [arduinoFFT](https://github.com/kosme/arduinoFFT/)
-* source from C++ to Javascript
-*
-* Copyright (C) 2010 Didier Longueville
-* Copyright (C) 2014 Enrique Condes
-* Javascript version by danigb
-*
-* @module fft-asm
-*/
-var sqrt = Math.sqrt
+// Checks if a number is a power of two
+// https://github.com/mikolalysenko/bit-twiddle/blob/master/twiddle.js#L41
+function isPow2 (v) { return !(v & (v - 1)) && (!!v) }
 
-export function fft (real, imag, dir) {
-  dir = dir || 'forward'
-  var len = real.length
-  if (imag.length !== len) throw Error('Real and imag parts should have same size, but was ' + len + ' and ' + imag.length)
-  var power = exponent(len)
-  compute(real, imag, len, power, dir)
-}
+function fft (size, input, output, dir) {
+  if (arguments.length > 1) return fft(size)(input, dir, output)
+  var cache = tables(size)
 
-// Computes the exponent of a powered 2 value
-function exponent (value) {
-  var result = 0
-  while (((value >> result) & 1) !== 1) result++
-  return result
-}
+  return function process (complex, output, dir) {
+    var phaseShiftStepReal, phaseShiftStepImag, currentPhaseShiftReal, currentPhaseShiftImag
+    var off, tr, ti, tmpReal, i
+    var halfSize = 1
+    var cosTable = cache.cosTable
+    var sinTable = cache.sinTable
+    var reverseTable = cache.reverseTable
+    var rs = complex.real || complex
+    var is = complex.imag || cache.zeros
+    var inverse = dir === 'inverse'
+    var real = output.real
+    var imag = output.imag
 
-function compute (real, imag, samples, power, dir) {
-  /* Computes in-place complex-to-complex FFT */
-  /* Reverse bits */
-  var j = 0
-  for (var i = 0; i < (samples - 1); i++) {
-    if (i < j) {
-      swap(real[i], real[j])
-      swap(imag[i], imag[j])
+    for (i = 0; i < size; i++) {
+      real[i] = rs[reverseTable[i]]
+      imag[i] = -1 * is[reverseTable[i]]
     }
-    var k = (samples >> 1)
-    while (k <= j) {
-      j -= k
-      k >>= 1
-    }
-    j += k
-  }
-  /* Compute the FFT  */
-  var c1 = -1.0
-  var c2 = 0.0
-  var l2 = 1
-  for (var l = 0; (l < power); l++) {
-    var l1 = l2
-    l2 <<= 1
-    var u1 = 1.0
-    var u2 = 0.0
-    for (j = 0; j < l1; j++) {
-      for (i = j; i < samples; i += l2) {
-        var i1 = i + l1
-        var t1 = u1 * real[i1] - u2 * imag[i1]
-        var t2 = u1 * imag[i1] + u2 * real[i1]
-        real[i1] = real[i] - t1
-        imag[i1] = imag[i] - t2
-        real[i] += t1
-        imag[i] += t2
+
+    while (halfSize < size) {
+      phaseShiftStepReal = cosTable[halfSize]
+      phaseShiftStepImag = sinTable[halfSize]
+      currentPhaseShiftReal = 1
+      currentPhaseShiftImag = 0
+
+      for (var fftStep = 0; fftStep < halfSize; fftStep++) {
+        i = fftStep
+
+        while (i < size) {
+          off = i + halfSize
+          tr = (currentPhaseShiftReal * real[off]) - (currentPhaseShiftImag * imag[off])
+          ti = (currentPhaseShiftReal * imag[off]) + (currentPhaseShiftImag * real[off])
+
+          real[off] = real[i] - tr
+          imag[off] = imag[i] - ti
+          real[i] += tr
+          imag[i] += ti
+
+          i += halfSize << 1
+        }
+
+        tmpReal = currentPhaseShiftReal
+        currentPhaseShiftReal = (tmpReal * phaseShiftStepReal) - (currentPhaseShiftImag * phaseShiftStepImag)
+        currentPhaseShiftImag = (tmpReal * phaseShiftStepImag) + (currentPhaseShiftImag * phaseShiftStepReal)
       }
-      var z = ((u1 * c1) - (u2 * c2))
-      u2 = ((u1 * c2) + (u2 * c1))
-      u1 = z
+
+      halfSize = halfSize << 1
     }
-    c2 = sqrt((1.0 - c1) / 2.0)
-    if (dir !== 'inverse') {
-      c2 = -c2
+
+    // normalize
+    if (inverse) {
+      for (i = 0; i < size; i++) {
+        real[i] /= size
+        imag[i] /= size
+      }
     }
-    c1 = sqrt((1.0 + c1) / 2.0)
-  }
-  /* Scaling for reverse transform */
-  if (dir === 'inverse') {
-    for (i = 0; i < samples; i++) {
-      real[i] /= samples
-      imag[i] /= samples
-    }
+
+    return output
   }
 }
 
-function swap (x, y) {
-  var temp = x
-  x = y
-  y = temp
+function tables (size) {
+  if (!isPow2(size)) throw Error('Size must be a power of 2, and was: ' + size)
+  var reverseTable = new Uint32Array(size)
+  var sinTable = new Float64Array(size)
+  var cosTable = new Float64Array(size)
+  var zeros = new Float64Array(size)
+  var limit = 1
+  var bit = size >> 1
+  var i
+
+  while (limit < size) {
+    for (i = 0; i < limit; i++) {
+      reverseTable[i + limit] = reverseTable[i] + bit
+    }
+    limit = limit << 1
+    bit = bit >> 1
+  }
+
+  for (i = 0; i < size; i++) {
+    sinTable[i] = Math.sin(-Math.PI / i)
+    cosTable[i] = Math.cos(-Math.PI / i)
+  }
+  return { reverseTable, sinTable, cosTable, zeros }
 }
+
+module.exports = { fft: fft }

@@ -2,12 +2,14 @@
   "name": "fft-asm",
   "description": "A FFT algorithm in asm.js",
   "version": "0.0.1",
-  "main": "build/index.js",
+  "main": "index.js",
   "module": "index",
   "scripts": {
-    "pretest": "rollup -c ../../rollup.config.js",
-    "test": "node test/*.js",
-    "docs": "jsdoc2md index.js > README.md && cp README.md ../../docs/modules/fft-asm.md"
+    "nopretest": "rollup -c ../../rollup.config.js",
+    "test": "node test/test.js",
+    "benchmark": "node test/benchmark.js",
+    "docs": "jsdoc2md index.js > README.md && cp README.md ../../docs/modules/fft-asm.md",
+    "profile": "budo --open test/profile.js"
   },
   "repository": "https://github.com/oramics/dsp-kit/packages/fft-asm",
   "keywords": [
@@ -22,6 +24,7 @@
   "homepage": "https://github.com/oramics/dsp-kit/packages/fft-asm/#readme",
   "devDependencies": {
     "dsp-array": "^0.0.1",
+    "dsp-dft": "^0.0.1",
     "dspjs": "../../benchmarks/dspjs"
   }
 }
