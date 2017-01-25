@@ -24,5 +24,6 @@
   },
   "homepage": "https://github.com/oramics/dsp-kit/packages/dsp-dft/#readme",
   "devDependencies": {
+    "dsp-array": "^0.0.1"
   }
 }

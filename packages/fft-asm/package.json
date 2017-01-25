@@ -3,9 +3,7 @@
   "description": "A FFT algorithm in asm.js",
   "version": "0.0.1",
   "main": "index.js",
-  "module": "index",
   "scripts": {
-    "nopretest": "rollup -c ../../rollup.config.js",
     "test": "node test/test.js",
     "benchmark": "node test/benchmark.js",
     "docs": "jsdoc2md index.js > README.md && cp README.md ../../docs/modules/fft-asm.md",

@@ -26,8 +26,8 @@
  * @module dsp-kit
  */
 export { add, mult, zeros, fill, concat, round, testAll } from 'dsp-array'
-export { dft, idft } from 'dsp-dft'
-export { fft, ifft } from 'dsp-fft'
+export { dft } from 'dsp-dft'
+export { fft } from 'dsp-fft'
 export { rfft } from 'dsp-rfft'
 export { fftshift, ifftshift } from 'dsp-fftshift'
 export { bandWidth, bandFrequency, polar, rectangular } from 'dsp-spectrum'

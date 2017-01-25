@@ -9,6 +9,7 @@ var signal = arr.fill(SIZE, () => Math.random() * 2 - 0.5)
 var fft = new dspjs.FFT(signal.length, 44100)
 var asmfft = asm.fft(SIZE)
 var output = { real: signal.slice(), imag: arr.zeros(signal.length) }
+var zeros = arr.zeros(SIZE)
 
 function addElement (name, profiler) {
   var div = document.createElement('div')
@@ -29,8 +30,9 @@ function profileDSP () {
 function profileASM () {
   console.log('asm version...')
   var t0 = performance.now()
+  var complex = { real: signal, imag: zeros }
   for (var i = 0; i < TIMES; i++) {
-    asmfft(signal, 'forward', output)
+    asmfft('forward', complex, output)
   }
   var t1 = performance.now()
   report('ASM', t0, t1)

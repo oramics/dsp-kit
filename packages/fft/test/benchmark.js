@@ -1,22 +1,21 @@
 var Benchmark = require('Benchmark')
 var suite = new Benchmark.Suite()
 var dspjs = require('dspjs')
-var asm = require('..')
+var FFT = require('..')
 var arr = require('dsp-array')
 
 var SIZE = 1024
 var signal = arr.fill(SIZE, () => Math.random() * 2 - 0.5)
 var fftjs = new dspjs.FFT(signal.length, 44100)
-var asmfft = asm.fft(SIZE)
+var fftkit = FFT.fft(SIZE)
 var output = { real: signal.slice(), imag: arr.zeros(signal.length) }
-var zeros = arr.zeros(SIZE)
 
 suite
-.add('fft dsp-kit (asm)', function () {
-  asmfft('forward', { real: signal, imag: zeros }, output)
-})
-.add('fft dsp.js', function () {
+.add('dsp.js', function () {
   fftjs.forward(signal)
+})
+.add('dsp-kit', function () {
+  fftkit('forward', signal, output)
 })
 .on('cycle', function (event) {
   console.log(String(event.target))

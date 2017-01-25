@@ -1,6 +1,6 @@
-/* 
+/*
  *  DSP.js - a comprehensive digital signal processing  library for javascript
- * 
+ *
  *  Created by Corban Brook <corbanbrook@gmail.com> on 2010-01-01.
  *  Copyright 2010 Corban Brook. All rights reserved.
  *
@@ -111,14 +111,14 @@ DSP.interleave = function(left, right) {
   if (left.length !== right.length) {
     throw "Can not interleave. Channel lengths differ.";
   }
- 
+
   var stereoInterleaved = new Float64Array(left.length * 2);
- 
+
   for (var i = 0, len = left.length; i < len; i++) {
     stereoInterleaved[2*i]   = left[i];
     stereoInterleaved[2*i+1] = right[i];
   }
- 
+
   return stereoInterleaved;
 };
 
@@ -130,7 +130,7 @@ DSP.interleave = function(left, right) {
  * @returns an Array containing left and right channels
  */
 DSP.deinterleave = (function() {
-  var left, right, mix, deinterleaveChannel = []; 
+  var left, right, mix, deinterleaveChannel = [];
 
   deinterleaveChannel[DSP.MIX] = function(buffer) {
     for (var i = 0, len = buffer.length/2; i < len; i++) {
@@ -153,7 +153,7 @@ DSP.deinterleave = (function() {
     return right;
   };
 
-  return function(channel, buffer) { 
+  return function(channel, buffer) {
     left  = left  || new Float64Array(buffer.length/2);
     right = right || new Float64Array(buffer.length/2);
     mix   = mix   || new Float64Array(buffer.length/2);
@@ -196,9 +196,9 @@ DSP.mixSampleBuffers = function(sampleBuffer1, sampleBuffer2, negate, volumeCorr
   for(var i = 0; i<sampleBuffer1.length; i++){
     outputSamples[i] += (negate ? -sampleBuffer2[i] : sampleBuffer2[i]) / volumeCorrection;
   }
- 
+
   return outputSamples;
-}; 
+};
 
 // Biquad filter types
 DSP.LPF = 0;                // H(s) = 1 / (s^2 + s/Q + 1)
@@ -219,22 +219,22 @@ DSP.S = 3;
 // Find RMS of signal
 DSP.RMS = function(buffer) {
   var total = 0;
-  
+
   for (var i = 0, n = buffer.length; i < n; i++) {
     total += buffer[i] * buffer[i];
   }
-  
+
   return Math.sqrt(total / n);
 };
 
 // Find Peak of signal
 DSP.Peak = function(buffer) {
   var peak = 0;
-  
+
   for (var i = 0, n = buffer.length; i < n; i++) {
-    peak = (Math.abs(buffer[i]) > peak) ? Math.abs(buffer[i]) : peak; 
+    peak = (Math.abs(buffer[i]) > peak) ? Math.abs(buffer[i]) : peak;
   }
-  
+
   return peak;
 };
 
@@ -268,7 +268,7 @@ function FourierTransform(bufferSize, sampleRate) {
         imag      = this.imag,
         bSi       = 2 / this.bufferSize,
         sqrt      = Math.sqrt,
-        rval, 
+        rval,
         ival,
         mag;
 
@@ -319,7 +319,7 @@ function DFT(bufferSize, sampleRate) {
  * @returns The frequency spectrum array
  */
 DFT.prototype.forward = function(buffer) {
-  var real = this.real, 
+  var real = this.real,
       imag = this.imag,
       rval,
       ival;
@@ -352,7 +352,7 @@ DFT.prototype.forward = function(buffer) {
  */
 function FFT(bufferSize, sampleRate) {
   FourierTransform.call(this, bufferSize, sampleRate);
-   
+
   this.reverseTable = new Uint32Array(bufferSize);
 
   var limit = 1;
@@ -422,7 +422,7 @@ FFT.prototype.forward = function(buffer) {
     //phaseShiftStepImag = Math.sin(-Math.PI/halfSize);
     phaseShiftStepReal = cosTable[halfSize];
     phaseShiftStepImag = sinTable[halfSize];
-    
+
     currentPhaseShiftReal = 1;
     currentPhaseShiftImag = 0;
 
@@ -460,7 +460,7 @@ FFT.prototype.inverse = function(real, imag) {
       sinTable        = this.sinTable,
       reverseTable    = this.reverseTable,
       spectrum        = this.spectrum;
-     
+
       real = real || this.real;
       imag = imag || this.imag;
 
@@ -481,12 +481,12 @@ FFT.prototype.inverse = function(real, imag) {
 
   var revReal = new Float64Array(bufferSize);
   var revImag = new Float64Array(bufferSize);
- 
+
   for (i = 0; i < real.length; i++) {
     revReal[i] = real[reverseTable[i]];
     revImag[i] = imag[reverseTable[i]];
   }
- 
+
   real = revReal;
   imag = revImag;
 
@@ -560,9 +560,9 @@ function RFFT(bufferSize, sampleRate) {
 
   // don't use a lookup table to do the permute, use this instead
   this.reverseBinPermute = function (dest, source) {
-    var bufferSize  = this.bufferSize, 
-        halfSize    = bufferSize >>> 1, 
-        nm1         = bufferSize - 1, 
+    var bufferSize  = this.bufferSize,
+        halfSize    = bufferSize >>> 1,
+        nm1         = bufferSize - 1,
         i = 1, r = 0, h;
 
     dest[0] = source[0];
@@ -571,17 +571,17 @@ function RFFT(bufferSize, sampleRate) {
       r += halfSize;
       dest[i] = source[r];
       dest[r] = source[i];
-      
+
       i++;
 
       h = halfSize << 1;
       while (h = h >> 1, !((r ^= h) & h));
 
-      if (r >= i) { 
-        dest[i]     = source[r]; 
+      if (r >= i) {
+        dest[i]     = source[r];
         dest[r]     = source[i];
 
-        dest[nm1-i] = source[nm1-r]; 
+        dest[nm1-i] = source[nm1-r];
         dest[nm1-r] = source[nm1-i];
       }
       i++;
@@ -590,16 +590,16 @@ function RFFT(bufferSize, sampleRate) {
   };
 
   this.generateReverseTable = function () {
-    var bufferSize  = this.bufferSize, 
-        halfSize    = bufferSize >>> 1, 
-        nm1         = bufferSize - 1, 
+    var bufferSize  = this.bufferSize,
+        halfSize    = bufferSize >>> 1,
+        nm1         = bufferSize - 1,
         i = 1, r = 0, h;
 
     this.reverseTable[0] = 0;
 
     do {
       r += halfSize;
-      
+
       this.reverseTable[i] = r;
       this.reverseTable[r] = i;
 
@@ -608,7 +608,7 @@ function RFFT(bufferSize, sampleRate) {
       h = halfSize << 1;
       while (h = h >> 1, !((r ^= h) & h));
 
-      if (r >= i) { 
+      if (r >= i) {
         this.reverseTable[i] = r;
         this.reverseTable[r] = i;
 
@@ -636,23 +636,23 @@ function RFFT(bufferSize, sampleRate) {
 // trans[n/2+1] = im[n/2-1]
 // trans[n/2+2] = im[n/2-2]
 //             ...
-// trans[n-1]   = im[1] 
+// trans[n-1]   = im[1]
 
 RFFT.prototype.forward = function(buffer) {
-  var n         = this.bufferSize, 
+  var n         = this.bufferSize,
       spectrum  = this.spectrum,
-      x         = this.trans, 
+      x         = this.trans,
       TWO_PI    = 2*Math.PI,
       sqrt      = Math.sqrt,
       i         = n >>> 1,
       bSi       = 2 / n,
-      n2, n4, n8, nn, 
-      t1, t2, t3, t4, 
-      i1, i2, i3, i4, i5, i6, i7, i8, 
+      n2, n4, n8, nn,
+      t1, t2, t3, t4,
+      i1, i2, i3, i4, i5, i6, i7, i8,
       st1, cc1, ss1, cc3, ss3,
-      e, 
+      e,
       a,
-      rval, ival, mag; 
+      rval, ival, mag;
 
   this.reverseBinPermute(x, buffer);
 
@@ -670,7 +670,7 @@ RFFT.prototype.forward = function(buffer) {
       st1 = x[i0] - x[i0+1];
       x[i0] += x[i0+1];
       x[i0+1] = st1;
-    } 
+    }
     ix = 2*(id-1);
   }
 
@@ -690,31 +690,31 @@ RFFT.prototype.forward = function(buffer) {
           i2 = i1 + n4;
           i3 = i2 + n4;
           i4 = i3 + n4;
-     
+
           //diffsum3_r(x[i3], x[i4], t1); // {a, b, s} <--| {a, b-a, a+b}
           t1 = x[i3] + x[i4];
           x[i4] -= x[i3];
           //sumdiff3(x[i1], t1, x[i3]);   // {a, b, d} <--| {a+b, b, a-b}
-          x[i3] = x[i1] - t1; 
+          x[i3] = x[i1] - t1;
           x[i1] += t1;
-     
+
           i1 += n8;
           i2 += n8;
           i3 += n8;
           i4 += n8;
-         
+
           //sumdiff(x[i3], x[i4], t1, t2); // {s, d}  <--| {a+b, a-b}
           t1 = x[i3] + x[i4];
           t2 = x[i3] - x[i4];
-         
+
           t1 = -t1 * Math.SQRT1_2;
           t2 *= Math.SQRT1_2;
-     
+
           // sumdiff(t1, x[i2], x[i4], x[i3]); // {s, d}  <--| {a+b, a-b}
           st1 = x[i2];
-          x[i4] = t1 + st1; 
+          x[i4] = t1 + st1;
           x[i3] = t1 - st1;
-          
+
           //sumdiff3(x[i1], t2, x[i2]); // {a, b, d} <--| {a+b, b, a-b}
           x[i2] = x[i1] - t2;
           x[i1] += t2;
@@ -725,21 +725,21 @@ RFFT.prototype.forward = function(buffer) {
           i2 = i1 + n4;
           i3 = i2 + n4;
           i4 = i3 + n4;
-     
+
           //diffsum3_r(x[i3], x[i4], t1); // {a, b, s} <--| {a, b-a, a+b}
-          t1 = x[i3] + x[i4]; 
+          t1 = x[i3] + x[i4];
           x[i4] -= x[i3];
-          
+
           //sumdiff3(x[i1], t1, x[i3]);   // {a, b, d} <--| {a+b, b, a-b}
-          x[i3] = x[i1] - t1; 
+          x[i3] = x[i1] - t1;
           x[i1] += t1;
         }
       }
-   
+
       ix = (id << 1) - n2;
       id = id << 2;
     } while (ix < n);
- 
+
     e = TWO_PI / n2;
 
     for (var j = 1; j < n8; j++) {
@@ -750,7 +750,7 @@ RFFT.prototype.forward = function(buffer) {
       //ss3 = sin(3*a); cc3 = cos(3*a);
       cc3 = 4*cc1*(cc1*cc1-0.75);
       ss3 = 4*ss1*(0.75-ss1*ss1);
-   
+
       ix = 0; id = n2 << 1;
       do {
         for (i0 = ix; i0 < n; i0 += id) {
@@ -758,53 +758,53 @@ RFFT.prototype.forward = function(buffer) {
           i2 = i1 + n4;
           i3 = i2 + n4;
           i4 = i3 + n4;
-       
+
           i5 = i0 + n4 - j;
           i6 = i5 + n4;
           i7 = i6 + n4;
           i8 = i7 + n4;
-       
+
           //cmult(c, s, x, y, &u, &v)
           //cmult(cc1, ss1, x[i7], x[i3], t2, t1); // {u,v} <--| {x*c-y*s, x*s+y*c}
-          t2 = x[i7]*cc1 - x[i3]*ss1; 
+          t2 = x[i7]*cc1 - x[i3]*ss1;
           t1 = x[i7]*ss1 + x[i3]*cc1;
-          
+
           //cmult(cc3, ss3, x[i8], x[i4], t4, t3);
-          t4 = x[i8]*cc3 - x[i4]*ss3; 
+          t4 = x[i8]*cc3 - x[i4]*ss3;
           t3 = x[i8]*ss3 + x[i4]*cc3;
-       
+
           //sumdiff(t2, t4);   // {a, b} <--| {a+b, a-b}
           st1 = t2 - t4;
           t2 += t4;
           t4 = st1;
-          
+
           //sumdiff(t2, x[i6], x[i8], x[i3]); // {s, d}  <--| {a+b, a-b}
           //st1 = x[i6]; x[i8] = t2 + st1; x[i3] = t2 - st1;
-          x[i8] = t2 + x[i6]; 
+          x[i8] = t2 + x[i6];
           x[i3] = t2 - x[i6];
-         
+
           //sumdiff_r(t1, t3); // {a, b} <--| {a+b, b-a}
           st1 = t3 - t1;
           t1 += t3;
           t3 = st1;
-          
+
           //sumdiff(t3, x[i2], x[i4], x[i7]); // {s, d}  <--| {a+b, a-b}
           //st1 = x[i2]; x[i4] = t3 + st1; x[i7] = t3 - st1;
-          x[i4] = t3 + x[i2]; 
+          x[i4] = t3 + x[i2];
           x[i7] = t3 - x[i2];
-         
+
           //sumdiff3(x[i1], t1, x[i6]);   // {a, b, d} <--| {a+b, b, a-b}
-          x[i6] = x[i1] - t1; 
+          x[i6] = x[i1] - t1;
           x[i1] += t1;
-          
+
           //diffsum3_r(t4, x[i5], x[i2]); // {a, b, s} <--| {a, b-a, a+b}
-          x[i2] = t4 + x[i5]; 
+          x[i2] = t4 + x[i5];
           x[i5] -= t4;
         }
-     
+
         ix = (id << 1) - n2;
         id = id << 2;
-   
+
       } while (ix < n);
     }
   }
@@ -848,27 +848,27 @@ function Sampler(file, bufferSize, sampleRate, playStart, playEnd, loopStart, lo
   this.duration   = 0;
   this.samplesProcessed = 0;
   this.playhead   = 0;
- 
+
   var audio = /* new Audio();*/ document.createElement("AUDIO");
   var self = this;
- 
+
   this.loadSamples = function(event) {
     var buffer = DSP.getChannel(DSP.MIX, event.frameBuffer);
     for ( var i = 0; i < buffer.length; i++) {
       self.samples.push(buffer[i]);
     }
   };
- 
+
   this.loadComplete = function() {
     // convert flexible js array into a fast typed array
     self.samples = new Float64Array(self.samples);
     self.loaded = true;
   };
- 
+
   this.loadMetaData = function() {
     self.duration = audio.duration;
   };
- 
+
   audio.addEventListener("MozAudioAvailable", this.loadSamples, false);
   audio.addEventListener("loadedmetadata", this.loadMetaData, false);
   audio.addEventListener("ended", this.loadComplete, false);
@@ -884,7 +884,7 @@ Sampler.prototype.applyEnvelope = function() {
 
 Sampler.prototype.generate = function() {
   var frameOffset = this.frameCount * this.bufferSize;
- 
+
   var loopWidth = this.playEnd * this.samples.length - this.playStart * this.samples.length;
   var playStartSamples = this.playStart * this.samples.length; // ie 0.5 -> 50% of the length
   var playEndSamples = this.playEnd * this.samples.length; // ie 0.5 -> 50% of the length
@@ -900,27 +900,27 @@ Sampler.prototype.generate = function() {
           this.signal[i] = 0;
         }
         break;
-     
+
       case DSP.FW:
         this.playhead = Math.round((this.samplesProcessed * this.step) % loopWidth + playStartSamples);
         if (this.playhead < (this.playEnd * this.samples.length) ) {
           this.signal[i] = this.samples[this.playhead] * this.amplitude;
         }
         break;
-       
+
       case DSP.BW:
         this.playhead = playEndSamples - Math.round((this.samplesProcessed * this.step) % loopWidth);
         if (this.playhead < (this.playEnd * this.samples.length) ) {
           this.signal[i] = this.samples[this.playhead] * this.amplitude;
         }
         break;
-       
+
       case DSP.FWBW:
         if ( Math.floor(this.samplesProcessed * this.step / loopWidth) % 2 === 0 ) {
           this.playhead = Math.round((this.samplesProcessed * this.step) % loopWidth + playStartSamples);
         } else {
           this.playhead = playEndSamples - Math.round((this.samplesProcessed * this.step) % loopWidth);
-        }  
+        }
         if (this.playhead < (this.playEnd * this.samples.length) ) {
           this.signal[i] = this.samples[this.playhead] * this.amplitude;
         }
@@ -964,7 +964,7 @@ function Oscillator(type, frequency, amplitude, bufferSize, sampleRate) {
   this.sampleRate = sampleRate;
   //this.pulseWidth = pulseWidth;
   this.frameCount = 0;
- 
+
   this.waveTableLength = 2048;
 
   this.cyclesPerSample = frequency / sampleRate;
@@ -1008,7 +1008,7 @@ function Oscillator(type, frequency, amplitude, bufferSize, sampleRate) {
   if ( typeof Oscillator.waveTable[this.func] === 'undefined' ) {
     this.generateWaveTable();
   }
- 
+
   this.waveTable = Oscillator.waveTable[this.func];
 }
 
@@ -1024,27 +1024,27 @@ Oscillator.prototype.setAmp = function(amplitude) {
     throw "Amplitude out of range (0..1).";
   }
 };
-  
+
 /**
  * Set the frequency of the signal
  *
  * @param {Number} frequency The frequency of the signal
- */  
+ */
 Oscillator.prototype.setFreq = function(frequency) {
   this.frequency = frequency;
   this.cyclesPerSample = frequency / this.sampleRate;
 };
-     
+
 // Add an oscillator
 Oscillator.prototype.add = function(oscillator) {
   for ( var i = 0; i < this.bufferSize; i++ ) {
     //this.signal[i] += oscillator.valueAt(i);
     this.signal[i] += oscillator.signal[i];
   }
- 
+
   return this.signal;
 };
-     
+
 // Add a signal to the current generated osc signal
 Oscillator.prototype.addSignal = function(signal) {
   for ( var i = 0; i < signal.length; i++ ) {
@@ -1052,7 +1052,7 @@ Oscillator.prototype.addSignal = function(signal) {
       break;
     }
     this.signal[i] += signal[i];
-   
+
     /*
     // Constrain amplitude
     if ( this.signal[i] > 1 ) {
@@ -1064,7 +1064,7 @@ Oscillator.prototype.addSignal = function(signal) {
   }
   return this.signal;
 };
-     
+
 // Add an envelope to the oscillator
 Oscillator.prototype.addEnvelope = function(envelope) {
   this.envelope = envelope;
@@ -1073,11 +1073,11 @@ Oscillator.prototype.addEnvelope = function(envelope) {
 Oscillator.prototype.applyEnvelope = function() {
   this.envelope.process(this.signal);
 };
-     
+
 Oscillator.prototype.valueAt = function(offset) {
   return this.waveTable[offset % this.waveTableLength];
 };
-     
+
 Oscillator.prototype.generate = function() {
   var frameOffset = this.frameCount * this.bufferSize;
   var step = this.waveTableLength * this.frequency / this.sampleRate;
@@ -1115,7 +1115,7 @@ Oscillator.Triangle = function(step) {
 Oscillator.Pulse = function(step) {
   // stub
 };
- 
+
 function ADSR(attackLength, decayLength, sustainLevel, sustainLength, releaseLength, sampleRate) {
   this.sampleRate = sampleRate;
   // Length in seconds
@@ -1125,13 +1125,13 @@ function ADSR(attackLength, decayLength, sustainLevel, sustainLength, releaseLen
   this.sustainLength = sustainLength;
   this.releaseLength = releaseLength;
   this.sampleRate    = sampleRate;
- 
+
   // Length in samples
   this.attackSamples  = attackLength  * sampleRate;
   this.decaySamples   = decayLength   * sampleRate;
   this.sustainSamples = sustainLength * sampleRate;
   this.releaseSamples = releaseLength * sampleRate;
- 
+
   // Updates the envelope sample positions
   this.update = function() {
     this.attack         =                this.attackSamples;
@@ -1139,9 +1139,9 @@ function ADSR(attackLength, decayLength, sustainLevel, sustainLength, releaseLen
     this.sustain        = this.decay   + this.sustainSamples;
     this.release        = this.sustain + this.releaseSamples;
   };
- 
+
   this.update();
- 
+
   this.samplesProcessed = 0;
 }
 
@@ -1169,7 +1169,7 @@ ADSR.prototype.processSample = function(sample) {
   } else if ( this.samplesProcessed > this.sustain && this.samplesProcessed <= this.release ) {
     amplitude = this.sustainLevel + (0 - this.sustainLevel) * ((this.samplesProcessed - this.sustain) / (this.release - this.sustain));
   }
- 
+
   return sample * amplitude;
 };
 
@@ -1185,21 +1185,21 @@ ADSR.prototype.value = function() {
   } else if ( this.samplesProcessed > this.sustain && this.samplesProcessed <= this.release ) {
     amplitude = this.sustainLevel + (0 - this.sustainLevel) * ((this.samplesProcessed - this.sustain) / (this.release - this.sustain));
   }
- 
+
   return amplitude;
 };
-     
+
 ADSR.prototype.process = function(buffer) {
   for ( var i = 0; i < buffer.length; i++ ) {
     buffer[i] *= this.value();
 
     this.samplesProcessed++;
   }
- 
+
   return buffer;
 };
-     
-     
+
+
 ADSR.prototype.isActive = function() {
   if ( this.samplesProcessed > this.release || this.samplesProcessed === -1 ) {
     return false;
@@ -1211,7 +1211,7 @@ ADSR.prototype.isActive = function() {
 ADSR.prototype.disable = function() {
   this.samplesProcessed = -1;
 };
- 
+
 function IIRFilter(type, cutoff, resonance, sampleRate) {
   this.sampleRate = sampleRate;
 
@@ -1257,13 +1257,13 @@ IIRFilter.LP12 = function(cutoff, resonance, sampleRate) {
   this.vibraPos   = 0;
   this.vibraSpeed = 0;
   this.envelope = false;
- 
+
   this.calcCoeff = function(cutoff, resonance) {
     this.w = 2.0 * Math.PI * cutoff / this.sampleRate;
     this.q = 1.0 - this.w / (2.0 * (resonance + 0.5 / (1.0 + this.w)) + this.w - 2.0);
     this.r = this.q * this.q;
     this.c = this.r + 1.0 - 2.0 * Math.cos(this.w) * this.q;
-   
+
     this.cutoff = cutoff;
     this.resonance = resonance;
   };
@@ -1275,10 +1275,10 @@ IIRFilter.LP12 = function(cutoff, resonance, sampleRate) {
       this.vibraSpeed += (buffer[i] - this.vibraPos) * this.c;
       this.vibraPos   += this.vibraSpeed;
       this.vibraSpeed *= this.r;
-   
+
       /*
       var temp = this.vibraPos;
-     
+
       if ( temp > 1.0 ) {
         temp = 1.0;
       } else if ( temp < -1.0 ) {
@@ -1286,7 +1286,7 @@ IIRFilter.LP12 = function(cutoff, resonance, sampleRate) {
       } else if ( temp != temp ) {
         temp = 1;
       }
-     
+
       buffer[i] = temp;
       */
 
@@ -1298,7 +1298,7 @@ IIRFilter.LP12 = function(cutoff, resonance, sampleRate) {
       }
     }
   };
-}; 
+};
 
 IIRFilter.LP12.prototype.addEnvelope = function(envelope) {
   this.envelope = envelope;
@@ -1314,10 +1314,10 @@ function IIRFilter2(type, cutoff, resonance, sampleRate) {
   this.f[0] = 0.0; // lp
   this.f[1] = 0.0; // hp
   this.f[2] = 0.0; // bp
-  this.f[3] = 0.0; // br 
- 
+  this.f[3] = 0.0; // br
+
   this.calcCoeff = function(cutoff, resonance) {
-    this.freq = 2 * Math.sin(Math.PI * Math.min(0.25, cutoff/(this.sampleRate*2)));  
+    this.freq = 2 * Math.sin(Math.PI * Math.min(0.25, cutoff/(this.sampleRate*2)));
     this.damp = Math.min(2 * (1 - Math.pow(resonance, 0.25)), Math.min(2, 2/this.freq - this.freq * 0.5));
   };
 
@@ -1370,46 +1370,46 @@ IIRFilter2.prototype.set = function(cutoff, resonance) {
 
 function WindowFunction(type, alpha) {
   this.alpha = alpha;
- 
+
   switch(type) {
     case DSP.BARTLETT:
       this.func = WindowFunction.Bartlett;
       break;
-     
+
     case DSP.BARTLETTHANN:
       this.func = WindowFunction.BartlettHann;
       break;
-     
+
     case DSP.BLACKMAN:
       this.func = WindowFunction.Blackman;
       this.alpha = this.alpha || 0.16;
       break;
-   
+
     case DSP.COSINE:
       this.func = WindowFunction.Cosine;
       break;
-     
+
     case DSP.GAUSS:
       this.func = WindowFunction.Gauss;
       this.alpha = this.alpha || 0.25;
       break;
-     
+
     case DSP.HAMMING:
       this.func = WindowFunction.Hamming;
       break;
-     
+
     case DSP.HANN:
       this.func = WindowFunction.Hann;
       break;
-   
+
     case DSP.LANCZOS:
       this.func = WindowFunction.Lanczoz;
       break;
-     
+
     case DSP.RECTANGULAR:
       this.func = WindowFunction.Rectangular;
       break;
-     
+
     case DSP.TRIANGULAR:
       this.func = WindowFunction.Triangular;
       break;
@@ -1470,7 +1470,7 @@ WindowFunction.Triangular = function(length, index) {
 };
 
 function sinh (arg) {
-  // Returns the hyperbolic sine of the number, defined as (exp(number) - exp(-number))/2 
+  // Returns the hyperbolic sine of the number, defined as (exp(number) - exp(-number))/2
   //
   // version: 1004.2314
   // discuss at: http://phpjs.org/functions/sinh    // +   original by: Onno Marsman
@@ -1479,9 +1479,9 @@ function sinh (arg) {
   return (Math.exp(arg) - Math.exp(-arg))/2;
 }
 
-/* 
+/*
  *  Biquad filter
- * 
+ *
  *  Created by Ricard Marxer <email@ricardmarxer.com> on 2010-05-23.
  *  Copyright 2010 Ricard Marxer. All rights reserved.
  *
@@ -1576,8 +1576,8 @@ function Biquad(type, sampleRate) {
   this.setF0 = function(freq) {
     this.f0 = freq;
     this.recalculateCoefficients();
-  }; 
- 
+  };
+
   this.setDbGain = function(g) {
     this.dBgain = g;
     this.recalculateCoefficients();
@@ -1588,7 +1588,7 @@ function Biquad(type, sampleRate) {
     if (type === DSP.PEAKING_EQ || type === DSP.LOW_SHELF || type === DSP.HIGH_SHELF ) {
       A = Math.pow(10, (this.dBgain/40));  // for peaking and shelving EQ filters only
     } else {
-      A  = Math.sqrt( Math.pow(10, (this.dBgain/20)) );   
+      A  = Math.sqrt( Math.pow(10, (this.dBgain/20)) );
     }
 
     var w0 = DSP.TWO_PI * this.f0 / this.Fs;
@@ -1597,12 +1597,12 @@ function Biquad(type, sampleRate) {
     var sinw0 = Math.sin(w0);
 
     var alpha = 0;
-   
+
     switch (this.parameterType) {
       case DSP.Q:
         alpha = sinw0/(2*this.Q);
         break;
-           
+
       case DSP.BW:
         alpha = sinw0 * sinh( Math.LN2/2 * this.BW * w0/sinw0 );
         break;
@@ -1707,7 +1707,7 @@ function Biquad(type, sampleRate) {
         this.a2 =       (A+1) - (A-1)*cosw0 - coeff;
         break;
     }
-   
+
     this.b0a0 = this.b0/this.a0;
     this.b1a0 = this.b1/this.a0;
     this.b2a0 = this.b2/this.a0;
@@ -1739,7 +1739,7 @@ function Biquad(type, sampleRate) {
 
       var len = buffer.length;
       var output = new Float64Array(len);
-     
+
       for (var i = 0; i < len/2; i++) {
         output[2*i] = this.b0a0*buffer[2*i] + this.b1a0*this.x_1_l + this.b2a0*this.x_2_l - this.a1a0*this.y_1_l - this.a2a0*this.y_2_l;
         this.y_2_l = this.y_1_l;
@@ -1758,9 +1758,9 @@ function Biquad(type, sampleRate) {
   };
 }
 
-/* 
+/*
  *  Magnitude to decibels
- * 
+ *
  *  Created by Ricard Marxer <email@ricardmarxer.com> on 2010-05-23.
  *  Copyright 2010 Ricard Marxer. All rights reserved.
  *
@@ -1775,7 +1775,7 @@ DSP.mag2db = function(buffer) {
 
   var log = Math.log;
   var max = Math.max;
- 
+
   var result = Float64Array(buffer.length);
   for (var i=0; i<buffer.length; i++) {
     result[i] = 20.0*log(max(buffer[i], minMag));
@@ -1784,9 +1784,9 @@ DSP.mag2db = function(buffer) {
   return result;
 };
 
-/* 
+/*
  *  Frequency response
- * 
+ *
  *  Created by Ricard Marxer <email@ricardmarxer.com> on 2010-05-23.
  *  Copyright 2010 Ricard Marxer. All rights reserved.
  *
@@ -1810,11 +1810,11 @@ DSP.freqz = function(b, a, w) {
   }
 
   var result = Float64Array(w.length);
- 
+
   var sqrt = Math.sqrt;
   var cos = Math.cos;
   var sin = Math.sin;
- 
+
   for (i=0; i<w.length; i++) {
     var numerator = {real:0.0, imag:0.0};
     for (j=0; j<b.length; j++) {
@@ -1827,19 +1827,19 @@ DSP.freqz = function(b, a, w) {
       denominator.real += a[j] * cos(-j*w[i]);
       denominator.imag += a[j] * sin(-j*w[i]);
     }
- 
+
     result[i] =  sqrt(numerator.real*numerator.real + numerator.imag*numerator.imag) / sqrt(denominator.real*denominator.real + denominator.imag*denominator.imag);
   }
 
   return result;
 };
 
-/* 
+/*
  *  Graphical Equalizer
  *
  *  Implementation of a graphic equalizer with a configurable bands-per-octave
  *  and minimum and maximum frequencies
- * 
+ *
  *  Created by Ricard Marxer <email@ricardmarxer.com> on 2010-05-23.
  *  Copyright 2010 Ricard Marxer. All rights reserved.
  *
@@ -1894,11 +1894,11 @@ function GraphicalEq(sampleRate) {
     if (!gain) {
       throw "A gain must be passed.";
     }
-   
+
     this.filters[bandIndex].setDbGain(gain);
     this.recalculateFreqz(bandIndex);
   };
- 
+
   this.recalculateFreqz = function(bandIndex) {
     if (!this.calculateFreqzs) {
       return;
@@ -1907,14 +1907,14 @@ function GraphicalEq(sampleRate) {
     if (bandIndex < 0 || bandIndex > (this.filters.length-1)) {
       throw "The band index of the graphical equalizer is out of bounds. " + bandIndex + " is out of [" + 0 + ", " + this.filters.length-1 + "]";
     }
-       
+
     if (!this.w) {
       this.w = Float64Array(400);
       for (var i=0; i<this.w.length; i++) {
          this.w[i] = Math.PI/this.w.length * i;
       }
     }
-   
+
     var b = [this.filters[bandIndex].b0, this.filters[bandIndex].b1, this.filters[bandIndex].b2];
     var a = [this.filters[bandIndex].a0, this.filters[bandIndex].a1, this.filters[bandIndex].a2];
 
@@ -1964,7 +1964,7 @@ function MultiDelay(maxDelayInSamplesSize, delayInSamples, masterVolume, delayVo
   this.delayBufferSamples   = new Float64Array(maxDelayInSamplesSize); // The maximum size of delay
   this.delayInputPointer     = delayInSamples;
   this.delayOutputPointer   = 0;
- 
+
   this.delayInSamples   = delayInSamples;
   this.masterVolume     = masterVolume;
   this.delayVolume     = delayVolume;
@@ -1977,11 +1977,11 @@ function MultiDelay(maxDelayInSamplesSize, delayInSamples, masterVolume, delayVo
  */
 MultiDelay.prototype.setDelayInSamples = function (delayInSamples) {
   this.delayInSamples = delayInSamples;
- 
+
   this.delayInputPointer = this.delayOutputPointer + delayInSamples;
 
   if (this.delayInputPointer >= this.delayBufferSamples.length-1) {
-    this.delayInputPointer = this.delayInputPointer - this.delayBufferSamples.length; 
+    this.delayInputPointer = this.delayInputPointer - this.delayBufferSamples.length;
   }
 };
 
@@ -2017,28 +2017,28 @@ MultiDelay.prototype.process = function(samples) {
   for (var i=0; i<samples.length; i++) {
     // delayBufferSamples could contain initial NULL's, return silence in that case
     var delaySample = (this.delayBufferSamples[this.delayOutputPointer] === null ? 0.0 : this.delayBufferSamples[this.delayOutputPointer]);
-   
+
     // Mix normal audio data with delayed audio
     var sample = (delaySample * this.delayVolume) + samples[i];
-   
+
     // Add audio data with the delay in the delay buffer
     this.delayBufferSamples[this.delayInputPointer] = sample;
-   
+
     // Return the audio with delay mix
     outputSamples[i] = sample * this.masterVolume;
-   
+
     // Manage circulair delay buffer pointers
     this.delayInputPointer++;
     if (this.delayInputPointer >= this.delayBufferSamples.length-1) {
       this.delayInputPointer = 0;
     }
-     
+
     this.delayOutputPointer++;
     if (this.delayOutputPointer >= this.delayBufferSamples.length-1) {
-      this.delayOutputPointer = 0; 
-    } 
+      this.delayOutputPointer = 0;
+    }
   }
- 
+
   return outputSamples;
 };
 
@@ -2047,7 +2047,7 @@ MultiDelay.prototype.process = function(samples) {
  * Copyright 2010 Almer Thie. All rights reserved.
  * Example: See usage in Reverb class
  *
- * This is a delay that does NOT feeds it's own delayed signal back into its 
+ * This is a delay that does NOT feeds it's own delayed signal back into its
  * circular buffer, neither does it return the original signal. Also known as
  * an AllPassFilter(?).
  *
@@ -2065,7 +2065,7 @@ function SingleDelay(maxDelayInSamplesSize, delayInSamples, delayVolume) {
   this.delayBufferSamples = new Float64Array(maxDelayInSamplesSize); // The maximum size of delay
   this.delayInputPointer  = delayInSamples;
   this.delayOutputPointer = 0;
- 
+
   this.delayInSamples     = delayInSamples;
   this.delayVolume        = delayVolume;
 }
@@ -2080,7 +2080,7 @@ SingleDelay.prototype.setDelayInSamples = function(delayInSamples) {
   this.delayInputPointer = this.delayOutputPointer + delayInSamples;
 
   if (this.delayInputPointer >= this.delayBufferSamples.length-1) {
-    this.delayInputPointer = this.delayInputPointer - this.delayBufferSamples.length; 
+    this.delayInputPointer = this.delayInputPointer - this.delayBufferSamples.length;
   }
 };
 
@@ -2109,7 +2109,7 @@ SingleDelay.prototype.process = function(samples) {
 
     // Add audio data with the delay in the delay buffer
     this.delayBufferSamples[this.delayInputPointer] = samples[i];
-   
+
     // delayBufferSamples could contain initial NULL's, return silence in that case
     var delaySample = this.delayBufferSamples[this.delayOutputPointer];
 
@@ -2122,14 +2122,14 @@ SingleDelay.prototype.process = function(samples) {
     if (this.delayInputPointer >= this.delayBufferSamples.length-1) {
       this.delayInputPointer = 0;
     }
-     
+
     this.delayOutputPointer++;
 
     if (this.delayOutputPointer >= this.delayBufferSamples.length-1) {
-      this.delayOutputPointer = 0; 
-    } 
+      this.delayOutputPointer = 0;
+    }
   }
- 
+
   return outputSamples;
 };
 
@@ -2158,26 +2158,26 @@ function Reverb(maxDelayInSamplesSize, delayInSamples, masterVolume, mixVolume, 
   this.mixVolume       = mixVolume;
   this.delayVolume     = delayVolume;
   this.dampFrequency     = dampFrequency;
- 
+
   this.NR_OF_MULTIDELAYS = 6;
   this.NR_OF_SINGLEDELAYS = 6;
- 
+
   this.LOWPASSL = new IIRFilter2(DSP.LOWPASS, dampFrequency, 0, 44100);
   this.LOWPASSR = new IIRFilter2(DSP.LOWPASS, dampFrequency, 0, 44100);
- 
+
   this.singleDelays = [];
-  
+
   var i, delayMultiply;
 
   for (i = 0; i < this.NR_OF_SINGLEDELAYS; i++) {
     delayMultiply = 1.0 + (i/7.0); // 1.0, 1.1, 1.2...
     this.singleDelays[i] = new SingleDelay(maxDelayInSamplesSize, Math.round(this.delayInSamples * delayMultiply), this.delayVolume);
   }
- 
+
   this.multiDelays = [];
 
   for (i = 0; i < this.NR_OF_MULTIDELAYS; i++) {
-    delayMultiply = 1.0 + (i/10.0); // 1.0, 1.1, 1.2... 
+    delayMultiply = 1.0 + (i/10.0); // 1.0, 1.1, 1.2...
     this.multiDelays[i] = new MultiDelay(maxDelayInSamplesSize, Math.round(this.delayInSamples * delayMultiply), this.masterVolume, this.delayVolume);
   }
 }
@@ -2191,12 +2191,12 @@ Reverb.prototype.setDelayInSamples = function (delayInSamples){
   this.delayInSamples = delayInSamples;
 
   var i, delayMultiply;
- 
+
   for (i = 0; i < this.NR_OF_SINGLEDELAYS; i++) {
     delayMultiply = 1.0 + (i/7.0); // 1.0, 1.1, 1.2...
     this.singleDelays[i].setDelayInSamples( Math.round(this.delayInSamples * delayMultiply) );
   }
-   
+
   for (i = 0; i < this.NR_OF_MULTIDELAYS; i++) {
     delayMultiply = 1.0 + (i/10.0); // 1.0, 1.1, 1.2...
     this.multiDelays[i].setDelayInSamples( Math.round(this.delayInSamples * delayMultiply) );
@@ -2228,16 +2228,16 @@ Reverb.prototype.setMixVolume = function (mixVolume){
  */
 Reverb.prototype.setDelayVolume = function (delayVolume){
   this.delayVolume = delayVolume;
- 
+
   var i;
 
   for (i = 0; i<this.NR_OF_SINGLEDELAYS; i++) {
     this.singleDelays[i].setDelayVolume(this.delayVolume);
-  } 
- 
+  }
+
   for (i = 0; i<this.NR_OF_MULTIDELAYS; i++) {
     this.multiDelays[i].setDelayVolume(this.delayVolume);
-  } 
+  }
 };
 
 /**
@@ -2247,9 +2247,9 @@ Reverb.prototype.setDelayVolume = function (delayVolume){
  */
 Reverb.prototype.setDampFrequency = function (dampFrequency){
   this.dampFrequency = dampFrequency;
- 
+
   this.LOWPASSL.set(dampFrequency, 0);
-  this.LOWPASSR.set(dampFrequency, 0); 
+  this.LOWPASSR.set(dampFrequency, 0);
 };
 
 /**
@@ -2259,14 +2259,14 @@ Reverb.prototype.setDampFrequency = function (dampFrequency){
  *
  * @returns A new Float64Array interleaved buffer.
  */
-Reverb.prototype.process = function (interleavedSamples){ 
+Reverb.prototype.process = function (interleavedSamples){
   // NB. Make a copy to put in the output samples to return.
   var outputSamples = new Float64Array(interleavedSamples.length);
- 
+
   // Perform low pass on the input samples to mimick damp
   var leftRightMix = DSP.deinterleave(interleavedSamples);
   this.LOWPASSL.process( leftRightMix[DSP.LEFT] );
-  this.LOWPASSR.process( leftRightMix[DSP.RIGHT] ); 
+  this.LOWPASSR.process( leftRightMix[DSP.RIGHT] );
   var filteredSamples = DSP.interleave(leftRightMix[DSP.LEFT], leftRightMix[DSP.RIGHT]);
 
   var i;
@@ -2276,7 +2276,7 @@ Reverb.prototype.process = function (interleavedSamples){
     // Invert the signal of every even multiDelay
     outputSamples = DSP.mixSampleBuffers(outputSamples, this.multiDelays[i].process(filteredSamples), 2%i === 0, this.NR_OF_MULTIDELAYS);
   }
- 
+
   // Process SingleDelays in series
   var singleDelaySamples = new Float64Array(outputSamples.length);
   for (i = 0; i<this.NR_OF_SINGLEDELAYS; i++) {
@@ -2288,7 +2288,7 @@ Reverb.prototype.process = function (interleavedSamples){
   for (i = 0; i<singleDelaySamples.length; i++) {
     singleDelaySamples[i] *= this.mixVolume;
   }
- 
+
   // Mix the original signal with the reverb signal
   outputSamples = DSP.mixSampleBuffers(singleDelaySamples, interleavedSamples, 0, 1);
 
@@ -2296,7 +2296,7 @@ Reverb.prototype.process = function (interleavedSamples){
   for (i = 0; i<outputSamples.length; i++) {
     outputSamples[i] *= this.masterVolume;
   }
-   
+
   return outputSamples;
 };
 

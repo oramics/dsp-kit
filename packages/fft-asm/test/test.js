@@ -10,7 +10,7 @@ var SIZE = 1024
 var signal = arr.fill(SIZE, () => Math.random() * 2 - 0.5)
 
 function calcDFT (signal) {
-  return dft.dft(signal)
+  return dft.dft('forward', signal)
 }
 
 function calcFFT (signal) {
