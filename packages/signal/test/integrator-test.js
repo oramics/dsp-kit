@@ -24,4 +24,9 @@ test('integrator', () => {
     var sigRef = gen($.accum(0.2))
     assert.deepEqual(round(fill(10, sig)), round(fill(10, sigRef)))
   })
+
+  test('clamp', () => {
+    var signal = _.clamp(_.accum(0.5, false, { min: -2, max: 2 }))
+    assert.deepEqual(fill(10, signal), [0,0.5,1,1,1,-1,-1,-1,-0.5,0])
+  })
 })

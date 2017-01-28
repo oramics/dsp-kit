@@ -1,3 +1,4 @@
+import { val } from './core'
 
 export function bang () {
   let value = 0
@@ -10,4 +11,10 @@ export function bang () {
     value = 1
   }
   return gen
+}
+
+export function ifelse (cond, trueSt, falseSt) {
+  return function () {
+    return val(cond) ? val(trueSt) : val(falseSt)
+  }
 }

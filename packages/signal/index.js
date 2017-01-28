@@ -11,7 +11,13 @@
  * @module signal
  */
 
-export { abs, add, div, mod, mul, pow, sub } from './lib/arithmetic'
+export {
+  abs, add, div, mod, mul, pow, sub,
+  sin, cos, tan, asin, acos, atan,
+  floor, ceil, round
+ } from './lib/math'
+export { and, or } from './lib/logic'
 export { eq, lt, lte, ltp, gt, gte, gtp } from './lib/comparasion'
-export { accum } from './lib/integrator'
-export { bang } from './lib/control'
+export { accum, clamp } from './lib/integrator'
+export { bang, ifelse } from './lib/control'
+export { loop } from './lib/buffer'
