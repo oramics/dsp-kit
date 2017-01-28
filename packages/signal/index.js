@@ -14,3 +14,4 @@
 export { abs, add, div, mod, mul, pow, sub } from './lib/arithmetic'
 export { eq, lt, lte, ltp, gt, gte, gtp } from './lib/comparasion'
 export { accum } from './lib/integrator'
+export { bang } from './lib/control'

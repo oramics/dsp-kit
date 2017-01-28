@@ -6,8 +6,8 @@ var benchmark = require('./support/benchmark')
 var assert = require('assert')
 var dsp = require('../packages/dsp')
 
-var signal = dsp.generate(1024, (x) => 1)
-var checker = dsp.generate(512, (x) => 1)
+var signal = dsp.fill(1024, (x) => 1)
+var checker = dsp.fill(512, (x) => 1)
 assert.deepEqual(signal.slice(0, 512), checker)
 var cache = dsp.zeros(512)
 

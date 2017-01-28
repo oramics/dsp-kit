@@ -1,3 +1,5 @@
+import { val } from './core'
+
 /**
  * @module signal/integrator
  */
@@ -8,10 +10,13 @@
  * @function
  * @memberof module:signal/integrator
  */
-export const accum = (step, { min = -1, max = 1, init = 0 } = {}) => () => {
-  const val = init
-  init += step
-  if (init > max) init = min
-  if (init < min) init = max
-  return val
+export function accum (step = 0.1, reset = 0, { min = 0, max = 1, init = 0 } = {}) {
+  var next = init
+  return function () {
+    const current = val(reset) === 1 ? init : next
+    next += val(step)
+    if (next > max) next = min
+    else if (next < min) next = max
+    return current
+  }
 }

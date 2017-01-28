@@ -1,3 +1,4 @@
+import { val } from './core'
 /**
  * > Arithmetic operation on signals
  *
@@ -13,7 +14,7 @@ const _pow = Math.pow
  * @function
  * @memberof module:signal/arithmetic
  */
-export const abs = (a) => () => _abs(a())
+export const abs = (a) => () => _abs(val(a))
 
 /**
  * Add signals
@@ -21,7 +22,7 @@ export const abs = (a) => () => _abs(a())
  * @function
  * @memberof module:signal/arithmetic
  */
-export const add = (a, b) => () => a() + b()
+export const add = (a, b) => () => val(a) + val(b)
 
 /**
  * Subtract signals
@@ -29,7 +30,7 @@ export const add = (a, b) => () => a() + b()
  * @function
  * @memberof module:signal/arithmetic
  */
-export const sub = (a, b) => () => a() - b()
+export const sub = (a, b) => () => val(a) - val(b)
 
 /**
  * Subtract signals
@@ -37,7 +38,7 @@ export const sub = (a, b) => () => a() - b()
  * @function
  * @memberof module:signal/arithmetic
  */
-export const div = (a, b) => a() / b()
+export const div = (a, b) => val(a) / val(b)
 
 /**
  * Subtract signals
@@ -45,7 +46,7 @@ export const div = (a, b) => a() / b()
  * @function
  * @memberof module:signal/arithmetic
  */
-export const mod = (a, b) => a() % b()
+export const mod = (a, b) => val(a) % val(b)
 
 /**
  * Subtract signals
@@ -53,11 +54,11 @@ export const mod = (a, b) => a() % b()
  * @function
  * @memberof module:signal/arithmetic
  */
-export const mul = (a, b) => a() * b()
+export const mul = (a, b) => val(a) * val(b)
 /**
  * Subtract signals
  * @name pow
  * @function
  * @memberof module:signal/arithmetic
  */
-export const pow = (a, b) => _pow(a(), b())
+export const pow = (a, b) => _pow(val(a), val(b))

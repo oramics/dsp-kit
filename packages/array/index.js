@@ -139,19 +139,30 @@ const isSame = Object.is
  * There are small differences of precission between algorithms. This helper
  * function allows to compare them discarding the precission errors.
  *
+ * @function
  * @param {Array} array
  * @param {Integer} decimals - (Optional) the number of decimals (8 by default)
  */
-export function round (arr, n = 8, output) {
-  const size = arr.length
-  if (!output) output = new Float64Array(size)
-  const limit = Math.min(size, output.length)
-  const m = Math.pow(10, n)
-  for (let i = 0; i < limit; i++) {
-    const r = Math.round(arr[i] * m) / m
-    output[i] = isSame(r, -0) ? 0 : r
+export const round = roundTo(8)
+
+/**
+ * Create a function that rounds to the given decimals
+ * @param {Integer} decimals - The number of decimals
+ * @return {Function} a function
+ * @see round
+ */
+export function roundTo (dec) {
+  return function round (arr, n = dec, output) {
+    const size = arr.length
+    if (!output) output = new Float64Array(size)
+    const limit = Math.min(size, output.length)
+    const m = Math.pow(10, n)
+    for (let i = 0; i < limit; i++) {
+      const r = Math.round(arr[i] * m) / m
+      output[i] = isSame(r, -0) ? 0 : r
+    }
+    return output
   }
-  return output
 }
 
 /**

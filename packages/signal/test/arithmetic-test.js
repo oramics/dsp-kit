@@ -16,7 +16,7 @@ test('arithmetic', () => {
   })
 
   test('abs', () => {
-    var sig = _.abs(_.accum(1, { min: -2, max: 2 }))
+    var sig = _.abs(_.accum(1, 0, { min: -2, max: 2 }))
     assert.deepEqual(fill(10, sig), [0,1,2,2,1,0,1,2,2,1])
   })
 })
