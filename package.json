@@ -2,6 +2,7 @@
   "name": "dsp-kit-tools",
   "private": true,
   "scripts": {
+    "prepublish": "npm test && npm run docs && npm run dist",
     "build": "lerna run pretest",
     "test": "lerna run test",
     "docs": "npm run docs:html && npm run docs:modules",

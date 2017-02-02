@@ -9,32 +9,32 @@ function _zeros (n) {
   return new Float32Array(n)
 }
 
-function fft (size, dir, complex, output) {
+export function fft (size, dir, complex, output) {
   if (arguments.length > 1) return fft(size)(dir, complex, output)
 
-  var cached = tables(size)
+  const cached = tables(size)
 
   return function process (dir, complex, output) {
     dir = dir || 'forward'
     if (dir !== 'forward' && dir !== 'inverse') throw Error('Direction must be "forward" or "inverse", but was ' + dir)
-    var inverse = dir === 'inverse'
+    const inverse = dir === 'inverse'
 
-    var rs = complex.real || complex
-    var is = complex.imag || cached.zeros
+    const rs = complex.real || complex
+    const is = complex.imag || cached.zeros
     if (rs.length !== size) throw Error('Signal real length should be ' + size + ' but was ' + rs.length)
     if (is.length !== size) throw Error('Signal real length should be ' + size + ' but was ' + is.length)
 
     if (!output) output = { real: _zeros(size), imag: _zeros(size) }
-    var _output = output,
-        real = _output.real,
-        imag = _output.imag
-    var cosTable = cached.cosTable,
-        sinTable = cached.sinTable,
-        reverseTable = cached.reverseTable
+    const _output = output
+    const real = _output.real
+    const imag = _output.imag
+    const cosTable = cached.cosTable
+    const sinTable = cached.sinTable
+    const reverseTable = cached.reverseTable
 
-    var phaseShiftStepReal, phaseShiftStepImag, currentPhaseShiftReal, currentPhaseShiftImag
-    var off, tr, ti, tmpReal, i
-    var halfSize = 1
+    let phaseShiftStepReal, phaseShiftStepImag, currentPhaseShiftReal, currentPhaseShiftImag
+    let off, tr, ti, tmpReal, i
+    let halfSize = 1
 
     for (i = 0; i < size; i++) {
       real[i] = rs[reverseTable[i]]
@@ -47,7 +47,7 @@ function fft (size, dir, complex, output) {
       currentPhaseShiftReal = 1
       currentPhaseShiftImag = 0
 
-      for (var fftStep = 0; fftStep < halfSize; fftStep++) {
+      for (let fftStep = 0; fftStep < halfSize; fftStep++) {
         i = fftStep
 
         while (i < size) {
@@ -82,15 +82,15 @@ function fft (size, dir, complex, output) {
   }
 }
 
-function tables(size) {
+function tables (size) {
   if (!isPow2(size)) throw Error('Size must be a power of 2, and was: ' + size)
-  var reverseTable = new Uint32Array(size)
-  var sinTable = _zeros(size)
-  var cosTable = _zeros(size)
-  var zeros = _zeros(size)
-  var limit = 1
-  var bit = size >> 1
-  var i
+  const reverseTable = new Uint32Array(size)
+  const sinTable = _zeros(size)
+  const cosTable = _zeros(size)
+  const zeros = _zeros(size)
+  let limit = 1
+  let bit = size >> 1
+  let i
 
   while (limit < size) {
     for (i = 0; i < limit; i++) {
@@ -106,5 +106,3 @@ function tables(size) {
   }
   return { reverseTable: reverseTable, sinTable: sinTable, cosTable: cosTable, zeros: zeros }
 }
-
-exports.fft = fft

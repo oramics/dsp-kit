@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>dft - Postman Documentation</title>
+    <title>fft-asm - Postman Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -28,7 +28,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">dft</h1>
+    <h1 class="page-title">fft-asm</h1>
     
 
     
@@ -43,6 +43,10 @@
         
             
         
+            
+        
+            
+        
     
 </header>
 
@@ -50,26 +54,8 @@
     <div class="container-overview">
     
         
-            <div class="description"><blockquote>
-<p>Discrete Fourier Transformation</p>
-</blockquote>
-<p><a href="https://npmjs.org/package/dsp-dft/"><img src="https://nodei.co/npm/dsp-dft.png?mini=true" alt="npm install dsp-dft"></a></p>
-<p>This module have functions to compute DFT using the correlation algorithm
-(the simplest and easy to understand, also the slowest)</p>
-<blockquote>
-<p>Various methods are used to obtain DFT for time domain samples including use
-of Simultaneous Equations using Gaussian elimination, correlation, and using
-the Fast Fourier Transform algorithm. The first option requires massive work
-even for a comparitively small number of samples. In actual practice,
-correlation is the preferred method if the DFT has less than about 32 points.</p>
-</blockquote>
-<p>The function of this module is <strong>really slow</strong>, and not intended to be used
-in production. It has two goals:</p>
-<ul>
-<li>Educational: learn how to implement the DFT correlation algorithm</li>
-<li>Testing: test more complex algorithms against this to check outputs</li>
-</ul>
-<p>This is part of <a href="https://github.com/oramics/dsp-kit">dsp-kit</a></p></div>
+            <div class="description"><p>https://gist.github.com/antimatter15/0349ca7d479236fdcdbb
+IT WORKS!</p></div>
         
 
         
@@ -118,7 +104,7 @@ in production. It has two goals:</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dft_index.js.html">dft/index.js</a>, <a href="dft_index.js.html#line1">line 1</a>
+        <a href="fft-asm_versions_mini-fft.js.html">fft-asm/versions/mini-fft.js</a>, <a href="fft-asm_versions_mini-fft.js.html#line2">line 2</a>
     </li></ul></dd>
     
 
@@ -143,16 +129,148 @@ in production. It has two goals:</p>
 
 
 
-    <h5>Examples</h5>
-    
-    <pre class="prettyprint"><code>// using dsp-kit
-var dsp = require('dsp-kit')
-dsp.dft('forward', signal)
-dsp.dft('inverse', complexSignal)</code></pre>
 
-    <pre class="prettyprint"><code>// requiring only this module
-var dft = require('dsp-dft')
-dft.dft('forward', signal)</code></pre>
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="fft-asm_versions_arduino.js.html">fft-asm/versions/arduino.js</a>, <a href="fft-asm_versions_arduino.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="fft-asm_versions_fftc.js.html">fft-asm/versions/fftc.js</a>, <a href="fft-asm_versions_fftc.js.html#line2">line 2</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -173,135 +291,56 @@ dft.dft('forward', signal)</code></pre>
     
 
     
-        <h3 class="subsection-title">Methods</h3>
 
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
         
             
-
-    
-
-    <h4 class="name" id=".dft"><span class="type-signature">(static) </span>dft<span class="signature">(direction, signal, output)</span><span class="type-signature"> &rarr; {Object}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Perform a DFT using a <em>brute force</em> correlation algorithm</p>
-<p>It accepts real and complex signals of any size.</p>
-<p>It implements the mathematical function as it, without any kind of optimization,
-so it's the slowest algorithm possible.</p>
-<p>This algorithm is not intended to be used in production. It's main use
-(apart from the educational purposes) is to check the output of more
-complex algorithms</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
         
-        <th>Name</th>
+            
         
+            
+        
+    
+</header>
 
-        <th>Type</th>
-
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>This module is a port of <a href="https://github.com/kosme/arduinoFFT/">arduinoFFT</a>
+source from C++ to Javascript</p>
+<p>Copyright (C) 2010 Didier Longueville
+Copyright (C) 2014 Enrique Condes
+Javascript version by danigb</p></div>
         
 
         
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>direction</code></td>
             
 
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Can be 'forward' or 'inverse'</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>signal</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-|
-
-<span class="param-type">Object</span>
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The (real) signal array, or the complex signal
-object <code>{ imag, real }</code></p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>output</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
 
 
-            
-            </td>
 
-            
 
-            
-
-            <td class="description last"><p>(Optional) the pair of buffers <code>{ imag, real }</code> to
-store the output (or new buffers are created if not provided)</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
 
 
 
@@ -337,7 +376,7 @@ store the output (or new buffers are created if not provided)</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dft_index.js.html">dft/index.js</a>, <a href="dft_index.js.html#line61">line 61</a>
+        <a href="fft-asm_versions_mini-fft.js.html">fft-asm/versions/mini-fft.js</a>, <a href="fft-asm_versions_mini-fft.js.html#line2">line 2</a>
     </li></ul></dd>
     
 
@@ -360,38 +399,450 @@ store the output (or new buffers are created if not provided)</p></td>
 
 
 
-<h5>Returns:</h5>
+
+
 
         
-<div class="param-desc">
-    <p>the DFT output</p>
-</div>
+            
 
 
 
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
 
 
-    </dd>
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="fft-asm_versions_arduino.js.html">fft-asm/versions/arduino.js</a>, <a href="fft-asm_versions_arduino.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
 </dl>
 
-    
 
 
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>dft('forward', signal)
-dft('inverse', { real: ..., imag: .... })</code></pre>
+
+
+
+
+
+
+
+
+
+
 
 
 
         
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="fft-asm_versions_fftc.js.html">fft-asm/versions/fftc.js</a>, <a href="fft-asm_versions_fftc.js.html#line2">line 2</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        
+            
+        
+            
+        
+            
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>fft.c
+Douglas L. Jones
+University of Illinois at Urbana-Champaign
+January 19, 1992
+http://cnx.rice.edu/content/m12016/latest/</p>
+<p>  fft: in-place radix-2 DIT DFT of a complex input</p>
+<p>  input:
+n: length of FFT: must be a power of two
+m: n = 2**m
+  input/output
+x: double array of length n with real part of data
+y: double array of length n with imag part of data</p>
+<p>  Permission to copy and use this program is granted
+  as long as this header is included.</p></div>
+        
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="fft-asm_versions_mini-fft.js.html">fft-asm/versions/mini-fft.js</a>, <a href="fft-asm_versions_mini-fft.js.html#line2">line 2</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="fft-asm_versions_arduino.js.html">fft-asm/versions/arduino.js</a>, <a href="fft-asm_versions_arduino.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="fft-asm_versions_fftc.js.html">fft-asm/versions/fftc.js</a>, <a href="fft-asm_versions_fftc.js.html#line2">line 2</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
     
 
     

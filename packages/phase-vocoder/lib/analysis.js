@@ -7,7 +7,7 @@ import { fftshift } from 'dsp-fftshift'
  *
  */
 export default function analysis (signal, { size, hop, windowFn } = {}) {
-  var forward = fft(size)
+  var ft = fft(size)
   var numFrames = Math.floor((signal.length - size) / hop)
   var window = fill(size, windowFn)
 
@@ -24,7 +24,7 @@ export default function analysis (signal, { size, hop, windowFn } = {}) {
     // 3. Cyclic shift to phase zero windowing
     fftshift(frame) // => centered
     // 4. Perform the forward fft
-    forward(frame, fdFrame)
+    ft('forward', frame, fdFrame)
     // 5. Convert to polar form in a new frame
     frames[i] = polar(fdFrame)
     if (isNaN(frames[i].phases[0])) throw Error('NaN anal ' + i)

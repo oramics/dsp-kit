@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>dft - Postman Documentation</title>
+    <title>fft-asm/versions/mini-fft.js - Postman Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -28,378 +28,60 @@
 
 <div id="main">
     
-    <h1 class="page-title">dft</h1>
+    <h1 class="page-title">fft-asm/versions/mini-fft.js</h1>
     
 
     
 
 
 
-
-<section>
-
-<header>
     
-        
-            
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><blockquote>
-<p>Discrete Fourier Transformation</p>
-</blockquote>
-<p><a href="https://npmjs.org/package/dsp-dft/"><img src="https://nodei.co/npm/dsp-dft.png?mini=true" alt="npm install dsp-dft"></a></p>
-<p>This module have functions to compute DFT using the correlation algorithm
-(the simplest and easy to understand, also the slowest)</p>
-<blockquote>
-<p>Various methods are used to obtain DFT for time domain samples including use
-of Simultaneous Equations using Gaussian elimination, correlation, and using
-the Fast Fourier Transform algorithm. The first option requires massive work
-even for a comparitively small number of samples. In actual practice,
-correlation is the preferred method if the DFT has less than about 32 points.</p>
-</blockquote>
-<p>The function of this module is <strong>really slow</strong>, and not intended to be used
-in production. It has two goals:</p>
-<ul>
-<li>Educational: learn how to implement the DFT correlation algorithm</li>
-<li>Testing: test more complex algorithms against this to check outputs</li>
-</ul>
-<p>This is part of <a href="https://github.com/oramics/dsp-kit">dsp-kit</a></p></div>
-        
-
-        
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dft_index.js.html">dft/index.js</a>, <a href="dft_index.js.html#line1">line 1</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Examples</h5>
-    
-    <pre class="prettyprint"><code>// using dsp-kit
-var dsp = require('dsp-kit')
-dsp.dft('forward', signal)
-dsp.dft('inverse', complexSignal)</code></pre>
-
-    <pre class="prettyprint"><code>// requiring only this module
-var dft = require('dsp-dft')
-dft.dft('forward', signal)</code></pre>
-
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    <h4 class="name" id=".dft"><span class="type-signature">(static) </span>dft<span class="signature">(direction, signal, output)</span><span class="type-signature"> &rarr; {Object}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Perform a DFT using a <em>brute force</em> correlation algorithm</p>
-<p>It accepts real and complex signals of any size.</p>
-<p>It implements the mathematical function as it, without any kind of optimization,
-so it's the slowest algorithm possible.</p>
-<p>This algorithm is not intended to be used in production. It's main use
-(apart from the educational purposes) is to check the output of more
-complex algorithms</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>direction</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Can be 'forward' or 'inverse'</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>signal</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-|
-
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The (real) signal array, or the complex signal
-object <code>{ imag, real }</code></p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>output</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>(Optional) the pair of buffers <code>{ imag, real }</code> to
-store the output (or new buffers are created if not provided)</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dft_index.js.html">dft/index.js</a>, <a href="dft_index.js.html#line61">line 61</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>the DFT output</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>dft('forward', signal)
-dft('inverse', { real: ..., imag: .... })</code></pre>
-
-
-
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* eslint-disable semi */
+/**
+ * https://gist.github.com/antimatter15/0349ca7d479236fdcdbb
+ * IT WORKS!
+ * @module fft-asm
+ */
+var sin = Math.sin
+var cos = Math.cos
+
+export function fft (real, imag, dir) {
+  dir = dir || 'forward'
+  var n = real.length
+  if (imag.length !== n) throw Error('Real and imag parts should have same size, but was ' + n + ' and ' + imag.length)
+  var m = Math.log(n) / Math.log(2)
+  process(real, imag, n, m, dir)
+}
+
+function process (re, im, N) {
+  var c, s, tre, tim
+  for (var i = 0; i &lt; N; i++) {
+    for (var j = 0, h = i, k = N; (k >>= 1); h >>= 1) {
+      j = (j &lt;&lt; 1) | (h &amp; 1);
+    }
+    if (j > i) {
+      re[j] = [re[i], re[i] = re[j]][0]
+      im[j] = [im[i], im[i] = im[j]][0]
+    }
+  }
+  for (var hN = 1; hN * 2 &lt;= N; hN *= 2) {
+    for (i = 0; i &lt; N; i += hN * 2) {
+      for (j = i; j &lt; i + hN; j++) {
+        c = cos(Math.PI * (j - i) / hN)
+        s = sin(Math.PI * (j - i) / hN)
+        tre = re[j + hN] * c + im[j + hN] * s;
+        tim = -re[j + hN] * s + im[j + hN] * c;
+        re[j + hN] = re[j] - tre; im[j + hN] = im[j] - tim;
+        re[j] += tre; im[j] += tim;
+      }
+    }
+  }
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

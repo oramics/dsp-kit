@@ -1,5 +1,5 @@
 import { zeros, add } from 'dsp-array'
-import { ifft } from 'dsp-fft'
+import { fft } from 'dsp-fft'
 import { rectangular } from 'dsp-spectrum'
 import { ifftshift } from 'dsp-fftshift'
 
@@ -16,7 +16,7 @@ export default function synthesis (frames, { size, hop, sampleRate, factor }, ou
   var len = frames.length
   var hopS = hop * factor
   if (!output) output = zeros(len * hopS + size)
-  var inverse = ifft(size)
+  var ft = fft(size)
   var position = 0
 
   // create some intermediate buffers (and reuse it for performance)
@@ -27,7 +27,7 @@ export default function synthesis (frames, { size, hop, sampleRate, factor }, ou
     // 1. Convert freq-domain from polar to rectangular
     rectangular(frames[i], rectFD)
     // 2. Convert from freq-domain in rectangular to time-domain
-    var signal = inverse(rectFD, timeDomain).real
+    var signal = ft('inverse', rectFD, timeDomain).real
     // 3. Unshift the previous cycling shift
     ifftshift(signal)
     // 4. Overlap add

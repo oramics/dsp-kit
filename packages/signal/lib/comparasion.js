@@ -10,7 +10,7 @@ import { val } from './core'
  * Returns 1 if two inputs are __equal__, otherwise returns 0.
  * @name eq
  * @function
- * @memberof module:signal/comparation
+ * @memberof module:signal/comparasion
  */
 export const eq = (a, b) => () => val(a) === val(b) ? 1 : 0
 
@@ -18,7 +18,7 @@ export const eq = (a, b) => () => val(a) === val(b) ? 1 : 0
  * Returns 1 if a is __greater__ than b, otherwise returns 0.
  * @name gt
  * @function
- * @memberof module:signal/comparation
+ * @memberof module:signal/comparasion
  */
 export const gt = (a, b) => () => val(a) > val(b) ? 1 : 0
 
@@ -26,7 +26,7 @@ export const gt = (a, b) => () => val(a) > val(b) ? 1 : 0
  * Returns 1 if a is __greater or equal__ than b, otherwise returns 0.
  * @name gte
  * @function
- * @memberof module:signal/comparation
+ * @memberof module:signal/comparasion
  */
 export const gte = (a, b) => () => val(a) >= val(b) ? 1 : 0
 
@@ -34,7 +34,7 @@ export const gte = (a, b) => () => val(a) >= val(b) ? 1 : 0
  * Returns `a` if `a` is __greater__ than `b`, otherwise returns 0.
  * @name gtp
  * @function
- * @memberof module:signal/comparation
+ * @memberof module:signal/comparasion
  */
 export const gtp = (a, b) => () => {
   const a = val(a)
@@ -45,7 +45,7 @@ export const gtp = (a, b) => () => {
  * Returns 1 if a is __less__ than b, otherwise returns 0.
  * @name lt
  * @function
- * @memberof module:signal/comparation
+ * @memberof module:signal/comparasion
  */
 export const lt = (a, b) => () => val(a) < val(b) ? 1 : 0
 
@@ -53,7 +53,7 @@ export const lt = (a, b) => () => val(a) < val(b) ? 1 : 0
  * Returns 1 if a is __less or equal__ than b, otherwise returns 0.
  * @name lte
  * @function
- * @memberof module:signal/comparation
+ * @memberof module:signal/comparasion
  */
 export const lte = (a, b) => () => val(a) <= val(b) ? 1 : 0
 
@@ -61,7 +61,7 @@ export const lte = (a, b) => () => val(a) <= val(b) ? 1 : 0
  * Returns `a` if `a` is __less__ than `b`, otherwise returns 0.
  * @name ltp
  * @function
- * @memberof module:signal/comparation
+ * @memberof module:signal/comparasion
  */
 export const ltp = (a, b) => () => {
   const a = val(a)

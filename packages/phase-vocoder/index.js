@@ -47,6 +47,21 @@ import { fill } from 'dsp-array'
 import { bandFrequency } from 'dsp-spectrum'
 import { hanning } from 'dsp-window'
 
+const DEFAULTS = {
+  algorithm: 'phase-vocoder',
+  size: 4098,
+  hop: 1024,
+  sampleRate: 44100,
+  windowFn: hanning()
+}
+
+export function stretch (factor, buffer, options = {}) {
+  options = options ? Object.assign({}, options) : {}
+  options = Object.assign(options, DEFAULTS)
+  console.log('VOCODER')
+  return buffer
+}
+
 /**
  * Implements a standard phase vocoder timestretch algorithm. It returns a
  * function that process the data.

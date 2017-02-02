@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>dft - Postman Documentation</title>
+    <title>fft-asm/versions/arduino.js - Postman Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -28,378 +28,105 @@
 
 <div id="main">
     
-    <h1 class="page-title">dft</h1>
+    <h1 class="page-title">fft-asm/versions/arduino.js</h1>
     
 
     
 
 
 
-
-<section>
-
-<header>
     
-        
-            
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><blockquote>
-<p>Discrete Fourier Transformation</p>
-</blockquote>
-<p><a href="https://npmjs.org/package/dsp-dft/"><img src="https://nodei.co/npm/dsp-dft.png?mini=true" alt="npm install dsp-dft"></a></p>
-<p>This module have functions to compute DFT using the correlation algorithm
-(the simplest and easy to understand, also the slowest)</p>
-<blockquote>
-<p>Various methods are used to obtain DFT for time domain samples including use
-of Simultaneous Equations using Gaussian elimination, correlation, and using
-the Fast Fourier Transform algorithm. The first option requires massive work
-even for a comparitively small number of samples. In actual practice,
-correlation is the preferred method if the DFT has less than about 32 points.</p>
-</blockquote>
-<p>The function of this module is <strong>really slow</strong>, and not intended to be used
-in production. It has two goals:</p>
-<ul>
-<li>Educational: learn how to implement the DFT correlation algorithm</li>
-<li>Testing: test more complex algorithms against this to check outputs</li>
-</ul>
-<p>This is part of <a href="https://github.com/oramics/dsp-kit">dsp-kit</a></p></div>
-        
-
-        
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dft_index.js.html">dft/index.js</a>, <a href="dft_index.js.html#line1">line 1</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Examples</h5>
-    
-    <pre class="prettyprint"><code>// using dsp-kit
-var dsp = require('dsp-kit')
-dsp.dft('forward', signal)
-dsp.dft('inverse', complexSignal)</code></pre>
-
-    <pre class="prettyprint"><code>// requiring only this module
-var dft = require('dsp-dft')
-dft.dft('forward', signal)</code></pre>
-
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    <h4 class="name" id=".dft"><span class="type-signature">(static) </span>dft<span class="signature">(direction, signal, output)</span><span class="type-signature"> &rarr; {Object}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Perform a DFT using a <em>brute force</em> correlation algorithm</p>
-<p>It accepts real and complex signals of any size.</p>
-<p>It implements the mathematical function as it, without any kind of optimization,
-so it's the slowest algorithm possible.</p>
-<p>This algorithm is not intended to be used in production. It's main use
-(apart from the educational purposes) is to check the output of more
-complex algorithms</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>direction</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Can be 'forward' or 'inverse'</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>signal</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-|
-
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The (real) signal array, or the complex signal
-object <code>{ imag, real }</code></p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>output</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>(Optional) the pair of buffers <code>{ imag, real }</code> to
-store the output (or new buffers are created if not provided)</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dft_index.js.html">dft/index.js</a>, <a href="dft_index.js.html#line61">line 61</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>the DFT output</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>dft('forward', signal)
-dft('inverse', { real: ..., imag: .... })</code></pre>
-
-
-
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+* This module is a port of [arduinoFFT](https://github.com/kosme/arduinoFFT/)
+* source from C++ to Javascript
+*
+* Copyright (C) 2010 Didier Longueville
+* Copyright (C) 2014 Enrique Condes
+* Javascript version by danigb
+*
+* @module fft-asm
+*/
+var sqrt = Math.sqrt
+
+export function fft (real, imag, dir) {
+  dir = dir || 'forward'
+  var len = real.length
+  if (imag.length !== len) throw Error('Real and imag parts should have same size, but was ' + len + ' and ' + imag.length)
+  var power = exponent(len)
+  compute(real, imag, len, power, dir)
+}
+
+// Computes the exponent of a powered 2 value
+function exponent (value) {
+  var result = 0
+  while (((value >> result) &amp; 1) !== 1) result++
+  return result
+}
+
+function compute (real, imag, samples, power, dir) {
+  /* Computes in-place complex-to-complex FFT */
+  /* Reverse bits */
+  var j = 0
+  for (var i = 0; i &lt; (samples - 1); i++) {
+    if (i &lt; j) {
+      swap(real[i], real[j])
+      swap(imag[i], imag[j])
+    }
+    var k = (samples >> 1)
+    while (k &lt;= j) {
+      j -= k
+      k >>= 1
+    }
+    j += k
+  }
+  /* Compute the FFT  */
+  var c1 = -1.0
+  var c2 = 0.0
+  var l2 = 1
+  for (var l = 0; (l &lt; power); l++) {
+    var l1 = l2
+    l2 &lt;&lt;= 1
+    var u1 = 1.0
+    var u2 = 0.0
+    for (j = 0; j &lt; l1; j++) {
+      for (i = j; i &lt; samples; i += l2) {
+        var i1 = i + l1
+        var t1 = u1 * real[i1] - u2 * imag[i1]
+        var t2 = u1 * imag[i1] + u2 * real[i1]
+        real[i1] = real[i] - t1
+        imag[i1] = imag[i] - t2
+        real[i] += t1
+        imag[i] += t2
+      }
+      var z = ((u1 * c1) - (u2 * c2))
+      u2 = ((u1 * c2) + (u2 * c1))
+      u1 = z
+    }
+    c2 = sqrt((1.0 - c1) / 2.0)
+    if (dir !== 'inverse') {
+      c2 = -c2
+    }
+    c1 = sqrt((1.0 + c1) / 2.0)
+  }
+  /* Scaling for reverse transform */
+  if (dir === 'inverse') {
+    for (i = 0; i &lt; samples; i++) {
+      real[i] /= samples
+      imag[i] /= samples
+    }
+  }
+}
+
+function swap (x, y) {
+  var temp = x
+  x = y
+  y = temp
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

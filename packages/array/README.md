@@ -36,6 +36,7 @@ dsp.fill(...)
     * [.mult(numberOfSamples, a, b, output)](#module_array.mult) ⇒ <code>Array</code>
     * [.substr(numberOfSamples, minuend, subtrahend, output)](#module_array.substr) ⇒ <code>Array</code>
     * [.round(array, decimals)](#module_array.round)
+    * [.roundTo(decimals)](#module_array.roundTo) ⇒ <code>function</code>
     * [.testAll(N, predicate, array)](#module_array.testAll) ⇒ <code>Boolean</code>
 
 <a name="module_array.zeros"></a>
@@ -164,6 +165,19 @@ function allows to compare them discarding the precission errors.
 | --- | --- | --- |
 | array | <code>Array</code> |  |
 | decimals | <code>Integer</code> | (Optional) the number of decimals (8 by default) |
+
+<a name="module_array.roundTo"></a>
+
+### array.roundTo(decimals) ⇒ <code>function</code>
+Create a function that rounds to the given decimals
+
+**Kind**: static method of <code>[array](#module_array)</code>  
+**Returns**: <code>function</code> - a function  
+**See**: round  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| decimals | <code>Integer</code> | The number of decimals |
 
 <a name="module_array.testAll"></a>
 

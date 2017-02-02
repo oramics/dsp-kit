@@ -1,6 +1,7 @@
 {
   "name": "dsp-signal",
-  "description": "Functions to create and manipulate Float64Array signals",
+  "description": "Create and manipulate signals, one sample at time",
+  "private": true,
   "version": "0.0.1",
   "main": "build/index.js",
   "module": "index.js",

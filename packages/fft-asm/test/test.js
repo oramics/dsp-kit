@@ -25,7 +25,7 @@ function calcASM (signal) {
   return fft(signal, { real: arr.zeros(SIZE), imag: arr.zeros(SIZE) }, 'forward')
 }
 
-test('test inverse', function () {
+test.skip('test inverse', function () {
   var fft = new dspjs.FFT(SIZE, 44100)
   fft.forward(signal)
   var result = fft.inverse(fft.real, fft.imag)
@@ -39,7 +39,7 @@ test('test inverse', function () {
   assert.almost(inverse.real, signal)
 })
 
-test('test forward', function () {
+test.skip('test forward', function () {
   var dft = calcDFT(signal)
   var fft = calcFFT(signal)
   var asm = calcASM(signal)
