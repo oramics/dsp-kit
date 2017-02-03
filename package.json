@@ -6,6 +6,7 @@
     "build": "lerna run pretest",
     "test": "lerna run test",
     "test:data": "node test/test-data",
+    "test-ci": "lerna bootstrap && npm test",
     "docs": "npm run docs:html && npm run docs:modules",
     "docs:html": "jsdoc -c .jsdoc3.json",
     "docs:modules": "lerna run docs",
