@@ -47,6 +47,7 @@ import { fill } from 'dsp-array'
 import { bandFrequency } from 'dsp-spectrum'
 import { hanning } from 'dsp-window'
 import { fft } from 'dsp-fft'
+export { analysis, synthesis }
 // var dspjs = require('dspjs')
 
 /**
@@ -55,23 +56,21 @@ import { fft } from 'dsp-fft'
  */
 export function phaseVocoder ({
   algorithm = 'phase-vocoder',
-  size = 512,
-  hop = 125,
+  size = 4096,
+  hop = size * 0.5,
   sampleRate = 44100,
   windowFn = hanning()
 } = {}) {
   // a lookup table of bin center frecuencies
   var omega = fill(size, (x) => bandFrequency(x, size, sampleRate))
   var ft = fft(size)
-  console.log('PHASE VOCODER', algorithm, size, hop)
+  console.log('PHASE VOCODER', algorithm, size, hop, ft)
 
   return function stretch (factor, signal, output, timeFreqProccessing) {
-    console.log('STRETCH', algorithm, signal.slice(0, 100))
     var frames = analysis(signal, { ft, size, hop, windowFn })
     if (timeFreqProccessing) timeFreqProccessing(frames, { size, hop, sampleRate })
     if (algorithm === 'phase-vocoder') recalcPhases(frames, { size, factor, hop }, omega)
     else if (algorithm === 'paul-stretch') randomPhases(frames, size)
-    else console.log('Algorithm', algorithm)
     return synthesis(frames, { ft, size, hop, factor, sampleRate })
   }
 }

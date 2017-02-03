@@ -1,11 +1,14 @@
 import { zeros, fill, mult } from 'dsp-array'
 import { polar } from 'dsp-spectrum'
 import { fftshift } from 'dsp-fftshift'
+import { fft } from 'dsp-fft'
+
+const rectangular = () => 1
 
 /**
  *
  */
-export default function analysis (signal, { ft, size, hop, windowFn }) {
+export default function analysis (signal, { size, hop, windowFn = rectangular, ft = fft(size) }) {
   var numFrames = Math.floor((signal.length - size) / hop)
   var window = fill(size, windowFn)
 
@@ -22,7 +25,7 @@ export default function analysis (signal, { ft, size, hop, windowFn }) {
     // 3. Cyclic shift to phase zero windowing
     fftshift(frame) // => centered
     // 4. Perform the forward fft
-    ft('forward', frame, fdFrame)
+    ft.forward(frame, fdFrame)
     // 5. Convert to polar form in a new frame
     frames[i] = polar(fdFrame)
     if (isNaN(frames[i].phases[0])) throw Error('NaN analysis ' + i)

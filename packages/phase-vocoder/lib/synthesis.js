@@ -10,11 +10,11 @@ import { ifftshift } from 'dsp-fftshift'
  * @param {Array} output - (Optional) the output array
  */
 export default function synthesis (frames, { ft, size, hop, sampleRate, factor }, output) {
-  console.log('Phase synthesis', frames.length)
   if (!frames || !frames.length) throw Error('"frames" parameter is required in synthesis')
 
   var len = frames.length
   var hopS = hop * factor
+  console.log('SYNTHESIS', hopS, len, len * hopS)
   if (!output) output = zeros(len * hopS + size)
   var position = 0
 
@@ -22,11 +22,10 @@ export default function synthesis (frames, { ft, size, hop, sampleRate, factor }
   var rectFD = { real: zeros(size), imag: zeros(size) }
   var timeDomain = { real: zeros(size), imag: zeros(size) }
   for (var i = 0; i < len; i++) {
-    if (i === 2000) console.log('frame 3000', frames[i])
     // 1. Convert freq-domain from polar to rectangular
     rectangular(frames[i], rectFD)
     // 2. Convert from freq-domain in rectangular to time-domain
-    var signal = ft('inverse', rectFD, timeDomain).real
+    var signal = ft.inverse(rectFD, timeDomain).real
     // 3. Unshift the previous cycling shift
     ifftshift(signal)
     // 4. Overlap add
