@@ -12,21 +12,26 @@ Work in progress. Experimental API. Use at your own risk.
 
 ```js
 const dsp = require('dsp-kit')
-const signal = dsp.generate(1024, (x) => Math.sin(x))
+const signal = dsp.fill(1024, (x) => Math.sin(x))
 const { magnitudes, phases } = dsp.spectrum(dsp.fft(1024, signal))
+// generate a signal adding two sines
+const oscillator = dsp.fill(1024, dsp.add(dsp.sine(440), dsp.sine(880)))
 ```
 
 This is a [multimodule](https://github.com/oramics/dsp-kit/tree/master/packages) repository, each functionallity wrapped in its own package:
 
+- [dsp](https://github.com/oramics/dsp-kit/tree/master/packages/dsp): a _facade_ module that exposes some modules as a coherent package. Probably you just need to install and use that one (unless you are concerned with code size or some esoteric features)
 - [array](https://github.com/oramics/dsp-kit/tree/master/packages/buffer): array utilities
 - [dft](https://github.com/oramics/dsp-kit/tree/master/packages/dft): discrete fourier implementation (very slow, but easy to understand)
-- [dsp](https://github.com/oramics/dsp-kit/tree/master/packages/dsp): a _facade_ module that exposes the functions of the rest of the modules. Probably you just need to install and use that one.
 - [elastica](https://github.com/oramics/dsp-kit/tree/master/packages/elastica): timestretch for web audio api (it will be extracted it is own repo when ready).
-- [fft](https://github.com/oramics/dsp-kit/tree/master/packages/fft): fast forward fourier algorithm
+- [fft](https://github.com/oramics/dsp-kit/tree/master/packages/fft): the default fast fourier algorithm
+- [fft-radix2](https://github.com/oramics/dsp-kit/tree/master/packages/fft-radix2): fast forward fourier algorithm using a Cooley-Tukey radix-2 algorithm
 - [fft-asm](https://github.com/oramics/dsp-kit/tree/master/packages/fft-asm): a high performance fft implementation based on asm.js (work in progress)
 - [fftshift](https://github.com/oramics/dsp-kit/tree/master/packages/fftshift): rotate arrays to perform zero-phasing windowing
 - [ola](https://github.com/oramics/dsp-kit/tree/master/packages/ola): overlap and add algorithm for time strething
 - [oscillator](https://github.com/oramics/dsp-kit/tree/master/packages/oscillator): work in progress
+- [noise](https://github.com/oramics/dsp-kit/tree/master/packages/noise): functions to generate noise
+- [signal](https://github.com/oramics/dsp-kit/tree/master/packages/signal): generate and manipulate signals
 - [phase-vocoder](https://github.com/oramics/dsp-kit/tree/master/packages/phase-vocoder): phase vocoder algorithm to perform time strething and other signal transformations
 - [rfft](https://github.com/oramics/dsp-kit/tree/master/packages/rfft): real split radix FFT (work in progress)
 - [spectrum](https://github.com/oramics/dsp-kit/tree/master/packages/spectrum): spectrum manipulation utilities
@@ -35,7 +40,7 @@ This is a [multimodule](https://github.com/oramics/dsp-kit/tree/master/packages)
 
 ## Documentation
 
-Take a look to the [generated API documentation](https://github.com/oramics/dsp-kit/blob/master/docs/API/)
+Read the [generated API documentation](https://oramics.github.io/dsp-kit/api/)
 
 ## Development
 
