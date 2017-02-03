@@ -2,6 +2,8 @@
 
 > A digital signal processing library in Javascript
 
+[![Build Status](https://travis-ci.org/oramics/dsp-kit.svg?branch=master&style=flat-square)](https://travis-ci.org/oramics/dsp-kit) [![Code Climate](https://codeclimate.com/github/oramics/dsp-kit/badges/gpa.svg?style=flat-square)](https://codeclimate.com/github/oramics/dsp-kit) [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/feross/standard) [![license](https://img.shields.io/npm/l/tonal.svg?style=flat-square)](https://www.npmjs.com/package/tonal)
+
 Since I usually learn by coding, this is the result of my learning on dsp. I'm building while trying to understand the main concepts of dsp targeting audio applications.
 
 Work in progress. Experimental API. Use at your own risk.
