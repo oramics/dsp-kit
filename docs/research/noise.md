@@ -1,5 +1,6 @@
 # Noise
 
+- Generate Noise with Web Audio API: http://noisehack.com/generate-noise-web-audio-api/
 - Pink noise: http://www.firstpr.com.au/dsp/pink-noise/
 
 > In the natural world, there are many physical processes which produce noise with what is known as a "pink" distribution of power.  "Pink" noise has an even distribution of power if the frequency is mapped in a logarithmic scale.

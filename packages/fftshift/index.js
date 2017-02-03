@@ -5,23 +5,30 @@
  *
  * This is part of [dsp-kit](https://github.com/oramics/dsp-kit)
  *
- * ### References
- * - http://stackoverflow.com/questions/876293/fastest-algorithm-for-circle-shift-n-sized-array-for-m-position
+ * @example
+ * var shift = require('dsp-fftshift')
+ * shift.fftshift(signal)
+ * shift.ifftshift(signal)
  *
  * @example
- * var buffer = require('dsp-fftshift')
- * const sine = buffer.fill(1024, (x) => Math.sin(0.5 * x))
+ * // ES6 syntax
+ * import { fftshift, ifftshift } from 'dsp-fftshift'
+ * fftshift(signal)
  *
  * @example
  * // included in dsp-kit package
  * var dsp = require('dsp-kit')
- * dsp.fill(...)
+ * dsp.fftshift(signal)
+ * dsp.ifftshift(signal)
  *
  * @module fftshift
  */
 
 /**
  * Rotate a buffer in place
+ *
+ * from: http://stackoverflow.com/questions/876293/fastest-algorithm-for-circle-shift-n-sized-array-for-m-position
+ *
  * @param {Array} source - the buffer to rotate
  * @param {Number} rotations - the number of rotations
  * @private

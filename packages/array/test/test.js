@@ -43,7 +43,7 @@ test('concat', () => {
   assert.deepEqual(array.concat(ones, twos), from([1, 1, 1, 1, 1, 2, 2, 2, 2, 2]))
 })
 
-test('generate', function () {
+test('fill', function () {
   const zeros = array.fill(100, (x) => 0)
   assert.deepStrictEqual(zeros, array.zeros(100))
   const ones = array.fill(10, (x) => 1)

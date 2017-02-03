@@ -2,12 +2,13 @@
   "name": "dsp-fft",
   "description": "Fast fourier transform",
   "version": "0.0.1",
+  "private": true,
   "main": "build/index.js",
   "module": "index",
   "scripts": {
     "pretest": "rollup -c ../../rollup.config.js",
-    "test": "node test/test.js",
-    "benchmark": "node test/benchmark.js",
+    "test": "node test/test",
+    "benchmark": "",
     "docs": "jsdoc2md index.js > README.md && cp README.md ../../docs/modules/fft.md"
   },
   "repository": "https://github.com/oramics/dsp-kit/packages/dsp-fft",
@@ -24,9 +25,7 @@
     "url": "https://github.com/oramics/dsp-kit/issues"
   },
   "homepage": "https://github.com/oramics/dsp-kit/packages/dsp-fft/#readme",
-  "devDependencies": {
-    "dsp-array": "^0.0.1",
-    "dsp-dft": "^0.0.1",
-    "dspjs": "../../benchmarks/dspjs"
+  "dependencies": {
+    "dsp-fft-radix2": "0.0.1"
   }
 }

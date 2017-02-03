@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>signal/logic - Postman Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-array.html">array</a><ul class='methods'><li data-type='method'><a href="module-array.html#.add">add</a></li><li data-type='method'><a href="module-array.html#.concat">concat</a></li><li data-type='method'><a href="module-array.html#.fill">fill</a></li><li data-type='method'><a href="module-array.html#.mult">mult</a></li><li data-type='method'><a href="module-array.html#.round">round</a></li><li data-type='method'><a href="module-array.html#.roundTo">roundTo</a></li><li data-type='method'><a href="module-array.html#.substr">substr</a></li><li data-type='method'><a href="module-array.html#.testAll">testAll</a></li><li data-type='method'><a href="module-array.html#.zeros">zeros</a></li></ul></li><li><a href="module-dft.html">dft</a><ul class='methods'><li data-type='method'><a href="module-dft.html#.dft">dft</a></li></ul></li><li><a href="module-dsp-kit.html">dsp-kit</a></li><li><a href="module-elastica.html">elastica</a><ul class='methods'><li data-type='method'><a href="module-elastica.html#~stretch">stretch</a></li></ul></li><li><a href="module-fft-asm.html">fft-asm</a></li><li><a href="module-fft-radix2.html">fft-radix2</a><ul class='methods'><li data-type='method'><a href="module-fft-radix2.html#.fftRadix2">fftRadix2</a></li></ul></li><li><a href="module-fftshift.html">fftshift</a><ul class='methods'><li data-type='method'><a href="module-fftshift.html#.fftshift">fftshift</a></li><li data-type='method'><a href="module-fftshift.html#.ifftshift">ifftshift</a></li></ul></li><li><a href="module-noise.html">noise</a><ul class='methods'><li data-type='method'><a href="module-noise.html#.brown">brown</a></li><li data-type='method'><a href="module-noise.html#.pink">pink</a></li><li data-type='method'><a href="module-noise.html#.white">white</a></li></ul></li><li><a href="module-ola.html">ola</a><ul class='methods'><li data-type='method'><a href="module-ola.html#.overlapAdd">overlapAdd</a></li><li data-type='method'><a href="module-ola.html#.overlapAdd">overlapAdd</a></li></ul></li><li><a href="module-oscillator.html">oscillator</a><ul class='methods'><li data-type='method'><a href="module-oscillator.html#.oscillator">oscillator</a></li></ul></li><li><a href="module-phase-vocoder.html">phase-vocoder</a><ul class='methods'><li data-type='method'><a href="module-phase-vocoder.html#.paulStretch">paulStretch</a></li><li data-type='method'><a href="module-phase-vocoder.html#.phaseVocoder">phaseVocoder</a></li></ul></li><li><a href="module-rfft.html">rfft</a><ul class='methods'><li data-type='method'><a href="module-rfft.html#.rfft">rfft</a></li></ul></li><li><a href="module-signal.html">signal</a></li><li><a href="module-signal_arithmetic.html">signal/arithmetic</a><ul class='methods'><li data-type='method'><a href="module-signal_arithmetic.html#.abs">abs</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.add">add</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.div">div</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.mod">mod</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.mul">mul</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.pow">pow</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.round">round</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.sub">sub</a></li></ul></li><li><a href="module-signal_buffer.html">signal/buffer</a><ul class='methods'><li data-type='method'><a href="module-signal_buffer.html#~data">data</a></li></ul></li><li><a href="module-signal_comparasion.html">signal/comparasion</a><ul class='methods'><li data-type='method'><a href="module-signal_comparasion.html#.eq">eq</a></li><li data-type='method'><a href="module-signal_comparasion.html#.gt">gt</a></li><li data-type='method'><a href="module-signal_comparasion.html#.gte">gte</a></li><li data-type='method'><a href="module-signal_comparasion.html#.gtp">gtp</a></li><li data-type='method'><a href="module-signal_comparasion.html#.lt">lt</a></li><li data-type='method'><a href="module-signal_comparasion.html#.lte">lte</a></li><li data-type='method'><a href="module-signal_comparasion.html#.ltp">ltp</a></li></ul></li><li><a href="module-signal_integrator.html">signal/integrator</a><ul class='methods'><li data-type='method'><a href="module-signal_integrator.html#.accum">accum</a></li><li data-type='method'><a href="module-signal_integrator.html#.phasor">phasor</a></li><li data-type='method'><a href="module-signal_integrator.html#~clamp">clamp</a></li></ul></li><li><a href="module-signal_logic.html">signal/logic</a><ul class='methods'><li data-type='method'><a href="module-signal_logic.html#.and">and</a></li><li data-type='method'><a href="module-signal_logic.html#.or">or</a></li></ul></li><li><a href="module-spectrum.html">spectrum</a><ul class='methods'><li data-type='method'><a href="module-spectrum.html#.bandFrequency">bandFrequency</a></li><li data-type='method'><a href="module-spectrum.html#.bandWidth">bandWidth</a></li><li data-type='method'><a href="module-spectrum.html#.polar">polar</a></li><li data-type='method'><a href="module-spectrum.html#.rectangular">rectangular</a></li><li data-type='method'><a href="module-spectrum.html#.unwrap">unwrap</a></li></ul></li><li><a href="module-waa.html">waa</a></li><li><a href="module-window.html">window</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">signal/logic</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        
+            
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><blockquote>
+<p>Logic functions for signal processing</p>
+</blockquote></div>
+        
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="signal_lib_logic.js.html">signal/lib/logic.js</a>, <a href="signal_lib_logic.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id=".and"><span class="type-signature">(static) </span>and<span class="signature">(a, b)</span><span class="type-signature"> &rarr; {Signal}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Returns 1 if both signals are not 0</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>a</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Signal</span>
+|
+
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>input signal</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>b</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Signal</span>
+|
+
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>input signal</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="signal_lib_logic.js.html">signal/lib/logic.js</a>, <a href="signal_lib_logic.js.html#line15">line 15</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Signal</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".or"><span class="type-signature">(static) </span>or<span class="signature">(a, b)</span><span class="type-signature"> &rarr; {Signal}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Returns 0 if both signals are 0, 1 otherwise</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>a</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Signal</span>
+|
+
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>input signal</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>b</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Signal</span>
+|
+
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>input signal</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="signal_lib_logic.js.html">signal/lib/logic.js</a>, <a href="signal_lib_logic.js.html#line25">line 25</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Signal</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated at Fri Feb 03 2017 12:26:34 GMT+0100 (CET)
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

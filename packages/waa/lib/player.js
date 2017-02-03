@@ -1,26 +1,48 @@
 var ac = require('audio-context')
 
-module.exports = function player (buffer, loop, context) {
+/**
+ * A play function to be attached to a dom element
+ *
+ * @name player
+ * @function
+ * @memberof module:dsp-waa
+ * @example
+ * document.getElementById('#play').onclick = player(buffer, { loop: true })
+ */
+module.exports = function player (buffer, {
+  loop = false,
+  context = ac,
+  labels = ['Play', 'Stop'],
+  gain = false
+} = {}) {
   var player = null
-  return function (e, el) {
+
+  return function (e) {
     if (player) {
-      console.log('stop')
       player.stop()
       player = null
-      if (el) el.innerText = 'Play'
+      if (e && labels) e.target.innerText = labels[0]
     } else {
-      console.log('playing...')
-      if (el) el.innerText = 'Stop'
-      player = play(buffer, loop, context)
+      if (e && labels) e.target.innerText = labels[1]
+      player = play(buffer, loop, gain, context)
     }
   }
 }
 
-function play (buffer, loop, context = ac) {
+function play (buffer, loop, gain, context) {
   var source = context.createBufferSource()
   source.buffer = buffer
-  source.connect(context.destination)
   if (loop === true) source.loop = true
+
+  if (gain) {
+    var g = context.createGain()
+    g.gain.value = gain
+    g.connect(context.destination)
+    source.connect(g)
+  } else {
+    source.connect(context.destination)
+  }
+
   source.start()
   return source
 }

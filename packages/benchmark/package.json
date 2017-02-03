@@ -1,0 +1,12 @@
+{
+  "name": "dsp-benchmark",
+  "version": "0.0.1",
+  "private": true,
+  "description": "A simple wrapper over benchmark.js to reduce boilerplate. Private module.",
+  "main": "index.js",
+  "scripts": {},
+  "license": "MIT",
+  "dependencies": {
+    "benchmark": "^2.1.3"
+  }
+}

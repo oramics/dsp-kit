@@ -1,13 +1,11 @@
 import { zeros, fill, mult } from 'dsp-array'
-import { fft } from 'dsp-fft'
 import { polar } from 'dsp-spectrum'
 import { fftshift } from 'dsp-fftshift'
 
 /**
  *
  */
-export default function analysis (signal, { size, hop, windowFn } = {}) {
-  var ft = fft(size)
+export default function analysis (signal, { ft, size, hop, windowFn }) {
   var numFrames = Math.floor((signal.length - size) / hop)
   var window = fill(size, windowFn)
 
@@ -27,7 +25,7 @@ export default function analysis (signal, { size, hop, windowFn } = {}) {
     ft('forward', frame, fdFrame)
     // 5. Convert to polar form in a new frame
     frames[i] = polar(fdFrame)
-    if (isNaN(frames[i].phases[0])) throw Error('NaN anal ' + i)
+    if (isNaN(frames[i].phases[0])) throw Error('NaN analysis ' + i)
   }
   return frames
 }

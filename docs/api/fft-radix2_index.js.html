@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>fft-radix2/index.js - Postman Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-array.html">array</a><ul class='methods'><li data-type='method'><a href="module-array.html#.add">add</a></li><li data-type='method'><a href="module-array.html#.concat">concat</a></li><li data-type='method'><a href="module-array.html#.fill">fill</a></li><li data-type='method'><a href="module-array.html#.mult">mult</a></li><li data-type='method'><a href="module-array.html#.round">round</a></li><li data-type='method'><a href="module-array.html#.roundTo">roundTo</a></li><li data-type='method'><a href="module-array.html#.substr">substr</a></li><li data-type='method'><a href="module-array.html#.testAll">testAll</a></li><li data-type='method'><a href="module-array.html#.zeros">zeros</a></li></ul></li><li><a href="module-dft.html">dft</a><ul class='methods'><li data-type='method'><a href="module-dft.html#.dft">dft</a></li></ul></li><li><a href="module-dsp-kit.html">dsp-kit</a></li><li><a href="module-elastica.html">elastica</a><ul class='methods'><li data-type='method'><a href="module-elastica.html#~stretch">stretch</a></li></ul></li><li><a href="module-fft-asm.html">fft-asm</a></li><li><a href="module-fft-radix2.html">fft-radix2</a><ul class='methods'><li data-type='method'><a href="module-fft-radix2.html#.fftRadix2">fftRadix2</a></li></ul></li><li><a href="module-fftshift.html">fftshift</a><ul class='methods'><li data-type='method'><a href="module-fftshift.html#.fftshift">fftshift</a></li><li data-type='method'><a href="module-fftshift.html#.ifftshift">ifftshift</a></li></ul></li><li><a href="module-noise.html">noise</a><ul class='methods'><li data-type='method'><a href="module-noise.html#.brown">brown</a></li><li data-type='method'><a href="module-noise.html#.pink">pink</a></li><li data-type='method'><a href="module-noise.html#.white">white</a></li></ul></li><li><a href="module-ola.html">ola</a><ul class='methods'><li data-type='method'><a href="module-ola.html#.overlapAdd">overlapAdd</a></li><li data-type='method'><a href="module-ola.html#.overlapAdd">overlapAdd</a></li></ul></li><li><a href="module-oscillator.html">oscillator</a><ul class='methods'><li data-type='method'><a href="module-oscillator.html#.oscillator">oscillator</a></li></ul></li><li><a href="module-phase-vocoder.html">phase-vocoder</a><ul class='methods'><li data-type='method'><a href="module-phase-vocoder.html#.paulStretch">paulStretch</a></li><li data-type='method'><a href="module-phase-vocoder.html#.phaseVocoder">phaseVocoder</a></li></ul></li><li><a href="module-rfft.html">rfft</a><ul class='methods'><li data-type='method'><a href="module-rfft.html#.rfft">rfft</a></li></ul></li><li><a href="module-signal.html">signal</a></li><li><a href="module-signal_arithmetic.html">signal/arithmetic</a><ul class='methods'><li data-type='method'><a href="module-signal_arithmetic.html#.abs">abs</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.add">add</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.div">div</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.mod">mod</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.mul">mul</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.pow">pow</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.round">round</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.sub">sub</a></li></ul></li><li><a href="module-signal_buffer.html">signal/buffer</a><ul class='methods'><li data-type='method'><a href="module-signal_buffer.html#~data">data</a></li></ul></li><li><a href="module-signal_comparasion.html">signal/comparasion</a><ul class='methods'><li data-type='method'><a href="module-signal_comparasion.html#.eq">eq</a></li><li data-type='method'><a href="module-signal_comparasion.html#.gt">gt</a></li><li data-type='method'><a href="module-signal_comparasion.html#.gte">gte</a></li><li data-type='method'><a href="module-signal_comparasion.html#.gtp">gtp</a></li><li data-type='method'><a href="module-signal_comparasion.html#.lt">lt</a></li><li data-type='method'><a href="module-signal_comparasion.html#.lte">lte</a></li><li data-type='method'><a href="module-signal_comparasion.html#.ltp">ltp</a></li></ul></li><li><a href="module-signal_integrator.html">signal/integrator</a><ul class='methods'><li data-type='method'><a href="module-signal_integrator.html#.accum">accum</a></li><li data-type='method'><a href="module-signal_integrator.html#.phasor">phasor</a></li><li data-type='method'><a href="module-signal_integrator.html#~clamp">clamp</a></li></ul></li><li><a href="module-signal_logic.html">signal/logic</a><ul class='methods'><li data-type='method'><a href="module-signal_logic.html#.and">and</a></li><li data-type='method'><a href="module-signal_logic.html#.or">or</a></li></ul></li><li><a href="module-spectrum.html">spectrum</a><ul class='methods'><li data-type='method'><a href="module-spectrum.html#.bandFrequency">bandFrequency</a></li><li data-type='method'><a href="module-spectrum.html#.bandWidth">bandWidth</a></li><li data-type='method'><a href="module-spectrum.html#.polar">polar</a></li><li data-type='method'><a href="module-spectrum.html#.rectangular">rectangular</a></li><li data-type='method'><a href="module-spectrum.html#.unwrap">unwrap</a></li></ul></li><li><a href="module-waa.html">waa</a></li><li><a href="module-window.html">window</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">fft-radix2/index.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * > Fast fourier transform using radix-2 Cooley-Tukey algorithm
+ *
+ * [![npm install dsp-fft-radix2](https://nodei.co/npm/dsp-fft-radix2.png?mini=true)](https://npmjs.org/package/dsp-fft-radix2/)
+ *
+ * This module have functions to compute a Fast Fourier transform either
+ * in forward and inverse versions. The code is adapted from the unmaintained
+ * [dsp.js](https://github.com/corbanbrook/dsp.js) library.
+ *
+ * This is part of [dsp-kit](https://github.com/oramics/dsp-kit)
+ *
+ * @example
+ * var fftRadix2 = require('dsp-fft-radix2')
+ * var ft = fftRadix2(1024)
+ * ft.forward(signal)
+ * ft.inverse(signal)
+ *
+ * @module fft-radix2
+ */
+// Checks if a number is a power of two
+// https://github.com/mikolalysenko/bit-twiddle/blob/master/twiddle.js#L41
+function isPow2 (v) { return !(v &amp; (v - 1)) &amp;&amp; (!!v) }
+
+/**
+ * Create a Fast Fourier Transform functions
+ *
+ * It returns an object with two funtions: forward and inverse.
+ * Both accepts a signal and (optionally) an output buffer to store the
+ * results (to reduce memory allocation).
+ *
+ * @param {Integer} size - the FFT size
+ * @return {Object&lt;forward, inverse>} fourier transform functions
+ *
+ * @example
+ * var fftRadix2 = require('dsp-fft-radix2')
+ * var ft = fftRadix2(1024)
+ * // Given a signal (a Float32Array) ...
+ * output = { real: new Float32Array(1024), imag: new Float32Array(1024) }
+ * ft.forward(signal, output)
+ * // it's invertible
+ * ft.inverse(output).real === signal
+ */
+export function fftRadix2 (size) {
+  var cached = tables(size)
+  return {
+    forward: (input, output) => process(1, cached, input, output),
+    inverse: (input, output) => process(-1, cached, input, output)
+  }
+}
+
+function process (dir, tables, input, output) {
+  const { size, cosTable, sinTable, reverseTable } = tables
+
+  if (!input.real) input = { real: input, imag: new Float32Array(size) }
+  const rs = input.real
+  const is = input.imag
+  if (rs.length !== size) throw Error('Real buffer length must be ' + size + ' but was ' + rs.length)
+  if (is.length !== size) throw Error('Imag buffer length must be ' + size + ' but was ' + is.length)
+
+  if (!output) output = { real: new Float32Array(size), imag: new Float32Array(size) }
+  const { real, imag } = output
+
+  let i
+  for (i = 0; i &lt; size; i++) {
+    real[i] = rs[reverseTable[i]]
+    imag[i] = dir * is[reverseTable[i]]
+  }
+
+  let phaseShiftStepReal, phaseShiftStepImag, currentPhaseShiftReal, currentPhaseShiftImag
+  let off, tr, ti, tmpReal
+  let halfSize = 1
+  while (halfSize &lt; size) {
+    phaseShiftStepReal = cosTable[halfSize]
+    phaseShiftStepImag = sinTable[halfSize]
+    currentPhaseShiftReal = 1
+    currentPhaseShiftImag = 0
+
+    for (let fftStep = 0; fftStep &lt; halfSize; fftStep++) {
+      i = fftStep
+
+      while (i &lt; size) {
+        off = i + halfSize
+        tr = (currentPhaseShiftReal * real[off]) - (currentPhaseShiftImag * imag[off])
+        ti = (currentPhaseShiftReal * imag[off]) + (currentPhaseShiftImag * real[off])
+
+        real[off] = real[i] - tr
+        imag[off] = imag[i] - ti
+        real[i] += tr
+        imag[i] += ti
+
+        i += halfSize &lt;&lt; 1
+      }
+
+      tmpReal = currentPhaseShiftReal
+      currentPhaseShiftReal = (tmpReal * phaseShiftStepReal) - (currentPhaseShiftImag * phaseShiftStepImag)
+      currentPhaseShiftImag = (tmpReal * phaseShiftStepImag) + (currentPhaseShiftImag * phaseShiftStepReal)
+    }
+
+    halfSize = halfSize &lt;&lt; 1
+  }
+
+  if (dir === -1) {
+    // normalize
+    for (i = 0; i &lt; size; i++) {
+      real[i] /= size
+      imag[i] /= size
+    }
+  }
+
+  return output
+}
+
+export function tables (size) {
+  if (!isPow2(size)) throw Error('Size must be a power of 2, and was: ' + size)
+  let reverseTable = new Uint32Array(size)
+  let sinTable = new Float64Array(size)
+  let cosTable = new Float64Array(size)
+  let limit = 1
+  let bit = size >> 1
+
+  while (limit &lt; size) {
+    for (let i = 0; i &lt; limit; i++) {
+      reverseTable[i + limit] = reverseTable[i] + bit
+    }
+    limit = limit &lt;&lt; 1
+    bit = bit >> 1
+  }
+
+  for (let i = 0; i &lt; size; i++) {
+    sinTable[i] = Math.sin(-Math.PI / i)
+    cosTable[i] = Math.cos(-Math.PI / i)
+  }
+  return { size, reverseTable, sinTable, cosTable }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated at Fri Feb 03 2017 12:26:34 GMT+0100 (CET)
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

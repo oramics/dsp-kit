@@ -46,35 +46,33 @@ import randomPhases from './lib/randomPhases'
 import { fill } from 'dsp-array'
 import { bandFrequency } from 'dsp-spectrum'
 import { hanning } from 'dsp-window'
-
-const DEFAULTS = {
-  algorithm: 'phase-vocoder',
-  size: 4098,
-  hop: 1024,
-  sampleRate: 44100,
-  windowFn: hanning()
-}
-
-export function stretch (factor, buffer, options = {}) {
-  options = options ? Object.assign({}, options) : {}
-  options = Object.assign(options, DEFAULTS)
-  console.log('VOCODER')
-  return buffer
-}
+import { fft } from 'dsp-fft'
+// var dspjs = require('dspjs')
 
 /**
  * Implements a standard phase vocoder timestretch algorithm. It returns a
  * function that process the data.
  */
-export function phaseVocoder ({ size = 512, hop = 125, sampleRate = 44100, windowFn = hanning() } = {}) {
+export function phaseVocoder ({
+  algorithm = 'phase-vocoder',
+  size = 512,
+  hop = 125,
+  sampleRate = 44100,
+  windowFn = hanning()
+} = {}) {
   // a lookup table of bin center frecuencies
   var omega = fill(size, (x) => bandFrequency(x, size, sampleRate))
+  var ft = fft(size)
+  console.log('PHASE VOCODER', algorithm, size, hop)
 
   return function stretch (factor, signal, output, timeFreqProccessing) {
-    var frames = analysis(signal, { size, hop, windowFn })
+    console.log('STRETCH', algorithm, signal.slice(0, 100))
+    var frames = analysis(signal, { ft, size, hop, windowFn })
     if (timeFreqProccessing) timeFreqProccessing(frames, { size, hop, sampleRate })
-    recalcPhases(frames, { size, factor, hop }, omega)
-    return synthesis(frames, { size, hop, factor, sampleRate })
+    if (algorithm === 'phase-vocoder') recalcPhases(frames, { size, factor, hop }, omega)
+    else if (algorithm === 'paul-stretch') randomPhases(frames, size)
+    else console.log('Algorithm', algorithm)
+    return synthesis(frames, { ft, size, hop, factor, sampleRate })
   }
 }
 

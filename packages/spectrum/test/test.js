@@ -27,7 +27,7 @@ test('spectrum', function () {
   reference.forward(signal)
   // the result from the dsp.js is divided by `2 / size` so we have to denormalize
   const magnitudes = reference.spectrum.map((n) => n * size / 2)
-  const polar = spectrum.polar(fft.fft(size, 'forward', signal))
+  const polar = spectrum.polar(fft.fft(size).forward(signal))
   // by default the length of magnitures array is the same length as signal
   // although some simmetry can be found
   assert.deepEqual(polar.magnitudes.length, size)
@@ -37,7 +37,7 @@ test('spectrum', function () {
 test('rectangular form', function () {
   const size = 8
   const signal = fill(size, (n, N) => Math.sin(2 * Math.PI * n / (N - 1)))
-  const complex = fft.fft(size, 'forward', signal)
+  const complex = fft.fft(size).forward(signal)
   const polar = spectrum.polar(complex)
   const rect = spectrum.rectangular(polar)
   assert.deepEqual(round(rect.real), round(complex.real))

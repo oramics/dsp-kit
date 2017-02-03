@@ -1,3 +1,7 @@
+/**
+ * > Logic functions for signal processing
+ * @module signal/logic
+ */
 import { val } from './core'
 
 /**

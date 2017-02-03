@@ -1,5 +1,4 @@
 import { zeros, add } from 'dsp-array'
-import { fft } from 'dsp-fft'
 import { rectangular } from 'dsp-spectrum'
 import { ifftshift } from 'dsp-fftshift'
 
@@ -10,13 +9,13 @@ import { ifftshift } from 'dsp-fftshift'
  * @param {Object} options - All required: size, hop, sampeRate, factor
  * @param {Array} output - (Optional) the output array
  */
-export default function synthesis (frames, { size, hop, sampleRate, factor }, output) {
+export default function synthesis (frames, { ft, size, hop, sampleRate, factor }, output) {
+  console.log('Phase synthesis', frames.length)
   if (!frames || !frames.length) throw Error('"frames" parameter is required in synthesis')
 
   var len = frames.length
   var hopS = hop * factor
   if (!output) output = zeros(len * hopS + size)
-  var ft = fft(size)
   var position = 0
 
   // create some intermediate buffers (and reuse it for performance)

@@ -5,6 +5,7 @@
     "prepublish": "npm test && npm run docs && npm run dist",
     "build": "lerna run pretest",
     "test": "lerna run test",
+    "test:data": "node test/test-data",
     "docs": "npm run docs:html && npm run docs:modules",
     "docs:html": "jsdoc -c .jsdoc3.json",
     "docs:modules": "lerna run docs",
@@ -16,21 +17,22 @@
     "benchmarks:inverse": "node benchmarks/inverse.js"
   },
   "devDependencies": {
-    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-es2015": "^6.22.0",
     "babel-preset-es2015-rollup": "^3.0.0",
     "babelify": "^7.3.0",
     "benchmark": "^2.1.3",
     "fft": "^0.2.1",
     "jsdoc-to-markdown": "^2.0.1",
-    "lerna": "2.0.0-beta.30",
+    "lerna": "2.0.0-beta.36",
     "microtime": "^2.1.2",
     "postman-jsdoc-theme": "0.0.2",
-    "rollup": "^0.38.3",
+    "rollup": "^0.41.4",
     "rollup-plugin-babel": "^2.7.1",
-    "rollup-plugin-cleanup": "^0.1.4",
+    "rollup-plugin-cleanup": "^1.0.0",
     "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup-watch": "^3.2.2",
     "standard": "^8.6.0",
-    "tst": "^1.3.1"
+    "tst": "^1.3.2"
   },
   "standard": {
     "ignore": [

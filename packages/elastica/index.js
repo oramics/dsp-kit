@@ -5,16 +5,32 @@
  * timestretch functions of dsp-kit
  *
  * Will be published as an independent module
+ *
+ * @module elastica
  */
 
-var ola = require('dsp-ola')
 var pv = require('dsp-phase-vocoder')
 var ac = require('audio-context')
 
-function stretch (factor, buffer, context) {
-  context = context || ac
-  var stretch = ola.overlapAdd({ size: 512, hop: 256 })
-  return toAudioBuffer(stretch(factor, buffer.getChannelData(0)))
+/**
+ * Perform time-stretch to an audio buffer
+ *
+ * @param {Number} factor - the stretch factor (< 1 reduce duration, > 1 expand duration)
+ * @param {AudioBuffer} buffer - a WebAudio's AudioBuffer
+ * @param {Object} [options] - An optional object with configuration:
+ *
+ * - {String} algorithm = 'phase-vocoder': the algorithm to be use.
+ * Valid values are: 'phase-vocoder', 'ola', 'paul-stretch'. Default: 'phase-vocoder'
+ * - {Integer} size = 4096: the frame size
+ * - {Integer} hop = 1024: the hop size
+ * - {AudioContext} context: the audio context to use (or use 'audio-context' npm package)
+ *
+ * @return {AudioBuffer} a new audio buffer
+ */
+function stretch (factor, buffer, options = {}) {
+  var stretch = pv.phaseVocoder(options)
+  var data = buffer.getChannelData(0)
+  return toAudioBuffer(stretch(factor, data))
 }
 
 function toAudioBuffer (left) {

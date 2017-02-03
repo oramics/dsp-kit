@@ -17,12 +17,11 @@ const { magnitudes, phases } = dsp.spectrum(dsp.fft(1024, signal))
 This is a [multimodule](https://github.com/oramics/dsp-kit/tree/master/packages) repository, each functionallity wrapped in its own package:
 
 - [array](https://github.com/oramics/dsp-kit/tree/master/packages/buffer): array utilities
-- [delay](https://github.com/oramics/dsp-kit/tree/master/packages/delay): delay unit
 - [dft](https://github.com/oramics/dsp-kit/tree/master/packages/dft): discrete fourier implementation (very slow, but easy to understand)
 - [dsp](https://github.com/oramics/dsp-kit/tree/master/packages/dsp): a _facade_ module that exposes the functions of the rest of the modules. Probably you just need to install and use that one.
 - [elastica](https://github.com/oramics/dsp-kit/tree/master/packages/elastica): timestretch for web audio api (it will be extracted it is own repo when ready).
 - [fft](https://github.com/oramics/dsp-kit/tree/master/packages/fft): fast forward fourier algorithm
-- [fft-alt](https://github.com/oramics/dsp-kit/tree/master/packages/fft-alt): alternative fast forward fourier algorithms (see benchmarks)
+- [fft-asm](https://github.com/oramics/dsp-kit/tree/master/packages/fft-asm): a high performance fft implementation based on asm.js (work in progress)
 - [fftshift](https://github.com/oramics/dsp-kit/tree/master/packages/fftshift): rotate arrays to perform zero-phasing windowing
 - [ola](https://github.com/oramics/dsp-kit/tree/master/packages/ola): overlap and add algorithm for time strething
 - [oscillator](https://github.com/oramics/dsp-kit/tree/master/packages/oscillator): work in progress
@@ -56,6 +55,7 @@ Also, this library takes (steal) inspiration from:
 - https://github.com/colinbdclark/Flocking
 - https://github.com/mohayonao/timbre.js/
 - https://github.com/MTG/sms-tools
+- https://github.com/charlieroberts/genish.js
 
 ## References
 

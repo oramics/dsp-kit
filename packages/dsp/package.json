@@ -27,7 +27,7 @@
     "dsp-array": "^0.0.1",
     "dsp-dft": "^0.0.1",
     "dsp-fft": "^0.0.1",
-    "dsp-rfft": "^0.0.1",
+    "dsp-noise": "^0.0.1",
     "dsp-fftshift": "^0.0.1",
     "dsp-spectrum": "^0.0.1",
     "dsp-window": "^0.0.1"

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>noise/index.js - Postman Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-array.html">array</a><ul class='methods'><li data-type='method'><a href="module-array.html#.add">add</a></li><li data-type='method'><a href="module-array.html#.concat">concat</a></li><li data-type='method'><a href="module-array.html#.fill">fill</a></li><li data-type='method'><a href="module-array.html#.mult">mult</a></li><li data-type='method'><a href="module-array.html#.round">round</a></li><li data-type='method'><a href="module-array.html#.roundTo">roundTo</a></li><li data-type='method'><a href="module-array.html#.substr">substr</a></li><li data-type='method'><a href="module-array.html#.testAll">testAll</a></li><li data-type='method'><a href="module-array.html#.zeros">zeros</a></li></ul></li><li><a href="module-dft.html">dft</a><ul class='methods'><li data-type='method'><a href="module-dft.html#.dft">dft</a></li></ul></li><li><a href="module-dsp-kit.html">dsp-kit</a></li><li><a href="module-elastica.html">elastica</a><ul class='methods'><li data-type='method'><a href="module-elastica.html#~stretch">stretch</a></li></ul></li><li><a href="module-fft-asm.html">fft-asm</a></li><li><a href="module-fft-radix2.html">fft-radix2</a><ul class='methods'><li data-type='method'><a href="module-fft-radix2.html#.fftRadix2">fftRadix2</a></li></ul></li><li><a href="module-fftshift.html">fftshift</a><ul class='methods'><li data-type='method'><a href="module-fftshift.html#.fftshift">fftshift</a></li><li data-type='method'><a href="module-fftshift.html#.ifftshift">ifftshift</a></li></ul></li><li><a href="module-noise.html">noise</a><ul class='methods'><li data-type='method'><a href="module-noise.html#.brown">brown</a></li><li data-type='method'><a href="module-noise.html#.pink">pink</a></li><li data-type='method'><a href="module-noise.html#.white">white</a></li></ul></li><li><a href="module-ola.html">ola</a><ul class='methods'><li data-type='method'><a href="module-ola.html#.overlapAdd">overlapAdd</a></li><li data-type='method'><a href="module-ola.html#.overlapAdd">overlapAdd</a></li></ul></li><li><a href="module-oscillator.html">oscillator</a><ul class='methods'><li data-type='method'><a href="module-oscillator.html#.oscillator">oscillator</a></li></ul></li><li><a href="module-phase-vocoder.html">phase-vocoder</a><ul class='methods'><li data-type='method'><a href="module-phase-vocoder.html#.paulStretch">paulStretch</a></li><li data-type='method'><a href="module-phase-vocoder.html#.phaseVocoder">phaseVocoder</a></li></ul></li><li><a href="module-rfft.html">rfft</a><ul class='methods'><li data-type='method'><a href="module-rfft.html#.rfft">rfft</a></li></ul></li><li><a href="module-signal.html">signal</a></li><li><a href="module-signal_arithmetic.html">signal/arithmetic</a><ul class='methods'><li data-type='method'><a href="module-signal_arithmetic.html#.abs">abs</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.add">add</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.div">div</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.mod">mod</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.mul">mul</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.pow">pow</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.round">round</a></li><li data-type='method'><a href="module-signal_arithmetic.html#.sub">sub</a></li></ul></li><li><a href="module-signal_buffer.html">signal/buffer</a><ul class='methods'><li data-type='method'><a href="module-signal_buffer.html#~data">data</a></li></ul></li><li><a href="module-signal_comparasion.html">signal/comparasion</a><ul class='methods'><li data-type='method'><a href="module-signal_comparasion.html#.eq">eq</a></li><li data-type='method'><a href="module-signal_comparasion.html#.gt">gt</a></li><li data-type='method'><a href="module-signal_comparasion.html#.gte">gte</a></li><li data-type='method'><a href="module-signal_comparasion.html#.gtp">gtp</a></li><li data-type='method'><a href="module-signal_comparasion.html#.lt">lt</a></li><li data-type='method'><a href="module-signal_comparasion.html#.lte">lte</a></li><li data-type='method'><a href="module-signal_comparasion.html#.ltp">ltp</a></li></ul></li><li><a href="module-signal_integrator.html">signal/integrator</a><ul class='methods'><li data-type='method'><a href="module-signal_integrator.html#.accum">accum</a></li><li data-type='method'><a href="module-signal_integrator.html#.phasor">phasor</a></li><li data-type='method'><a href="module-signal_integrator.html#~clamp">clamp</a></li></ul></li><li><a href="module-signal_logic.html">signal/logic</a><ul class='methods'><li data-type='method'><a href="module-signal_logic.html#.and">and</a></li><li data-type='method'><a href="module-signal_logic.html#.or">or</a></li></ul></li><li><a href="module-spectrum.html">spectrum</a><ul class='methods'><li data-type='method'><a href="module-spectrum.html#.bandFrequency">bandFrequency</a></li><li data-type='method'><a href="module-spectrum.html#.bandWidth">bandWidth</a></li><li data-type='method'><a href="module-spectrum.html#.polar">polar</a></li><li data-type='method'><a href="module-spectrum.html#.rectangular">rectangular</a></li><li data-type='method'><a href="module-spectrum.html#.unwrap">unwrap</a></li></ul></li><li><a href="module-waa.html">waa</a></li><li><a href="module-window.html">window</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">noise/index.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * > Generate noise
+ *
+ * [![npm install dsp-noise](https://nodei.co/npm/dsp-noise.png?mini=true)](https://npmjs.org/package/dsp-noise/)
+ *
+ * @example
+ * const dsp = require('dsp-kit')
+ * dsp.fill(1024, dsp.white())
+ *
+ * @module noise
+ */
+const { random } = Math
+
+/**
+ * Create a function that generates white noise
+ *
+ * @param {Number} [compensate = 1] - the gain compensation
+ * @return {Function} the white noise generator function
+ * @example
+ * var dsp = require('dsp-kit')
+ * dsp.fill(1024, dsp.white())
+ */
+export function white (compensate = 1) {
+  return compensate === 1 ? _white : () => compensate * _white()
+}
+function _white () { return 2 * random() - 1 }
+
+/**
+ * Create a function that generates pink noise
+ *
+ * Pink noise has an even distribution of power if the frequency is mapped in a
+ * logarithmic scale.
+ *
+ * If 'white' consists of uniform random numbers, such as those generated by the
+ * rand() function, 'pink' will have an almost gaussian level  distribution.
+ *
+ * This is an approximation to a -10dB/decade filter using a weighted sum of
+ * first order filters. It is accurate to within +/-0.05dB above 9.2Hz  (44100Hz
+ * sampling rate). Unity gain is at Nyquist, but can be adjusted by scaling the
+ * numbers at the end of each line.
+ *
+ * It uses the Paul Kellet’s (refined) method: has smooth spectrum, but goes up
+ * slightly at the far high end
+ *
+ * #### References
+ * - https://github.com/csound/csound/blob/develop/Opcodes/pitch.c#L1338
+ * - http://www.musicdsp.org/files/pink.txt
+ *
+ * @param {Number} [compensate = 0.11] - The result will be multiplied by
+ * this constant in order to compensate the gain output
+ * @return {Function} the pink noise generator function
+ * @example
+ * var dsp = require('dsp-kit')
+ * dsp.fill(1024, dsp.pink())
+ */
+export function pink (compensate = 0.11) {
+  var b0, b1, b2, b3, b4, b5, b6
+  b0 = b1 = b2 = b3 = b4 = b5 = b6 = 0.0
+  return function () {
+    var w = _white()
+    b0 = 0.99886 * b0 + w * 0.0555179
+    b1 = 0.99332 * b1 + w * 0.0750759
+    b2 = 0.96900 * b2 + w * 0.1538520
+    b3 = 0.86650 * b3 + w * 0.3104856
+    b4 = 0.55000 * b4 + w * 0.5329522
+    b5 = -0.7616 * b5 - w * 0.0168980
+    var out = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362
+    b6 = w * 0.115926
+    return compensate * out
+  }
+}
+
+/**
+ * Create a function that generates brown noise
+ *
+ * @param {Number} [compensate = 3.5] - the gain compensation value
+ * @return {Function} the brown noise generator function
+ * @example
+ * var dsp = require('dsp-kit')
+ * dsp.fill(1024, dsp.brown())
+ */
+export function brown (compensate = 3.5) {
+  var out = 0
+  return function () {
+    out = (out + 0.02 * _white()) / 1.02
+    return compensate * out
+  }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated at Fri Feb 03 2017 12:26:34 GMT+0100 (CET)
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

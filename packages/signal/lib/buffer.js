@@ -1,11 +1,10 @@
 /**
- * @module buffer
+ * @module signal/buffer
  */
 
 /**
  * @name data
  * @function
- * memberof module:buffer
  */
 export const data = (data) => () => data
 

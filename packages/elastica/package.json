@@ -1,6 +1,7 @@
 {
   "name": "elastica",
   "description": "Audio timestretch for Web Audio API",
+  "private": true,
   "version": "0.0.1",
   "main": "index.js",
   "module": "index",
