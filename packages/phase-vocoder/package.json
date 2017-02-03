@@ -32,6 +32,6 @@
     "dsp-fftshift": "^0.0.1"
   },
   "devDependencies": {
-    "dspjs": "../../benchmarks/dspjs"
+    "dspjs": "../../support/dspjs"
   }
 }

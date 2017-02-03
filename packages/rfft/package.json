@@ -22,6 +22,6 @@
   "homepage": "https://github.com/oramics/dsp-kit/packages/dsp-rfft/#readme",
   "devDependencies": {
     "dsp-array": "^0.0.1",
-    "dspjs": "../../benchmarks/dspjs"
+    "dspjs": "../../support/dspjs"
   }
 }

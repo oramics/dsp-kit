@@ -30,6 +30,6 @@
     "audio-context": "^0.1.0",
     "dsp-waa": "^0.0.1",
     "h": "^0.1.0",
-    "dspjs": "../../benchmarks/dspjs"
+    "dspjs": "../../support/dspjs"
   }
 }

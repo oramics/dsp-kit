@@ -1,4 +1,4 @@
-var benchmark = require('dsp-benchmark')
+var benchmark = require('easy-benchmark')
 var arr = require('..')
 
 var SIZE = 1024 * 10

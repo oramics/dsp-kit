@@ -1,4 +1,4 @@
-var benchmark = require('dsp-benchmark')
+var benchmark = require('easy-benchmark')
 var dspjs = require('dspjs')
 var fftRadix2 = require('..').fftRadix2
 var arr = require('dsp-array')

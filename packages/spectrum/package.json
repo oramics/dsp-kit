@@ -28,7 +28,7 @@
     "dsp-array": "0.0.1",
     "dsp-fft": "0.0.1",
     "dsp-waa": "0.0.1",
-    "dspjs": "../../benchmarks/dspjs",
+    "dspjs": "../../support/dspjs",
     "h": "^0.1.0"
   }
 }

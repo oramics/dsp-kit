@@ -44,7 +44,7 @@ Clone the repo and install dependencies: `npm install` and init lerna: `lerna bo
 Then you can list all the npm tasks with `npm run`:
 
 - __run tests__: `npm test`
-- __run benchmarks__: `npm run benchmarks`
+- __run benchmarks__: `npm run benchmark`
 - __generate documentation__: `npm run docs`
 
 ## Credits

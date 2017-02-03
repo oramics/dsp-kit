@@ -1,5 +1,5 @@
 {
-  "name": "dsp-benchmark",
+  "name": "easy-benchmark",
   "version": "0.0.1",
   "private": true,
   "description": "A simple wrapper over benchmark.js to reduce boilerplate. Private module.",

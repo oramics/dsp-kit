@@ -25,10 +25,10 @@
   },
   "homepage": "https://github.com/oramics/dsp-kit/packages/dsp-fft-radix2/#readme",
   "devDependencies": {
-    "dsp-benchmark": "0.0.1",
+    "easy-benchmark": "../../support/easy-benchmark",
     "dsp-array": "^0.0.1",
     "dsp-noise": "^0.0.1",
     "dsp-dft": "^0.0.1",
-    "dspjs": "../../benchmarks/dspjs"
+    "dspjs": "../../support/dspjs"
   }
 }

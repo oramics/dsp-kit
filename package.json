@@ -13,9 +13,7 @@
     "dist": "npm run dist:pack && npm run dist:minify && ls -hall dist/",
     "dist:pack": "browserify packages/dsp/browser.js -o dist/dsp-kit.js",
     "dist:minify": "uglifyjs dist/dsp-kit.js > dist/dsp-kit.min.js",
-    "benchmarks": "npm run benchmarks:forward",
-    "benchmarks:forward": "node benchmarks/forward.js",
-    "benchmarks:inverse": "node benchmarks/inverse.js"
+    "benchmark": "lerna run benchmark"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.22.0",

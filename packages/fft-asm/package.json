@@ -23,6 +23,6 @@
   "devDependencies": {
     "dsp-array": "^0.0.1",
     "dsp-dft": "^0.0.1",
-    "dspjs": "../../benchmarks/dspjs"
+    "dspjs": "../../support/dspjs"
   }
 }
