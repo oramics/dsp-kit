@@ -25,7 +25,6 @@
     "fft": "^0.2.1",
     "jsdoc-to-markdown": "^2.0.1",
     "lerna": "2.0.0-beta.36",
-    "microtime": "^2.1.2",
     "postman-jsdoc-theme": "0.0.2",
     "rollup": "^0.41.4",
     "rollup-plugin-babel": "^2.7.1",
