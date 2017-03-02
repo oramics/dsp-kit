@@ -71,7 +71,7 @@ export function phaseVocoder ({
     if (timeFreqProccessing) timeFreqProccessing(frames, { size, hop, sampleRate })
     if (algorithm === 'phase-vocoder') recalcPhases(frames, { size, factor, hop }, omega)
     else if (algorithm === 'paul-stretch') randomPhases(frames, size)
-    return synthesis(frames, { ft, size, hop, factor, sampleRate })
+    return synthesis(frames, { ft, size, hop, factor, sampleRate }, output)
   }
 }
 

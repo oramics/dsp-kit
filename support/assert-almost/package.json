@@ -1,0 +1,13 @@
+{
+  "name": "assert-almost",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Extend assert with almost-equal",
+  "main": "index.js",
+  "scripts": {},
+  "license": "MIT",
+  "dependencies": {
+    "almost-equal": "^1.1.0",
+    "benchmark": "^2.1.3"
+  }
+}

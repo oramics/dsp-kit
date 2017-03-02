@@ -14,7 +14,7 @@ export default function synthesis (frames, { ft, size, hop, sampleRate, factor }
 
   var len = frames.length
   var hopS = hop * factor
-  console.log('SYNTHESIS', hopS, len, len * hopS)
+  console.log('SYNTHESIS', hop, hopS, len, len * hopS, output)
   if (!output) output = zeros(len * hopS + size)
   var position = 0
 
@@ -29,7 +29,8 @@ export default function synthesis (frames, { ft, size, hop, sampleRate, factor }
     // 3. Unshift the previous cycling shift
     ifftshift(signal)
     // 4. Overlap add
-    add(signal, output, output, 0, position, position)
+    var write = output.subarray(position, position + hopS)
+    add(hopS, signal, write, write)
     position += hopS
   }
   return output

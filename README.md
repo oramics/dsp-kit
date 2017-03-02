@@ -6,9 +6,7 @@
 
 Since I usually learn by coding, this is the result of my learning on dsp. I'm building while trying to understand the main concepts of dsp targeting audio applications.
 
-Work in progress. Experimental API. Use at your own risk.
-
-[![npm install dsp-kit](https://nodei.co/npm/dsp-kit.png?mini=true)](https://npmjs.org/package/dsp-kit/)
+Work in progress. Experimental API. Not sure if it will be published, currently is just a playground to understand DSP concepts.
 
 ```js
 const dsp = require('dsp-kit')
@@ -37,6 +35,16 @@ This is a [multimodule](https://github.com/oramics/dsp-kit/tree/master/packages)
 - [spectrum](https://github.com/oramics/dsp-kit/tree/master/packages/spectrum): spectrum manipulation utilities
 - [waa](https://github.com/oramics/dsp-kit/tree/master/packages/waa): web audio api interop utilities (wip)
 - [window](https://github.com/oramics/dsp-kit/tree/master/packages/window): windowing functions
+
+## Install
+
+-[![npm install dsp-kit](https://nodei.co/npm/dsp-kit.png?mini=true)](https://npmjs.org/package/dsp-kit/)
+
+But currently is not updated to latests version. You can install from this repository:
+
+```
+npm i git@github.com:oramics/dsp-kit.git
+```
 
 ## Documentation
 

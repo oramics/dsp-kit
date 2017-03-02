@@ -19,7 +19,7 @@ export default function analysis (signal, { size, hop, windowFn = rectangular, f
   var frame = zeros(size)
   var fdFrame = { real: zeros(size), imag: zeros(size) }
   for (var i = 0; i < numFrames; i++) {
-    frame.set(signal.subarray(i * hop, size))
+    frame.set(signal.subarray(i * hop, i * hop + size))
     // 1. place a window into the signal
     mult(size, window, frame, frame)
     // 3. Cyclic shift to phase zero windowing
@@ -28,7 +28,6 @@ export default function analysis (signal, { size, hop, windowFn = rectangular, f
     ft.forward(frame, fdFrame)
     // 5. Convert to polar form in a new frame
     frames[i] = polar(fdFrame)
-    if (isNaN(frames[i].phases[0])) throw Error('NaN analysis ' + i)
   }
   return frames
 }

@@ -30,7 +30,8 @@ var ac = require('audio-context')
 function stretch (factor, buffer, options = {}) {
   var stretch = pv.phaseVocoder(options)
   var data = buffer.getChannelData(0)
-  return toAudioBuffer(stretch(factor, data))
+  var output = stretch(factor, data)
+  return toAudioBuffer(output)
 }
 
 function toAudioBuffer (left) {
@@ -43,17 +44,4 @@ function toAudioBuffer (left) {
   return buffer
 }
 
-function vocoder (factor, buffer, context) {
-  console.log('phase vocoder!')
-  var stretch = pv.phaseVocoder()
-  return toAudioBuffer(stretch(factor, buffer.getChannelData(0)))
-}
-
-function paulStretch (factor, buffer, context) {
-  console.log('paul stretch algorithm')
-  var stretch = pv.paulStretch()
-  return toAudioBuffer(stretch(factor, buffer.getChannelData(0)))
-}
-
-// TODO: move this inside phase-vocoder
-module.exports = { stretch, vocoder, paulStretch }
+module.exports = { stretch }

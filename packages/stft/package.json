@@ -1,0 +1,29 @@
+{
+  "name": "dsp-stft",
+  "description": "Short-Time Fourier Transform",
+  "version": "0.0.1",
+  "main": "build/index.js",
+  "module": "index.js",
+  "scripts": {
+    "pretest": "rollup -c ../../rollup.config.js",
+    "test": "node test/test.js",
+    "docs": "jsdoc2md index.js > README.md && cp README.md ../../docs/modules/stft.md"
+  },
+  "repository": "https://github.com/oramics/dsp-kit/packages/dsp-stft",
+  "keywords": [
+    "short-time fourier",
+    "stft",
+    "dsp",
+    "audio",
+    "dsp-kit"
+  ],
+  "author": "danigb",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oramics/dsp-kit/issues"
+  },
+  "homepage": "https://github.com/oramics/dsp-kit/packages/dsp-stft/#readme",
+  "devDependencies": {
+    "dsp-fft-radix2": "0.0.1"
+  }
+}

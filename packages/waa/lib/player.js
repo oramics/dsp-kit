@@ -9,24 +9,25 @@ var ac = require('audio-context')
  * @example
  * document.getElementById('#play').onclick = player(buffer, { loop: true })
  */
-module.exports = function player (buffer, {
+module.exports = function player ({
+  buffer,
   loop = false,
   context = ac,
   labels = ['Play', 'Stop'],
   gain = false
 } = {}) {
-  var player = null
-
-  return function (e) {
-    if (player) {
-      player.stop()
-      player = null
+  function player (e) {
+    if (player.source) {
+      player.source.stop()
+      player.source = null
       if (e && labels) e.target.innerText = labels[0]
     } else {
       if (e && labels) e.target.innerText = labels[1]
-      player = play(buffer, loop, gain, context)
+      player.source = play(player.buffer, loop, gain, context)
     }
   }
+  player.buffer = buffer
+  return player
 }
 
 function play (buffer, loop, gain, context) {

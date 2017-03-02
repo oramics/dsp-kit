@@ -1,0 +1,34 @@
+{
+  "name": "dsp-fft2",
+  "description": "Fast fourier transform using radix-2 Cooley-Tukey algorithm",
+  "version": "0.0.1",
+  "main": "index.js",
+  "module": "index",
+  "scripts": {
+    "pretest": "rollup -c ../../rollup.config.js",
+    "test": "node test/test.js",
+    "benchmark": "npm run pretest && node test/benchmark.js",
+    "docs": "jsdoc2md index.js > README.md && cp README.md ../../docs/modules/fft.md"
+  },
+  "repository": "https://github.com/oramics/dsp-kit/packages/dsp-fft2",
+  "keywords": [
+    "fast",
+    "fourier",
+    "transform",
+    "dsp",
+    "dsp-kit"
+  ],
+  "author": "danigb",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oramics/dsp-kit/issues"
+  },
+  "homepage": "https://github.com/oramics/dsp-kit/packages/dsp-fft2/#readme",
+  "devDependencies": {
+    "easy-benchmark": "../../support/easy-benchmark",
+    "dsp-array": "^0.0.1",
+    "dsp-noise": "^0.0.1",
+    "dsp-dft": "^0.0.1",
+    "dspjs": "../../support/dspjs"
+  }
+}

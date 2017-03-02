@@ -3,7 +3,6 @@ var dspjs = require('dspjs')
 var fftRadix2 = require('..').fftRadix2
 var arr = require('dsp-array')
 
-var SIZE = 1024
 var signal = arr.fill(SIZE, () => Math.random() * 2 - 0.5)
 var fftjs = new dspjs.FFT(signal.length, 44100)
 var fftkit = fftRadix2(SIZE)

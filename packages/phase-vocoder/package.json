@@ -7,6 +7,7 @@
   "module": "index",
   "scripts": {
     "pretest": "rollup -c ../../rollup.config.js",
+    "watch": "rollup --watch -c ../../rollup.config.js",
     "test": "node test/test.js",
     "docs": "jsdoc2md index.js > README.md && cp README.md ../../docs/modules/phase-vocoder.md"
   },
@@ -32,6 +33,7 @@
     "dsp-fftshift": "^0.0.1"
   },
   "devDependencies": {
+    "assert-almost": "file:///Users/Dani/Code/Oramics/dsp-kit/support/assert-almost",
     "dspjs": "../../support/dspjs"
   }
 }
