@@ -8,9 +8,19 @@
  *
  * @module stft
  */
-import { fft } from 'dsp-fast-fourier-transform'
+import FFT from 'fft.js'
 
-export function stft (size, hopSize, input, win, output) {
-  var fft = fftRadix2(size)
-  var frame = new Float32Array(size)
+export function stft (input, window, output, inputSize, fftSize, hopSize) {
+  const fft = new FFT(fftSize)
+  const fftOut = fft.createComplexArray()
+  const frame = new Array(fftSize)
+
+  for (let pIn = 0, pOut = 0; pIn < inputSize; pIn += hopSize) {
+    // Create a new windowed frame
+    for (let i = 0; i < fftSize; i++) {
+      frame[i] = pIn + i < inputSize ? input[pIn + 1] * window[i] : 0
+    }
+    // Transform it
+    fft.realTransform(fftOut, frame)
+  }
 }

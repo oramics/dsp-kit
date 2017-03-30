@@ -24,6 +24,8 @@
   },
   "homepage": "https://github.com/oramics/dsp-kit/packages/dsp-stft/#readme",
   "devDependencies": {
-    "dsp-fft-radix2": "0.0.1"
+  },
+  "dependencies": {
+    "fft.js": "^4.0.3"
   }
 }
