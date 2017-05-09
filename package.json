@@ -16,20 +16,20 @@
     "benchmark": "lerna run benchmark"
   },
   "devDependencies": {
-    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-es2015": "^6.24.1",
     "babel-preset-es2015-rollup": "^3.0.0",
     "babelify": "^7.3.0",
     "benchmark": "^2.1.3",
     "fft": "^0.2.1",
-    "jsdoc-to-markdown": "^2.0.1",
-    "lerna": "2.0.0-beta.36",
+    "jsdoc-to-markdown": "^3.0.0",
+    "lerna": "2.0.0-rc.4",
     "postman-jsdoc-theme": "0.0.2",
     "rollup": "^0.41.4",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-cleanup": "^1.0.0",
-    "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-watch": "^3.2.2",
-    "standard": "^8.6.0",
+    "standard": "^10.0.2",
     "tst": "^1.3.2"
   },
   "standard": {

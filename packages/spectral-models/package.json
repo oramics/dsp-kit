@@ -1,0 +1,28 @@
+{
+  "name": "spectral-models",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest test/*",
+    "docs": "jsdoc2md src/*.js > API.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danigb/spectral-models.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/danigb/spectral-models/issues"
+  },
+  "homepage": "https://github.com/danigb/spectral-models#readme",
+  "dependencies": {
+    "fft.js": "^4.0.3",
+    "fftshift": "^1.0.1",
+    "filled-array": "^1.1.0",
+    "scijs-window-functions": "^2.0.2",
+    "unwrap-phases": "^1.0.0"
+  }
+}
