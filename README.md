@@ -4,9 +4,14 @@
 
 [![Build Status](https://travis-ci.org/oramics/dsp-kit.svg?branch=master&style=flat-square)](https://travis-ci.org/oramics/dsp-kit) [![Code Climate](https://codeclimate.com/github/oramics/dsp-kit/badges/gpa.svg?style=flat-square)](https://codeclimate.com/github/oramics/dsp-kit) [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/feross/standard) [![license](https://img.shields.io/npm/l/tonal.svg?style=flat-square)](https://www.npmjs.com/package/tonal)
 
-Since I usually learn by coding, this is the result of my learning on dsp. I'm building while trying to understand the main concepts of dsp targeting audio applications.
+**This is my journey to study dsp. This library is not intended to be used.**. There are excellent dsp js libraries out there, for example:
 
-Work in progress. Experimental API. Not sure if it will be published, currently is just a playground to understand DSP concepts.
+- [fft.js](https://github.com/indutny/fft.js)
+- [gibberish-dsp](https://github.com/charlieroberts/Gibberish)
+
+Since I usually learn by coding, this is my code learning result. I'm building while trying to understand the main concepts of dsp targeting audio applications.
+
+Work in progress. Experimental (API). Not sure if it will be published, currently is just a playground to understand DSP concepts.
 
 ```js
 const dsp = require('dsp-kit')
